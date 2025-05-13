@@ -18,9 +18,7 @@ interface Message {
 const SUGGESTIONS = [
   "Can you suggest some good movies?",
   "What's the best restaurant nearby?",
-  "How does this app work?",
-  "Tell me a fun fact",
-  "Generate a poem"
+  "How does this app work?"
 ];
 
 export default function SuggestionApp({ 
@@ -28,9 +26,7 @@ export default function SuggestionApp({
   buttonPosition 
 }: SuggestionAppProps) {
   const [userInput, setUserInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    { id: "1", text: "Hi there! How can I help you today?", isUser: false }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const { toast } = useToast();
 
   // Function to generate a random ID
@@ -106,26 +102,6 @@ export default function SuggestionApp({
         };
         setMessages(prev => [...prev, newUserMessage]);
         
-        // Simulate AI response
-        setTimeout(() => {
-          const responses = [
-            "I'm here to help you with that!",
-            "Great question! Let me think about that.",
-            "Thanks for asking. Here's what I know:",
-            "I'd be happy to assist with that.",
-            "That's an interesting question."
-          ];
-          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-          
-          const aiResponse: Message = {
-            id: generateId(),
-            text: randomResponse,
-            isUser: false
-          };
-          
-          setMessages(prev => [...prev, aiResponse]);
-        }, 1000);
-        
         // Clear input
         setUserInput("");
       }
@@ -160,33 +136,13 @@ export default function SuggestionApp({
         });
       }
       
-      // Also send the text as a message if it hasn't been sent yet
+      // Send the text as a message if it hasn't been sent yet
       const newUserMessage: Message = {
         id: generateId(),
         text: userInput,
         isUser: true
       };
       setMessages(prev => [...prev, newUserMessage]);
-      
-      // Simulate AI response
-      setTimeout(() => {
-        const responses = [
-          "I'm here to help you with that!",
-          "Great question! Let me think about that.",
-          "Thanks for asking. Here's what I know:",
-          "I'd be happy to assist with that.",
-          "That's an interesting question."
-        ];
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-        
-        const aiResponse: Message = {
-          id: generateId(),
-          text: randomResponse,
-          isUser: false
-        };
-        
-        setMessages(prev => [...prev, aiResponse]);
-      }, 1000);
       
       // Clear input
       setUserInput("");
@@ -252,18 +208,18 @@ export default function SuggestionApp({
           key={message.id} 
           className={message.isUser ? "user-message" : "ai-message"}
         >
-          {message.text}
-          {!message.isUser && (
+          <div className="flex justify-between items-start">
+            <div>{message.text}</div>
             <button 
               onClick={() => toggleLike(message.id)} 
-              className="ml-2 mt-1 text-gray-400 hover:text-pink-500 focus:outline-none"
+              className="ml-3 text-gray-400 hover:text-pink-500 focus:outline-none"
               aria-label="Like message"
             >
               <Heart 
-                className={`h-4 w-4 inline ${message.liked ? "fill-pink-500 text-pink-500" : ""}`} 
+                className={`h-5 w-5 ${message.liked ? "fill-pink-500 text-pink-500" : ""}`} 
               />
             </button>
-          )}
+          </div>
         </div>
       ))}
     </div>

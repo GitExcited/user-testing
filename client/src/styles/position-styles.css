@@ -4,10 +4,10 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px; /* Tablet width */
   margin: 0 auto;
+  background-color: #f9f9f9;
 }
 
 .chat-messages {
