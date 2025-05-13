@@ -54,7 +54,7 @@ export default function SuggestionApp({
   const suggestionElements = (
     <div className="suggestions">
       <div className="text-gray-700 mb-2 font-medium">Suggested phrases:</div>
-      <div className={`suggestion-buttons ${buttonPosition === "stacked" ? "flex-col" : "flex-wrap"}`}>
+      <div className="suggestion-buttons flex-wrap">
         {SUGGESTIONS.map((suggestion, index) => (
           <button
             key={index}
@@ -111,13 +111,6 @@ export default function SuggestionApp({
           {inputContainer}
           {suggestionElements}
         </div>
-      )}
-      
-      {buttonPosition === "stacked" && (
-        <>
-          {inputContainer}
-          {suggestionElements}
-        </>
       )}
     </div>
   );

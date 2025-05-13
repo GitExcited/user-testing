@@ -1,5 +1,5 @@
 export type ButtonStyle = "style1" | "style2" | "style3" | "style4";
-export type ButtonPosition = "above-textbox" | "below-textbox" | "right-textbox" | "stacked";
+export type ButtonPosition = "above-textbox" | "below-textbox" | "right-textbox";
 
 export const buttonStyles: Record<ButtonStyle, string> = {
   "style1": "style1-buttons",
@@ -11,6 +11,5 @@ export const buttonStyles: Record<ButtonStyle, string> = {
 export const buttonPositions: Record<ButtonPosition, string> = {
   "above-textbox": "position-above-textbox",
   "below-textbox": "position-below-textbox",
-  "right-textbox": "position-right-textbox",
-  "stacked": "position-stacked"
+  "right-textbox": "position-right-textbox"
 };

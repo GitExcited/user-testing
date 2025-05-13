@@ -90,12 +90,6 @@ export default function NavBar({
               >
                 Right of Textbox
               </DropdownMenuItem>
-              <DropdownMenuItem 
-                className={buttonPosition === "stacked" ? "bg-gray-100" : ""} 
-                onClick={() => setButtonPosition("stacked")}
-              >
-                Stacked
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
