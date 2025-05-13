@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
+import vocalifyLogo from "@assets/image_1747158009500.png";
 
 interface NavBarProps {
   buttonStyle: ButtonStyle;
@@ -25,7 +26,7 @@ export default function NavBar({
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center">
-          <div className="text-[#00c8b3] font-semibold text-xl ml-1">Vizology</div>
+          <img src={vocalifyLogo} alt="Vocalify Logo" className="h-8" />
         </div>
         
         {/* Dropdowns on the right */}
