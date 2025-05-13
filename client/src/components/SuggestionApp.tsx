@@ -78,7 +78,38 @@ export default function SuggestionApp({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSend();
+      if (userInput.trim()) {
+        // Add user message to chat
+        const newUserMessage: Message = {
+          id: generateId(),
+          text: userInput,
+          isUser: true
+        };
+        setMessages(prev => [...prev, newUserMessage]);
+        
+        // Simulate AI response
+        setTimeout(() => {
+          const responses = [
+            "I'm here to help you with that!",
+            "Great question! Let me think about that.",
+            "Thanks for asking. Here's what I know:",
+            "I'd be happy to assist with that.",
+            "That's an interesting question."
+          ];
+          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+          
+          const aiResponse: Message = {
+            id: generateId(),
+            text: randomResponse,
+            isUser: false
+          };
+          
+          setMessages(prev => [...prev, aiResponse]);
+        }, 1000);
+        
+        // Clear input
+        setUserInput("");
+      }
     }
   };
 
@@ -92,14 +123,23 @@ export default function SuggestionApp({
     // Check if speech recognition is supported
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       toast({
-        title: "Speech Recognition",
-        description: "Speech recognition would start here in a real implementation.",
+        title: "Text-to-Speech Activated",
+        description: "Speak now or type your message and press Enter to send.",
         duration: 3000,
       });
+      
+      // If there's text in the input, we would speak it
+      if (userInput.trim()) {
+        toast({
+          title: "Speaking Text",
+          description: `"${userInput}" would be spoken in a real implementation.`,
+          duration: 3000,
+        });
+      }
     } else {
       toast({
-        title: "Not Supported",
-        description: "Speech recognition is not supported in this browser.",
+        title: "Speech Not Supported",
+        description: "Text-to-speech is not supported in this browser.",
         variant: "destructive",
         duration: 3000,
       });
@@ -155,16 +195,10 @@ export default function SuggestionApp({
         />
         <button 
           onClick={handleSpeak}
-          className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center mr-2 hover:bg-blue-100"
-        >
-          <Mic className="h-5 w-5 text-gray-600" />
-        </button>
-        <button 
-          onClick={handleSend}
           className="chat-send-button"
-          disabled={!userInput.trim()}
+          title="Click to speak (Text-to-Speech)"
         >
-          <Send className="h-5 w-5" />
+          <Mic className="h-5 w-5" />
         </button>
       </div>
       
