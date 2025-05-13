@@ -1,0 +1,63 @@
+/* Button style variations */
+.style1-buttons .suggestion-button {
+  background-color: #00c8b3;
+  color: white;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 5px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.style1-buttons .suggestion-button:hover {
+  background-color: #00a89a;
+}
+
+.style2-buttons .suggestion-button {
+  background-color: white;
+  color: #00c8b3;
+  border: 1px solid #00c8b3;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin: 5px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.style2-buttons .suggestion-button:hover {
+  background-color: #f0fffd;
+}
+
+.style3-buttons .suggestion-button {
+  background-color: #333333;
+  color: white;
+  border-radius: 0;
+  padding: 8px 16px;
+  margin: 5px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.style3-buttons .suggestion-button:hover {
+  background-color: #555555;
+}
+
+.style4-buttons .suggestion-button {
+  background-color: transparent;
+  color: #00c8b3;
+  border-bottom: 2px solid #00c8b3;
+  border-radius: 0;
+  padding: 8px 12px;
+  margin: 5px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.style4-buttons .suggestion-button:hover {
+  background-color: rgba(0, 200, 179, 0.1);
+}
+
+/* Ensure suggestion buttons have proper layout */
+.suggestion-buttons {
+  display: flex;
+}

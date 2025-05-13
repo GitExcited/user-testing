@@ -1,0 +1,61 @@
+/* Position variations for suggestion buttons */
+
+/* Above textbox layout */
+.position-above-textbox .suggestions {
+  margin-bottom: 16px;
+}
+
+/* Below textbox layout */
+.position-below-textbox .suggestions {
+  margin-top: 16px;
+}
+
+/* Right of textbox layout */
+.position-right-textbox .suggestions {
+  flex: 0 0 auto;
+}
+
+.position-right-textbox .input-container {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.position-right-textbox .suggestion-buttons {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+/* Stacked layout */
+.position-stacked .suggestions {
+  margin-top: 16px;
+}
+
+.position-stacked .suggestion-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.position-stacked .suggestion-button {
+  margin: 3px 0;
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .position-right-textbox .suggestion-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .suggestion-buttons.flex-col {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .suggestion-buttons.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
