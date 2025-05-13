@@ -95,11 +95,17 @@ body {
   justify-content: center;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .chat-send-button:hover {
   background-color: #e88582;
+  transform: scale(1.05);
+}
+
+.chat-send-button:active {
+  transform: scale(0.95);
 }
 
 .suggestion-buttons {

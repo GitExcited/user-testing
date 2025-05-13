@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Heart, Mic, RotateCcw } from "lucide-react";
+import { Send, Heart, Volume2, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 
@@ -38,6 +38,13 @@ export default function SuggestionApp({
 
   const handleSuggestionClick = (suggestion: string) => {
     setUserInput(suggestion);
+    
+    // Also speak the suggestion
+    toast({
+      title: "Speaking Suggestion",
+      description: `"${suggestion}" would be spoken in a real implementation.`,
+      duration: 3000,
+    });
   };
 
   const handleSend = () => {
@@ -120,27 +127,18 @@ export default function SuggestionApp({
   };
 
   const handleSpeak = () => {
-    // Check if speech recognition is supported
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    // In a real implementation, we would use the Web Speech API
+    // For this demo, we'll just show a toast message
+    if (userInput.trim()) {
       toast({
-        title: "Text-to-Speech Activated",
-        description: "Speak now or type your message and press Enter to send.",
+        title: "Speaking Text",
+        description: `"${userInput}" would be spoken in a real implementation.`,
         duration: 3000,
       });
-      
-      // If there's text in the input, we would speak it
-      if (userInput.trim()) {
-        toast({
-          title: "Speaking Text",
-          description: `"${userInput}" would be spoken in a real implementation.`,
-          duration: 3000,
-        });
-      }
     } else {
       toast({
-        title: "Speech Not Supported",
-        description: "Text-to-speech is not supported in this browser.",
-        variant: "destructive",
+        title: "Text-to-Speech",
+        description: "Type a message first or click a suggestion to have it spoken.",
         duration: 3000,
       });
     }
@@ -196,9 +194,9 @@ export default function SuggestionApp({
         <button 
           onClick={handleSpeak}
           className="chat-send-button"
-          title="Click to speak (Text-to-Speech)"
+          title="Click to have text spoken (Text-to-Speech)"
         >
-          <Mic className="h-5 w-5" />
+          <Volume2 className="h-5 w-5" />
         </button>
       </div>
       
