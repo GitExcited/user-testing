@@ -178,22 +178,31 @@ export default function SuggestionApp({
   
   // Chat input container - consistent for all positions
   const inputContainer = (
-    <div className="chat-input-container">
-      <input
-        type="text"
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Type a message..."
-        className="chat-input"
-      />
-      <button 
-        onClick={handleSpeak}
-        className="chat-send-button"
-        title="Click to have text spoken (Text-to-Speech)"
-      >
-        <Volume2 className="h-5 w-5" />
-      </button>
+    <div className="input-container">
+      <div className="relative">
+        <textarea
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              if (userInput.trim()) {
+                handleKeyDown(e as any);
+              }
+            }
+          }}
+          placeholder="Type your message here or click a suggestion..."
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#36CFB3] focus:border-transparent resize-none"
+          rows={3}
+        />
+        <button
+          onClick={handleSpeak}
+          className="absolute bottom-3 right-3 bg-[#ED9390] text-white rounded-full w-10 h-10 p-0 flex items-center justify-center focus:outline-none hover:bg-opacity-90"
+          title="Click to have text spoken (Text-to-Speech)"
+        >
+          <Volume2 className="h-5 w-5" />
+        </button>
+      </div>
     </div>
   );
 
