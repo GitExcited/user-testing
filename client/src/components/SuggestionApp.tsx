@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Heart, Volume2, RotateCcw } from "lucide-react";
+import { Heart, Volume2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 
@@ -172,9 +172,6 @@ export default function SuggestionApp({
             {suggestion}
           </button>
         ))}
-        <button className="suggestion-button flex items-center">
-          <RotateCcw className="h-3.5 w-3.5 mr-1" /> Generate More
-        </button>
       </div>
     </div>
   );
