@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Mic } from "lucide-react";
+import { Send, Heart, Mic, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 
@@ -10,12 +8,19 @@ interface SuggestionAppProps {
   buttonPosition: ButtonPosition;
 }
 
+interface Message {
+  id: string;
+  text: string;
+  isUser: boolean;
+  liked?: boolean;
+}
+
 const SUGGESTIONS = [
-  "Tell me more about Vizology",
-  "What are the key features?",
-  "How does AI integration work?",
-  "Show me case studies",
-  "Get a demo"
+  "Can you suggest some good movies?",
+  "What's the best restaurant nearby?",
+  "How does this app work?",
+  "Tell me a fun fact",
+  "Generate a poem"
 ];
 
 export default function SuggestionApp({ 
@@ -23,10 +28,64 @@ export default function SuggestionApp({
   buttonPosition 
 }: SuggestionAppProps) {
   const [userInput, setUserInput] = useState("");
+  const [messages, setMessages] = useState<Message[]>([
+    { id: "1", text: "Hi there! How can I help you today?", isUser: false }
+  ]);
   const { toast } = useToast();
+
+  // Function to generate a random ID
+  const generateId = () => Math.random().toString(36).substring(2, 11);
 
   const handleSuggestionClick = (suggestion: string) => {
     setUserInput(suggestion);
+  };
+
+  const handleSend = () => {
+    if (!userInput.trim()) return;
+    
+    // Add user message to chat
+    const newUserMessage: Message = {
+      id: generateId(),
+      text: userInput,
+      isUser: true
+    };
+    setMessages(prev => [...prev, newUserMessage]);
+    
+    // Simulate AI response
+    setTimeout(() => {
+      const responses = [
+        "I'm here to help you with that!",
+        "Great question! Let me think about that.",
+        "Thanks for asking. Here's what I know:",
+        "I'd be happy to assist with that.",
+        "That's an interesting question."
+      ];
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      
+      const aiResponse: Message = {
+        id: generateId(),
+        text: randomResponse,
+        isUser: false
+      };
+      
+      setMessages(prev => [...prev, aiResponse]);
+    }, 1000);
+    
+    // Clear input
+    setUserInput("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const toggleLike = (id: string) => {
+    setMessages(messages.map(msg => 
+      msg.id === id ? { ...msg, liked: !msg.liked } : msg
+    ));
   };
 
   const handleSpeak = () => {
@@ -47,69 +106,102 @@ export default function SuggestionApp({
     }
   };
 
-  // Determine the container class based on position
-  const containerClass = `max-w-4xl mx-auto position-${buttonPosition} ${buttonStyle}-buttons`;
-  
-  // Create suggestion elements
-  const suggestionElements = (
-    <div className="suggestions">
-      <div className="text-gray-700 mb-2 font-medium">Suggested phrases:</div>
-      <div className="suggestion-buttons flex-wrap">
-        {SUGGESTIONS.map((suggestion, index) => (
-          <button
-            key={index}
-            onClick={() => handleSuggestionClick(suggestion)}
-            className="suggestion-button"
+  return (
+    <div className="chat-container">
+      <div className="chat-messages">
+        {messages.map((message) => (
+          <div 
+            key={message.id} 
+            className={message.isUser ? "user-message" : "ai-message"}
           >
-            {suggestion}
-          </button>
+            {message.text}
+            {!message.isUser && (
+              <button 
+                onClick={() => toggleLike(message.id)} 
+                className="ml-2 mt-1 text-gray-400 hover:text-pink-500 focus:outline-none"
+                aria-label="Like message"
+              >
+                <Heart 
+                  className={`h-4 w-4 inline ${message.liked ? "fill-pink-500 text-pink-500" : ""}`} 
+                />
+              </button>
+            )}
+          </div>
         ))}
       </div>
-    </div>
-  );
+      
+      {buttonPosition === "above-textbox" && (
+        <div className="px-4 suggestion-buttons">
+          {SUGGESTIONS.map((suggestion, index) => (
+            <button
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              className="suggestion-button"
+            >
+              {suggestion}
+            </button>
+          ))}
+        </div>
+      )}
 
-  // Create input container
-  const inputContainer = (
-    <div className="input-container">
-      <div className="relative">
-        <Textarea
+      <div className="chat-input-container">
+        <input
+          type="text"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Type your message here or click a suggestion..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#00c8b3] focus:border-transparent resize-none"
-          rows={3}
+          onKeyDown={handleKeyDown}
+          placeholder="Type a message..."
+          className="chat-input"
         />
-        <Button
+        <button 
           onClick={handleSpeak}
-          className="absolute bottom-3 right-3 bg-[#00c8b3] text-white rounded-full w-10 h-10 p-0 flex items-center justify-center focus:outline-none hover:bg-opacity-90"
+          className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center mr-2 hover:bg-blue-100"
         >
-          <Mic className="h-5 w-5" />
-        </Button>
+          <Mic className="h-5 w-5 text-gray-600" />
+        </button>
+        <button 
+          onClick={handleSend}
+          className="chat-send-button"
+          disabled={!userInput.trim()}
+        >
+          <Send className="h-5 w-5" />
+        </button>
       </div>
-    </div>
-  );
-
-  // Render the components based on position
-  return (
-    <div className={containerClass}>
-      {buttonPosition === "above-textbox" && (
-        <>
-          {suggestionElements}
-          {inputContainer}
-        </>
-      )}
       
       {buttonPosition === "below-textbox" && (
-        <>
-          {inputContainer}
-          {suggestionElements}
-        </>
+        <div className="p-4 bg-white suggestion-buttons">
+          {SUGGESTIONS.map((suggestion, index) => (
+            <button
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              className="suggestion-button"
+            >
+              {suggestion}
+            </button>
+          ))}
+          <button className="suggestion-button flex items-center">
+            <RotateCcw className="h-3.5 w-3.5 mr-1" /> Generate More
+          </button>
+        </div>
       )}
       
       {buttonPosition === "right-textbox" && (
-        <div className="flex flex-row gap-4 flex-wrap md:flex-nowrap">
-          {inputContainer}
-          {suggestionElements}
+        <div className="px-4 py-2 bg-white border-t border-gray-100">
+          <div className="text-xs text-gray-500 mb-2">SUGGESTIONS</div>
+          <div className="suggestion-buttons">
+            {SUGGESTIONS.map((suggestion, index) => (
+              <button
+                key={index}
+                onClick={() => handleSuggestionClick(suggestion)}
+                className="suggestion-button"
+              >
+                {suggestion}
+              </button>
+            ))}
+            <button className="suggestion-button flex items-center">
+              <RotateCcw className="h-3.5 w-3.5 mr-1" /> Generate More
+            </button>
+          </div>
         </div>
       )}
     </div>

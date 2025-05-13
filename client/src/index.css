@@ -3,6 +3,128 @@
 @tailwind utilities;
 
 :root {
+  --primary-lightest: #F4F7F7;
+  --primary-lighter: #EBFAF7;
+  --primary-light: #D7F5F0;
+  --primary-medium-light: #C3F1E8;
+  --primary-medium: #AFECE1;
+  --primary-medium-dark: #86E2D1;
+  --primary-dark: #5ED9C2;
+  --primary-darker: #36CFB3;
+  --primary-darkest: #2BA68F;
+  --primary-deep: #207C6B;
+  --primary-deepest: #103E36;
+  --accent-coral: #ED9390;
+  --text-dark: #212121;
+}
+
+body {
+  background-color: var(--primary-lightest);
+  color: var(--text-dark);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* Custom styling for chat interface */
+.chat-container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.user-message {
+  align-self: flex-end;
+  background-color: var(--primary-darker);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  padding: 10px 16px;
+  max-width: 80%;
+  word-break: break-word;
+}
+
+.ai-message {
+  align-self: flex-start;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  color: var(--text-dark);
+  border-radius: 18px 18px 18px 4px;
+  padding: 10px 16px;
+  max-width: 80%;
+  word-break: break-word;
+}
+
+.chat-input-container {
+  display: flex;
+  padding: 1rem;
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chat-input {
+  flex-grow: 1;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 12px 16px;
+  margin-right: 12px;
+  outline: none;
+}
+
+.chat-input:focus {
+  border-color: var(--primary-darker);
+  box-shadow: 0 0 0 2px rgba(54, 207, 179, 0.2);
+}
+
+.chat-send-button {
+  background-color: var(--accent-coral);
+  color: white;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chat-send-button:hover {
+  background-color: #e88582;
+}
+
+.suggestion-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 1rem 0;
+}
+
+.suggestion-button {
+  background-color: #f1f1f1;
+  color: var(--text-dark);
+  border: none;
+  border-radius: 24px;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.suggestion-button:hover {
+  background-color: #e5e5e5;
+}
+
+:root {
       --background: 0 0% 100%;
 --foreground: 20 14.3% 4.1%;
 --muted: 60 4.8% 95.9%;

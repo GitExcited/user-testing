@@ -1,23 +1,27 @@
-/* Button style variations */
+/* Button style variations using the provided color palette */
+
+/* Style 1: Teal Solid */
 .style1-buttons .suggestion-button {
-  background-color: #00c8b3;
+  background-color: var(--primary-darker);
   color: white;
-  border-radius: 4px;
+  border-radius: 18px;
   padding: 8px 16px;
   margin: 5px;
   font-weight: 500;
   transition: all 0.2s;
+  border: none;
 }
 
 .style1-buttons .suggestion-button:hover {
-  background-color: #00a89a;
+  background-color: var(--primary-darkest);
 }
 
+/* Style 2: Teal Outline */
 .style2-buttons .suggestion-button {
   background-color: white;
-  color: #00c8b3;
-  border: 1px solid #00c8b3;
-  border-radius: 20px;
+  color: var(--primary-darker);
+  border: 1px solid var(--primary-darker);
+  border-radius: 18px;
   padding: 8px 16px;
   margin: 5px;
   font-weight: 500;
@@ -25,36 +29,42 @@
 }
 
 .style2-buttons .suggestion-button:hover {
-  background-color: #f0fffd;
+  background-color: var(--primary-lightest);
 }
 
+/* Style 3: Dark Mode */
 .style3-buttons .suggestion-button {
-  background-color: #333333;
+  background-color: var(--primary-deepest);
   color: white;
-  border-radius: 0;
+  border-radius: 18px;
   padding: 8px 16px;
   margin: 5px;
   font-weight: 500;
   transition: all 0.2s;
+  border: none;
 }
 
 .style3-buttons .suggestion-button:hover {
-  background-color: #555555;
+  background-color: var(--primary-deep);
 }
 
+/* Style 4: Underlined */
 .style4-buttons .suggestion-button {
   background-color: transparent;
-  color: #00c8b3;
-  border-bottom: 2px solid #00c8b3;
+  color: var(--primary-darker);
+  border-bottom: 2px solid var(--primary-darker);
   border-radius: 0;
   padding: 8px 12px;
   margin: 5px;
   font-weight: 500;
   transition: all 0.2s;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }
 
 .style4-buttons .suggestion-button:hover {
-  background-color: rgba(0, 200, 179, 0.1);
+  background-color: var(--primary-lightest);
 }
 
 /* Ensure suggestion buttons have proper layout */
