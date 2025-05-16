@@ -232,50 +232,36 @@ export default function SuggestionApp({
   );
 
   // Render the components based on position
-  // Virtual keyboard component
+  // Simple keyboard component (just visual, non-functional)
   const keyboardComponent = (
-    <div className="virtual-keyboard mt-6 mx-auto bg-white rounded-t-lg shadow-lg max-w-4xl w-full py-4 opacity-85">
-      <div className="grid grid-cols-10 gap-2 px-4 mb-2">
-        {['q','w','e','r','t','y','u','i','o','p'].map(key => (
-          <div key={key} className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
-            {key.toUpperCase()}
-          </div>
-        ))}
+    <div className="virtual-keyboard mt-6 mx-auto bg-white rounded-t-lg shadow max-w-4xl w-full py-3">
+      <div className="flex justify-center items-center px-4 space-x-2 mb-2">
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">Q</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">W</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">E</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">R</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">T</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">Y</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">U</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">I</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">O</div>
+        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">P</div>
       </div>
-      <div className="grid grid-cols-9 gap-2 px-8 mb-2">
-        {['a','s','d','f','g','h','j','k','l'].map(key => (
-          <div key={key} className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
-            {key.toUpperCase()}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-7 gap-2 px-12 mb-2">
-        {['z','x','c','v','b','n','m'].map(key => (
-          <div key={key} className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
-            {key.toUpperCase()}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-1 gap-2 px-16">
-        <div className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
-          SPACE
-        </div>
+      <div className="flex justify-center bg-gray-50 rounded-md mx-16 h-10 items-center text-gray-400 shadow-sm mt-3">
+        SPACE
       </div>
     </div>
   );
 
   return (
     <div className="flex flex-col min-h-screen bg-[#f9f9f9]">
-      {/* Vocalify Logo Header - single header only */}
-      <div className="px-4 py-3 bg-white border-b border-gray-100">
-        <img src={vocalifyLogo} alt="Vocalify Logo" className="h-10" />
-      </div>
-      
-      <div className="flex-1">
+      <div className="flex-1 pt-4">
         <div className={containerClass}>
           {buttonPosition === "above-textbox" && (
             <>
-              {suggestionElements}
+              <div className="flex justify-center">
+                {suggestionElements}
+              </div>
               {messagesContainer}
               {inputContainer}
             </>
@@ -285,7 +271,9 @@ export default function SuggestionApp({
             <>
               {messagesContainer}
               {inputContainer}
-              {suggestionElements}
+              <div className="flex justify-center">
+                {suggestionElements}
+              </div>
             </>
           )}
           
@@ -300,11 +288,6 @@ export default function SuggestionApp({
               </div>
             </div>
           )}
-          
-          {/* Footer text */}
-          <div className="text-right pt-4 text-gray-400 text-sm">
-            Activate Windows
-          </div>
         </div>
       </div>
       

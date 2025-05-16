@@ -26,7 +26,7 @@ export default function NavBar({
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center">
-          <img src={vocalifyLogo} alt="Vocalify Logo" className="h-8" />
+          <img src={vocalifyLogo} alt="Vocalify Logo" className="h-6" />
         </div>
         
         {/* Dropdowns on the right */}
