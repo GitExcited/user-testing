@@ -265,51 +265,65 @@ export default function SuggestionApp({
   );
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f9f9f9]">
-      <div className="flex-1 pt-4">
-        <div className={containerClass}>
-          {buttonPosition === "above-textbox" && (
-            <>
-              {suggestionElements}
-              {messagesContainer}
-              {inputContainer}
-            </>
-          )}
+    <div className="flex flex-col min-h-screen bg-[#f9f9f9] overflow-hidden">
+      {buttonPosition === "above-textbox" && (
+        <div className="flex flex-col h-full">
+          <div className="flex justify-center mt-10">
+            {suggestionElements}
+          </div>
           
-          {buttonPosition === "below-textbox" && (
-            <>
-              {messagesContainer}
+          <div className="mt-2 flex-grow flex justify-center items-center">
+            <div className="w-[500px]">
               {inputContainer}
-              {suggestionElements}
-            </>
-          )}
-          
-          {buttonPosition === "right-textbox" && (
-            <div className="flex items-start gap-6">
-              <div className="flex-1">
-                {messagesContainer}
-                {inputContainer}
-              </div>
-              <div className="flex flex-col">
-                <div className={`suggestion-buttons ${buttonStyle}-buttons flex-col`}>
-                  {SUGGESTIONS.map((suggestion, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                      className="suggestion-button mb-4"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
-          )}
+          </div>
+          
+          {/* Add virtual keyboard at bottom */}
+          {keyboardComponent}
         </div>
-      </div>
+      )}
       
-      {/* Add virtual keyboard at bottom */}
-      {keyboardComponent}
+      {buttonPosition === "below-textbox" && (
+        <div className="flex flex-col h-full">
+          <div className="flex justify-center items-center flex-grow">
+            <div className="w-[500px]">
+              {inputContainer}
+            </div>
+          </div>
+          
+          <div className="flex justify-center mt-4 mb-10">
+            {suggestionElements}
+          </div>
+          
+          {/* Add virtual keyboard at bottom */}
+          {keyboardComponent}
+        </div>
+      )}
+      
+      {buttonPosition === "right-textbox" && (
+        <div className="flex h-full">
+          <div className="flex justify-center items-center flex-grow">
+            <div className="w-[500px]">
+              {inputContainer}
+            </div>
+          </div>
+          
+          <div className="flex flex-col justify-center mr-16">
+            {SUGGESTIONS.map((suggestion, index) => (
+              <button
+                key={index}
+                onClick={() => handleSuggestionClick(suggestion)}
+                className={`suggestion-button ${buttonStyle}-buttons mb-4`}
+              >
+                {suggestion}
+              </button>
+            ))}
+          </div>
+          
+          {/* Add virtual keyboard at bottom */}
+          {keyboardComponent}
+        </div>
+      )}
     </div>
   );
 }
