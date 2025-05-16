@@ -270,9 +270,7 @@ export default function SuggestionApp({
         <div className={containerClass}>
           {buttonPosition === "above-textbox" && (
             <>
-              <div className="flex justify-center">
-                {suggestionElements}
-              </div>
+              {suggestionElements}
               {messagesContainer}
               {inputContainer}
             </>
@@ -282,9 +280,7 @@ export default function SuggestionApp({
             <>
               {messagesContainer}
               {inputContainer}
-              <div className="flex justify-center">
-                {suggestionElements}
-              </div>
+              {suggestionElements}
             </>
           )}
           
