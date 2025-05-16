@@ -1,0 +1,201 @@
+Prompt for Replit AI Agent: Button Design Implementation
+
+Generate HTML, CSS, and JavaScript code in Replit to create four buttons with specific designs based on Figma specifications. Include a dropdown menu to switch between the four button styles dynamically. The screen layout should match the aesthetic of a provided screenshot [insert screenshot link or description, e.g., "a clean, centered layout with buttons stacked vertically and a dropdown at the top"]. Ensure the implementation is lightweight to avoid hitting Replit’s request limits.
+
+General Button Specifications (Apply to All Buttons):
+
+
+
+
+
+Text color: #333333
+
+
+
+Font size: 24px
+
+
+
+Padding: 12px top/bottom, 32px left/right
+
+
+
+Border radius: 32px (unless specified otherwise)
+
+Button 1: Primary Eye-Catching Button
+
+
+
+
+
+Background fill: #FFFFFF (100% opacity)
+
+
+
+Corner radius: 32px
+
+
+
+Shadows:
+
+
+
+
+
+Inner shadow: X=1, Y=1, Blur=2, Color=#FFFFFF (30% opacity)
+
+
+
+Inner shadow: X=-1, Y=-1, Blur=2, Spread=0, Color=#E6E6E6 (50% opacity)
+
+
+
+Drop shadow: X=-5, Y=5, Blur=10, Spread=0, Color=#E6E6E6 (20% opacity)
+
+
+
+Drop shadow: X=5, Y=-5, Blur=10, Spread=0, Color=#E6E6E6 (20% opacity)
+
+
+
+Drop shadow: X=-5, Y=-5, Blur=10, Spread=0, Color=#FFFFFF (90% opacity)
+
+
+
+Drop shadow: X=5, Y=5, Blur=14, Spread=0, Color=#E6E6E6 (90% opacity)
+
+Button 2: Subtle Outlined Button
+
+
+
+
+
+Background fill: #FFFFFF (100% opacity)
+
+
+
+Stroke: Inside, 4px width, Color=#333333 (20% opacity)
+
+Button 3: Vibrant Highlight Button
+
+
+
+
+
+Background fill: #EFF6F4 (100% opacity)
+
+
+
+Stroke: Outside, 4px width, Color=#CEE350 (58% opacity)
+
+Button 4: Soft Shadowed Button
+
+
+
+
+
+Background fill: #E8F3F1 (100% opacity)
+
+
+
+Shadows:
+
+
+
+
+
+Drop shadow: X=-5, Y=-5, Blur=10, Spread=0, Color=#FFFFFF (50% opacity)
+
+
+
+Drop shadow: X=5, Y=5, Blur=10, Spread=0, Color=#B6D7D1 (50% opacity)
+
+
+
+Drop shadow: X=10, Y=10, Blur=20, Spread=0, Color=#B6D7D1 (50% opacity)
+
+
+
+Drop shadow: X=-10, Y=-10, Blur=20, Spread=0, Color=#FFFFFF (100% opacity)
+
+Dropdown Functionality:
+
+
+
+
+
+Create a element with options: "Style 1", "Style 2", "Style 3", "Style 4".
+
+
+
+
+
+Use JavaScript to apply the selected button style (CSS class) to all buttons dynamically when an option is chosen.
+
+
+
+Ensure the dropdown is styled to match the clean aesthetic (e.g., #FFFFFF background, #333333 text, 16px font).
+
+Screen Layout:
+
+
+
+
+
+Layout should resemble the screenshot [insert link or describe, e.g., "white background, buttons centered vertically, dropdown at the top, 20px padding around edges"].
+
+
+
+Make it responsive: buttons stack vertically on mobile (<600px width) and align horizontally on desktop (>600px width).
+
+
+
+Use a sans-serif font (e.g., Roboto or Arial) for consistency with Figma’s modern look.
+
+Replit Implementation Requirements:
+
+
+
+
+
+Use HTML for structure, CSS for styling, and JavaScript for dropdown functionality.
+
+
+
+Apply shadows using CSS box-shadow and inset for inner shadows.
+
+
+
+Use border or outline for strokes, respecting inside/outside placement.
+
+
+
+Optimize code to minimize external requests (e.g., no external libraries unless necessary; use Google Fonts if needed).
+
+
+
+Ensure accessibility: contrast ratio ≥4.5:1 (per WCAG), buttons keyboard-navigable, and semantic HTML.
+
+
+
+Test in Replit’s preview to confirm visual accuracy against Figma specs.
+
+Output:
+
+
+
+
+
+Provide the complete HTML, CSS, and JavaScript code in a single Replit project.
+
+
+
+Include comments in the code to map each button’s styles to the Figma specs.
+
+
+
+If the screenshot layout is unclear, default to a centered, minimal design and note assumptions made.
+
+Please generate the code and confirm completion. Let me know if you need the screenshot link or further clarification on any spec.
+
+Thanks, [Your Name]

@@ -15,13 +15,17 @@
   --primary-deep: #207C6B;
   --primary-deepest: #103E36;
   --accent-coral: #ED9390;
-  --text-dark: #212121;
+  --text-dark: #333333;
+  --background-color: #f9f9f9;
 }
 
 body {
-  background-color: var(--primary-lightest);
+  background-color: var(--background-color);
   color: var(--text-dark);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 /* Custom styling for chat interface */

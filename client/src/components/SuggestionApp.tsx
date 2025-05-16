@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Heart, Volume2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
+import vocalifyLogo from "@assets/image_1747158009500.png";
 
 interface SuggestionAppProps {
   buttonStyle: ButtonStyle;
@@ -16,9 +17,9 @@ interface Message {
 }
 
 const SUGGESTIONS = [
-  "Can you suggest some good movies?",
-  "What's the best restaurant nearby?",
-  "How does this app work?"
+  "Where is the",
+  "What's the",
+  "How does this"
 ];
 
 export default function SuggestionApp({ 
@@ -161,8 +162,7 @@ export default function SuggestionApp({
   // Create suggestion elements - consistent for all positions
   const suggestionElements = (
     <div className="suggestions">
-      <div className="text-gray-700 mb-2 font-medium">Suggested phrases:</div>
-      <div className="suggestion-buttons flex-wrap">
+      <div className={`suggestion-buttons ${buttonStyle}-buttons`}>
         {SUGGESTIONS.map((suggestion, index) => (
           <button
             key={index}
@@ -233,34 +233,46 @@ export default function SuggestionApp({
 
   // Render the components based on position
   return (
-    <div className={containerClass}>
-      {buttonPosition === "above-textbox" && (
-        <>
-          {suggestionElements}
-          {messagesContainer}
-          {inputContainer}
-        </>
-      )}
+    <div className="flex flex-col min-h-screen">
+      {/* Vocalify Logo Header */}
+      <div className="px-4 py-3 bg-white border-b border-gray-100">
+        <img src={vocalifyLogo} alt="Vocalify Logo" className="h-10" />
+      </div>
       
-      {buttonPosition === "below-textbox" && (
-        <>
-          {messagesContainer}
-          {inputContainer}
-          {suggestionElements}
-        </>
-      )}
-      
-      {buttonPosition === "right-textbox" && (
-        <div className="flex flex-col md:flex-row gap-4 h-full">
-          <div className="flex-1 flex flex-col">
+      <div className={containerClass}>
+        {buttonPosition === "above-textbox" && (
+          <>
+            {suggestionElements}
             {messagesContainer}
             {inputContainer}
-          </div>
-          <div className="md:w-64 flex-shrink-0">
+          </>
+        )}
+        
+        {buttonPosition === "below-textbox" && (
+          <>
+            {messagesContainer}
+            {inputContainer}
             {suggestionElements}
+          </>
+        )}
+        
+        {buttonPosition === "right-textbox" && (
+          <div className="flex flex-col md:flex-row gap-4 h-full">
+            <div className="flex-1 flex flex-col">
+              {messagesContainer}
+              {inputContainer}
+            </div>
+            <div className="md:w-64 flex-shrink-0">
+              {suggestionElements}
+            </div>
           </div>
+        )}
+        
+        {/* Footer text */}
+        <div className="text-right mt-auto pt-4 text-gray-400 text-sm">
+          Activate Windows
         </div>
-      )}
+      </div>
     </div>
   );
 }
