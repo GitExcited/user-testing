@@ -232,23 +232,34 @@ export default function SuggestionApp({
   );
 
   // Render the components based on position
-  // Simple keyboard component (just visual, non-functional)
+  // More usable keyboard component
   const keyboardComponent = (
-    <div className="virtual-keyboard mt-6 mx-auto bg-white rounded-t-lg shadow max-w-4xl w-full py-3">
-      <div className="flex justify-center items-center px-4 space-x-2 mb-2">
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">Q</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">W</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">E</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">R</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">T</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">Y</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">U</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">I</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">O</div>
-        <div className="bg-gray-50 rounded-md h-10 w-10 flex items-center justify-center text-gray-400 shadow-sm">P</div>
+    <div className="virtual-keyboard mt-6 mx-auto bg-white rounded-t-lg shadow-lg max-w-4xl w-full py-3">
+      <div className="grid grid-cols-10 gap-1 px-4 mb-2">
+        {['q','w','e','r','t','y','u','i','o','p'].map(key => (
+          <button key={key} className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+            {key.toUpperCase()}
+          </button>
+        ))}
       </div>
-      <div className="flex justify-center bg-gray-50 rounded-md mx-16 h-10 items-center text-gray-400 shadow-sm mt-3">
-        SPACE
+      <div className="grid grid-cols-9 gap-1 px-8 mb-2">
+        {['a','s','d','f','g','h','j','k','l'].map(key => (
+          <button key={key} className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+            {key.toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <div className="grid grid-cols-7 gap-1 px-12 mb-2">
+        {['z','x','c','v','b','n','m'].map(key => (
+          <button key={key} className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+            {key.toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <div className="px-16">
+        <button className="bg-gray-50 rounded-md h-10 w-full flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+          SPACE
+        </button>
       </div>
     </div>
   );
@@ -283,8 +294,18 @@ export default function SuggestionApp({
                 {messagesContainer}
                 {inputContainer}
               </div>
-              <div>
-                {suggestionElements}
+              <div className="flex flex-col">
+                <div className={`suggestion-buttons ${buttonStyle}-buttons flex-col`}>
+                  {SUGGESTIONS.map((suggestion, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="suggestion-button mb-4"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           )}
