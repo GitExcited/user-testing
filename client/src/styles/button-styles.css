@@ -3,7 +3,7 @@
 /* Base styling for all buttons */
 .suggestion-button {
   color: #333333;
-  font-size: 16px;
+  font-size: 24px;
   padding: 12px 32px;
   border-radius: 32px;
   margin: 10px;
@@ -12,6 +12,8 @@
   cursor: pointer;
   border: none;
   outline: none;
+  width: 214px;
+  height: 89px;
 }
 
 /* Style 1: Primary Eye-Catching Button */
@@ -55,12 +57,14 @@
 .style3-buttons .suggestion-button {
   background-color: #EFF6F4;
   color: #333333;
-  box-shadow: 0 0 0 4px rgba(206, 227, 80, 0.58);
+  outline: 4px solid rgba(206, 227, 80, 0.58);
+  outline-offset: 4px;
+  box-shadow: none;
 }
 
 .style3-buttons .suggestion-button:hover {
   background-color: #f2f9f6;
-  box-shadow: 0 0 0 4px rgba(206, 227, 80, 0.8);
+  outline: 4px solid rgba(206, 227, 80, 0.8);
 }
 
 /* Style 4: Soft Shadowed Button */

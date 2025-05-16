@@ -42,25 +42,25 @@ export default function NavBar({
                 className={buttonStyle === "style1" ? "bg-gray-100" : ""} 
                 onClick={() => setButtonStyle("style1")}
               >
-                Teal Solid
+                Style 1
               </DropdownMenuItem>
               <DropdownMenuItem 
                 className={buttonStyle === "style2" ? "bg-gray-100" : ""} 
                 onClick={() => setButtonStyle("style2")}
               >
-                Teal Outline
+                Style 2
               </DropdownMenuItem>
               <DropdownMenuItem 
                 className={buttonStyle === "style3" ? "bg-gray-100" : ""} 
                 onClick={() => setButtonStyle("style3")}
               >
-                Dark Mode
+                Style 3
               </DropdownMenuItem>
               <DropdownMenuItem 
                 className={buttonStyle === "style4" ? "bg-gray-100" : ""} 
                 onClick={() => setButtonStyle("style4")}
               >
-                Underlined
+                Style 4
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

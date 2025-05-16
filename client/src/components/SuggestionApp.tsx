@@ -192,7 +192,7 @@ export default function SuggestionApp({
             }
           }}
           placeholder="Type your message here or click a suggestion..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#36CFB3] focus:border-transparent resize-none"
+          className="w-full border-none rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#36CFB3] resize-none shadow-sm"
           rows={3}
         />
         <button
@@ -232,47 +232,84 @@ export default function SuggestionApp({
   );
 
   // Render the components based on position
+  // Virtual keyboard component
+  const keyboardComponent = (
+    <div className="virtual-keyboard mt-6 mx-auto bg-white rounded-t-lg shadow-lg max-w-4xl w-full py-4 opacity-85">
+      <div className="grid grid-cols-10 gap-2 px-4 mb-2">
+        {['q','w','e','r','t','y','u','i','o','p'].map(key => (
+          <div key={key} className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
+            {key.toUpperCase()}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-9 gap-2 px-8 mb-2">
+        {['a','s','d','f','g','h','j','k','l'].map(key => (
+          <div key={key} className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
+            {key.toUpperCase()}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-7 gap-2 px-12 mb-2">
+        {['z','x','c','v','b','n','m'].map(key => (
+          <div key={key} className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
+            {key.toUpperCase()}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-1 gap-2 px-16">
+        <div className="bg-gray-50 rounded-md h-12 flex items-center justify-center text-gray-600 font-medium shadow-sm">
+          SPACE
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Vocalify Logo Header */}
+    <div className="flex flex-col min-h-screen bg-[#f9f9f9]">
+      {/* Vocalify Logo Header - single header only */}
       <div className="px-4 py-3 bg-white border-b border-gray-100">
         <img src={vocalifyLogo} alt="Vocalify Logo" className="h-10" />
       </div>
       
-      <div className={containerClass}>
-        {buttonPosition === "above-textbox" && (
-          <>
-            {suggestionElements}
-            {messagesContainer}
-            {inputContainer}
-          </>
-        )}
-        
-        {buttonPosition === "below-textbox" && (
-          <>
-            {messagesContainer}
-            {inputContainer}
-            {suggestionElements}
-          </>
-        )}
-        
-        {buttonPosition === "right-textbox" && (
-          <div className="flex flex-col md:flex-row gap-4 h-full">
-            <div className="flex-1 flex flex-col">
+      <div className="flex-1">
+        <div className={containerClass}>
+          {buttonPosition === "above-textbox" && (
+            <>
+              {suggestionElements}
               {messagesContainer}
               {inputContainer}
-            </div>
-            <div className="md:w-64 flex-shrink-0">
+            </>
+          )}
+          
+          {buttonPosition === "below-textbox" && (
+            <>
+              {messagesContainer}
+              {inputContainer}
               {suggestionElements}
+            </>
+          )}
+          
+          {buttonPosition === "right-textbox" && (
+            <div className="flex items-start gap-6">
+              <div className="flex-1">
+                {messagesContainer}
+                {inputContainer}
+              </div>
+              <div>
+                {suggestionElements}
+              </div>
             </div>
+          )}
+          
+          {/* Footer text */}
+          <div className="text-right pt-4 text-gray-400 text-sm">
+            Activate Windows
           </div>
-        )}
-        
-        {/* Footer text */}
-        <div className="text-right mt-auto pt-4 text-gray-400 text-sm">
-          Activate Windows
         </div>
       </div>
+      
+      {/* Add virtual keyboard at bottom */}
+      {keyboardComponent}
     </div>
   );
 }
