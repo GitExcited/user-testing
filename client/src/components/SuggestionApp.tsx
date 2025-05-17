@@ -283,8 +283,9 @@ export default function SuggestionApp({
         <button 
           onClick={() => handleKeyPress('BACKSPACE')} 
           className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200"
+          aria-label="Backspace"
         >
-          BACKSPACE
+          &#x232B;
         </button>
         <button 
           onClick={() => handleKeyPress('SPACE')} 
@@ -341,7 +342,7 @@ export default function SuggestionApp({
               </div>
             </div>
             
-            <div className="flex flex-col justify-center mr-16">
+            <div className="flex flex-col justify-center ml-4">
               {suggestions.map((suggestion, index) => (
                 <button
                   key={index}
