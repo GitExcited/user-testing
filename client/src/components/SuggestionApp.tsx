@@ -310,7 +310,7 @@ export default function SuggestionApp({
           className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200"
           aria-label="Backspace"
         >
-          &#x232B;
+          <Delete className="h-5 w-5" />
         </button>
         <button 
           onClick={() => handleKeyPress('SPACE')} 
@@ -322,8 +322,20 @@ export default function SuggestionApp({
     </div>
   );
 
+  // Speech banner component
+  const speechBanner = (
+    <div className={`speech-banner ${isSpeaking ? 'visible' : ''}`}>
+      <div className="flex items-center">
+        <Volume2 className="h-5 w-5 mr-2 waveform-animation text-white" />
+        <span className="text-sm">Speaking: "{currentlySpeaking}"</span>
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex flex-col min-h-screen bg-[#f9f9f9] overflow-hidden">
+      {/* Speech banner at the top */}
+      {speechBanner}
       {buttonPosition === "above-textbox" && (
         <div className="flex flex-col h-full">
           <div className="flex justify-center mt-4">
@@ -360,23 +372,23 @@ export default function SuggestionApp({
       
       {buttonPosition === "right-textbox" && (
         <div className="flex flex-col h-full">
-          <div className="flex mt-4">
-            <div className="flex justify-center items-center flex-grow">
+          <div className="flex justify-center mt-4">
+            <div className="flex items-start gap-5 w-[750px]">
               <div className="w-[500px]">
                 {inputContainer}
               </div>
-            </div>
-            
-            <div className="flex flex-col justify-center ml-4">
-              {suggestions.map((suggestion, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className={`suggestion-button ${buttonStyle}-buttons mb-4`}
-                >
-                  {suggestion}
-                </button>
-              ))}
+              
+              <div className="flex flex-col justify-center flex-shrink-0">
+                {suggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className={`suggestion-button ${buttonStyle}-buttons mb-4`}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
           
