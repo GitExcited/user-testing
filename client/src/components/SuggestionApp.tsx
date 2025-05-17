@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Heart, Volume2 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Heart, Delete, Volume2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 import vocalifyLogo from "@assets/image_1747158009500.png";
@@ -39,6 +39,8 @@ export default function SuggestionApp({
   const [suggestions, setSuggestions] = useState(INITIAL_SUGGESTIONS);
   const [suggestionPhase, setSuggestionPhase] = useState<"initial" | "followUp">("initial");
   const [selectedInitialSuggestion, setSelectedInitialSuggestion] = useState<string | null>(null);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [currentlySpeaking, setCurrentlySpeaking] = useState("");
   const { toast } = useToast();
 
   // Function to generate a random ID
@@ -127,21 +129,44 @@ export default function SuggestionApp({
     ));
   };
 
-  const handleSpeak = () => {
-    // Only speak the text when the speak button is clicked
-    if (userInput.trim()) {
-      // Use the Web Speech API if available
+  // Effect to clean up speech when component unmounts
+  useEffect(() => {
+    return () => {
       if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(userInput);
-        window.speechSynthesis.speak(utterance);
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  // Speech synthesis with speech banner
+  const handleSpeak = () => {
+    if (userInput.trim()) {
+      if ('speechSynthesis' in window) {
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel();
         
-        toast({
-          title: "Speaking Text",
-          description: `"${userInput}" is being spoken.`,
-          duration: 3000,
-        });
+        // Create a new utterance
+        const utterance = new SpeechSynthesisUtterance(userInput);
+        
+        // Set speaking state for animation
+        setIsSpeaking(true);
+        setCurrentlySpeaking(userInput);
+        
+        // Add events to track speech status
+        utterance.onend = () => {
+          setIsSpeaking(false);
+          setCurrentlySpeaking("");
+        };
+        
+        utterance.onerror = () => {
+          setIsSpeaking(false);
+          setCurrentlySpeaking("");
+        };
+        
+        // Start speaking
+        window.speechSynthesis.speak(utterance);
       } else {
-        // Fallback to toast if speech synthesis isn't available
+        // Fallback if speech synthesis isn't available
         toast({
           title: "Text-to-Speech",
           description: `"${userInput}" would be spoken in a real implementation.`,
@@ -201,7 +226,7 @@ export default function SuggestionApp({
           className="absolute bottom-3 right-3 bg-[#ED9390] text-white rounded-full w-10 h-10 p-0 flex items-center justify-center focus:outline-none hover:bg-opacity-90"
           title="Click to have text spoken (Text-to-Speech)"
         >
-          <Volume2 className="h-5 w-5" />
+          <Volume2 className={`h-5 w-5 ${isSpeaking ? 'waveform-animation' : ''}`} />
         </button>
       </div>
     </div>
