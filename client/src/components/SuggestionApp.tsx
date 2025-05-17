@@ -16,11 +16,19 @@ interface Message {
   liked?: boolean;
 }
 
-const SUGGESTIONS = [
+// Initial suggestions
+const INITIAL_SUGGESTIONS = [
   "Where is the",
   "What's the",
   "How does this"
 ];
+
+// Follow-up suggestions based on first selection
+const FOLLOW_UP_SUGGESTIONS = {
+  "Where is the": ["nearest restaurant", "bathroom", "exit"],
+  "What's the": ["weather today", "time", "best option"],
+  "How does this": ["work", "look", "compare to others"]
+};
 
 export default function SuggestionApp({ 
   buttonStyle, 
@@ -28,32 +36,36 @@ export default function SuggestionApp({
 }: SuggestionAppProps) {
   const [userInput, setUserInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [suggestions, setSuggestions] = useState(INITIAL_SUGGESTIONS);
+  const [suggestionPhase, setSuggestionPhase] = useState<"initial" | "followUp">("initial");
+  const [selectedInitialSuggestion, setSelectedInitialSuggestion] = useState<string | null>(null);
   const { toast } = useToast();
 
   // Function to generate a random ID
   const generateId = () => Math.random().toString(36).substring(2, 11);
 
   const handleSuggestionClick = (suggestion: string) => {
-    setUserInput(suggestion);
-    
-    // Speak the suggestion using Web Speech API if available
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(suggestion);
-      window.speechSynthesis.speak(utterance);
-      
-      toast({
-        title: "Speaking Suggestion",
-        description: `"${suggestion}" is being spoken.`,
-        duration: 3000,
-      });
+    if (suggestionPhase === "initial") {
+      // Store the first part of the sentence
+      setSelectedInitialSuggestion(suggestion);
+      // Set the user input to the selected suggestion
+      setUserInput(suggestion);
+      // Update to follow-up suggestions
+      setSuggestions(FOLLOW_UP_SUGGESTIONS[suggestion as keyof typeof FOLLOW_UP_SUGGESTIONS]);
+      setSuggestionPhase("followUp");
     } else {
-      // Fallback to toast if speech synthesis isn't available
-      toast({
-        title: "Speaking Suggestion",
-        description: `"${suggestion}" would be spoken in a real implementation.`,
-        duration: 3000,
-      });
+      // Combine initial suggestion with follow-up
+      const fullText = `${selectedInitialSuggestion} ${suggestion}`;
+      setUserInput(fullText);
+      
+      // Reset to initial suggestions for next interaction
+      setSuggestions(INITIAL_SUGGESTIONS);
+      setSuggestionPhase("initial");
+      setSelectedInitialSuggestion(null);
     }
+    
+    // Note: We no longer automatically speak the suggestion
+    // Now it only speaks when the volume button is clicked
   };
 
   const handleSend = () => {
@@ -116,9 +128,9 @@ export default function SuggestionApp({
   };
 
   const handleSpeak = () => {
-    // In a real implementation, we would use the Web Speech API
+    // Only speak the text when the speak button is clicked
     if (userInput.trim()) {
-      // Try to use the actual Web Speech API if available
+      // Use the Web Speech API if available
       if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(userInput);
         window.speechSynthesis.speak(utterance);
@@ -131,22 +143,11 @@ export default function SuggestionApp({
       } else {
         // Fallback to toast if speech synthesis isn't available
         toast({
-          title: "Speaking Text",
+          title: "Text-to-Speech",
           description: `"${userInput}" would be spoken in a real implementation.`,
           duration: 3000,
         });
       }
-      
-      // Send the text as a message if it hasn't been sent yet
-      const newUserMessage: Message = {
-        id: generateId(),
-        text: userInput,
-        isUser: true
-      };
-      setMessages(prev => [...prev, newUserMessage]);
-      
-      // Clear input
-      setUserInput("");
     } else {
       toast({
         title: "Text-to-Speech",
@@ -163,7 +164,7 @@ export default function SuggestionApp({
   const suggestionElements = (
     <div className="suggestions">
       <div className={`suggestion-buttons ${buttonStyle}-buttons`}>
-        {SUGGESTIONS.map((suggestion, index) => (
+        {suggestions.map((suggestion, index) => (
           <button
             key={index}
             onClick={() => handleSuggestionClick(suggestion)}
@@ -232,32 +233,63 @@ export default function SuggestionApp({
   );
 
   // Render the components based on position
-  // More usable keyboard component
+  // Functional keyboard component that adds characters to text field
+  const handleKeyPress = (key: string) => {
+    if (key === 'SPACE') {
+      setUserInput(prev => prev + ' ');
+    } else if (key === 'BACKSPACE') {
+      setUserInput(prev => prev.slice(0, -1));
+    } else {
+      setUserInput(prev => prev + key.toLowerCase());
+    }
+  };
+  
   const keyboardComponent = (
     <div className="virtual-keyboard mt-6 mx-auto bg-white rounded-t-lg shadow-lg max-w-4xl w-full py-3">
       <div className="grid grid-cols-10 gap-1 px-4 mb-2">
         {['q','w','e','r','t','y','u','i','o','p'].map(key => (
-          <button key={key} className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+          <button 
+            key={key}
+            onClick={() => handleKeyPress(key)} 
+            className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200"
+          >
             {key.toUpperCase()}
           </button>
         ))}
       </div>
       <div className="grid grid-cols-9 gap-1 px-8 mb-2">
         {['a','s','d','f','g','h','j','k','l'].map(key => (
-          <button key={key} className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+          <button 
+            key={key}
+            onClick={() => handleKeyPress(key)} 
+            className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200"
+          >
             {key.toUpperCase()}
           </button>
         ))}
       </div>
       <div className="grid grid-cols-7 gap-1 px-12 mb-2">
         {['z','x','c','v','b','n','m'].map(key => (
-          <button key={key} className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+          <button 
+            key={key}
+            onClick={() => handleKeyPress(key)} 
+            className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200"
+          >
             {key.toUpperCase()}
           </button>
         ))}
       </div>
-      <div className="px-16">
-        <button className="bg-gray-50 rounded-md h-10 w-full flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100">
+      <div className="grid grid-cols-2 gap-2 px-16">
+        <button 
+          onClick={() => handleKeyPress('BACKSPACE')} 
+          className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200"
+        >
+          BACKSPACE
+        </button>
+        <button 
+          onClick={() => handleKeyPress('SPACE')} 
+          className="bg-gray-50 rounded-md h-10 flex items-center justify-center text-gray-600 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200"
+        >
           SPACE
         </button>
       </div>
@@ -268,11 +300,11 @@ export default function SuggestionApp({
     <div className="flex flex-col min-h-screen bg-[#f9f9f9] overflow-hidden">
       {buttonPosition === "above-textbox" && (
         <div className="flex flex-col h-full">
-          <div className="flex justify-center mt-10">
+          <div className="flex justify-center mt-4">
             {suggestionElements}
           </div>
           
-          <div className="mt-2 flex-grow flex justify-center items-center">
+          <div className="mt-4 flex-grow flex justify-center items-center">
             <div className="w-[500px]">
               {inputContainer}
             </div>
@@ -301,23 +333,25 @@ export default function SuggestionApp({
       )}
       
       {buttonPosition === "right-textbox" && (
-        <div className="flex h-full">
-          <div className="flex justify-center items-center flex-grow">
-            <div className="w-[500px]">
-              {inputContainer}
+        <div className="flex flex-col h-full">
+          <div className="flex mt-4">
+            <div className="flex justify-center items-center flex-grow">
+              <div className="w-[500px]">
+                {inputContainer}
+              </div>
             </div>
-          </div>
-          
-          <div className="flex flex-col justify-center mr-16">
-            {SUGGESTIONS.map((suggestion, index) => (
-              <button
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
-                className={`suggestion-button ${buttonStyle}-buttons mb-4`}
-              >
-                {suggestion}
-              </button>
-            ))}
+            
+            <div className="flex flex-col justify-center mr-16">
+              {suggestions.map((suggestion, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  className={`suggestion-button ${buttonStyle}-buttons mb-4`}
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
           </div>
           
           {/* Add virtual keyboard at bottom */}
