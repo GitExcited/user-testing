@@ -7,6 +7,7 @@ import {
 import { ChevronDown } from "lucide-react";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 import vocalifyLogo from "@assets/image_1747158009500.png";
+import { exportDataAsCSV, clearTestingData } from "@/utils/dataExport";
 
 interface NavBarProps {
   buttonStyle: ButtonStyle;
@@ -92,6 +93,22 @@ export default function NavBar({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2 ml-4">
+            <button
+              onClick={exportDataAsCSV}
+              className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
+            >
+              Export Data
+            </button>
+            <button
+              onClick={clearTestingData}
+              className="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600"
+            >
+              Clear Data
+            </button>
+          </div>
         </div>
       </div>
     </nav>

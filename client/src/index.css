@@ -186,3 +186,53 @@ body {
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+/* Add these cursor and focus enhancements */
+
+/* Custom cursor color and blinking animation */
+textarea:focus {
+  caret-color: #36CFB3 !important;
+}
+
+/* Enhanced focus state */
+textarea:focus {
+  box-shadow: 0 0 0 2px rgba(54, 207, 179, 0.2);
+}
+
+/* Ensure cursor is always visible */
+textarea {
+  caret-color: #36CFB3;
+}
+
+/* Add a subtle pulse animation for when textarea is focused */
+.textarea-focused {
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(54, 207, 179, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(54, 207, 179, 0.4);
+  }
+}
+
+/* Make sure the cursor is visible even when not typing */
+textarea::selection {
+  background-color: rgba(54, 207, 179, 0.3);
+}
+
+/* Enhanced suggestion button hover states for better UX */
+.suggestion-button {
+  transition: all 0.2s ease;
+}
+
+.suggestion-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-button:active {
+  transform: translateY(0);
+}

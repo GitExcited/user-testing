@@ -1,6 +1,6 @@
 import { useState } from "react";
 import NavBar from "@/components/NavBar";
-import SuggestionApp from "@/components/SuggestionApp";
+import TypingTestApp from "@/components/TypingTestApp";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 
 export default function Home() {
@@ -15,8 +15,8 @@ export default function Home() {
         buttonPosition={buttonPosition}
         setButtonPosition={setButtonPosition}
       />
-      <main className="container mx-auto px-4 py-8 flex-grow">
-        <SuggestionApp
+      <main className="flex-grow">
+        <TypingTestApp
           buttonStyle={buttonStyle}
           buttonPosition={buttonPosition}
         />
