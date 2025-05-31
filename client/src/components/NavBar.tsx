@@ -4,10 +4,11 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 import vocalifyLogo from "@assets/image_1747158009500.png";
 import { exportDataAsCSV, clearTestingData } from "@/utils/dataExport";
+import TestingInstructions from "@/components/instructions/TestingInstructions";
 
 interface NavBarProps {
   buttonStyle: ButtonStyle;
@@ -30,11 +31,23 @@ export default function NavBar({
           <img src={vocalifyLogo} alt="Vocalify Logo" className="h-6" />
         </div>
         
-        {/* Dropdowns on the right */}
+        {/* Controls and Dropdowns */}
         <div className="flex items-center space-x-4">
+          {/* Instructions Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center text-gray-700 hover:text-[#36CFB3] focus:outline-none transition-colors">
+              <HelpCircle className="mr-1 h-4 w-4" />
+              <span>How to Test</span>
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="p-0 w-auto">
+              <TestingInstructions />
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {/* Style Dropdown */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center text-gray-700 hover:text-[#36CFB3] focus:outline-none">
+            <DropdownMenuTrigger className="flex items-center text-gray-700 hover:text-[#36CFB3] focus:outline-none transition-colors">
               <span>Button Style</span>
               <ChevronDown className="ml-1 h-4 w-4" />
             </DropdownMenuTrigger>
@@ -68,7 +81,7 @@ export default function NavBar({
           
           {/* Position Dropdown */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center text-gray-700 hover:text-[#36CFB3] focus:outline-none">
+            <DropdownMenuTrigger className="flex items-center text-gray-700 hover:text-[#36CFB3] focus:outline-none transition-colors">
               <span>Button Position</span>
               <ChevronDown className="ml-1 h-4 w-4" />
             </DropdownMenuTrigger>
@@ -98,13 +111,13 @@ export default function NavBar({
           <div className="flex gap-2 ml-4">
             <button
               onClick={exportDataAsCSV}
-              className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
+              className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition-colors"
             >
               Export Data
             </button>
             <button
               onClick={clearTestingData}
-              className="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600"
+              className="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600 transition-colors"
             >
               Clear Data
             </button>
