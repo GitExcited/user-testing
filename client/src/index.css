@@ -236,3 +236,58 @@ textarea::selection {
 .suggestion-button:active {
   transform: translateY(0);
 }
+
+/* Custom cursor animation */
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Ensure no text selection or interaction with custom input */
+.custom-text-input * {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Custom input styling */
+.custom-text-input {
+  pointer-events: auto;
+}
+
+.custom-text-input > div {
+  position: relative;
+}
+
+.custom-text-input button {
+  pointer-events: auto !important;
+}
+
+/* Disable any browser autocomplete or spell check */
+.custom-text-input [contenteditable] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+}
+
+/* Remove focus outline completely */
+.custom-text-input *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent context menu */
+.custom-text-input * {
+  -webkit-context-menu: none;
+  -moz-context-menu: none;
+  context-menu: none;
+}
