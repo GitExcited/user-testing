@@ -27,8 +27,8 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["le", "un"],
       // Predictions when user finishes typing "la" (predicting "piscine")
       ["maison", "école"],
-      // No more predictions after "piscine"
-      []
+      // After "piscine" - no more words but you can still show this for testing
+      ["plage", "parc"]  // ← Added fake predictions for after last word
     ]
   },
   {
@@ -38,20 +38,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Social",
     difficulty: "medium",
     fakePredictions: [
-      // Predictions when user finishes typing "Elle" (predicting "rejoint")
       ["invite", "partage"],
-      // Predictions when user finishes typing "rejoint" (predicting "le")
       ["un", "son"],
-      // Predictions when user finishes typing "le" (predicting "chien")
       ["ami", "repas"],
-      // Predictions when user finishes typing "chien" (predicting "dans")
       ["à", "chez"],
-      // Predictions when user finishes typing "dans" (predicting "la")
       ["le", "un"],
-      // Predictions when user finishes typing "la" (predicting "maison")
       ["piscine", "école"],
-      // No more predictions after "maison"
-      []
+      ["cuisine", "jardin"]  
     ]
   },
   {
@@ -61,20 +54,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Food",
     difficulty: "medium",
     fakePredictions: [
-      // Predictions when user finishes typing "Il" (predicting "partage")
       ["rejoint", "invite"],
-      // Predictions when user finishes typing "partage" (predicting "son")
       ["le", "un"],
-      // Predictions when user finishes typing "son" (predicting "repas")
       ["ami", "chien"],
-      // Predictions when user finishes typing "repas" (predicting "à")
       ["dans", "chez"],
-      // Predictions when user finishes typing "à" (predicting "la")
       ["un", "le"],
-      // Predictions when user finishes typing "la" (predicting "piscine")
       ["maison", "table"],
-      // No more predictions after "piscine"
-      []
+      ["plage", "parc"]  // ← Added for last word
     ]
   },
   {
@@ -84,20 +70,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Social",
     difficulty: "hard",
     fakePredictions: [
-      // Predictions when user finishes typing "Elle" (predicting "invite")
       ["partage", "rejoint"],
-      // Predictions when user finishes typing "invite" (predicting "le")
       ["son", "un"],
-      // Predictions when user finishes typing "le" (predicting "chien")
       ["repas", "ami"],
-      // Predictions when user finishes typing "chien" (predicting "chez")
       ["à", "dans"],
-      // Predictions when user finishes typing "chez" (predicting "un")
       ["le", "son"],
-      // Predictions when user finishes typing "un" (predicting "ami")
       ["chien", "repas"],
-      // No more predictions after "ami"
-      []
+      ["voisin", "collègue"]  // ← Added for last word
     ]
   },
   {
@@ -107,20 +86,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Social",
     difficulty: "easy",
     fakePredictions: [
-      // Predictions when user finishes typing "Il" (predicting "rejoint")
       ["invite", "partage"],
-      // Predictions when user finishes typing "rejoint" (predicting "un")
       ["le", "son"],
-      // Predictions when user finishes typing "un" (predicting "ami")
       ["repas", "chien"],
-      // Predictions when user finishes typing "ami" (predicting "à")
       ["chez", "dans"],
-      // Predictions when user finishes typing "à" (predicting "la")
       ["le", "un"],
-      // Predictions when user finishes typing "la" (predicting "maison")
       ["piscine", "école"],
-      // No more predictions after "maison"
-      []
+      ["cuisine", "garage"]  // ← Added for last word
     ]
   },
   {
@@ -130,18 +102,12 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Food",
     difficulty: "easy",
     fakePredictions: [
-      // Predictions when user finishes typing "Elle" (predicting "partage")
       ["rejoint", "invite"],
-      // Predictions when user finishes typing "partage" (predicting "un")
       ["son", "le"],
-      // Predictions when user finishes typing "un" (predicting "repas")
       ["ami", "chien"],
-      // Predictions when user finishes typing "repas" (predicting "chez")
       ["à", "dans"],
-      // Predictions when user finishes typing "chez" (predicting "moi")
       ["lui", "nous"],
-      // No more predictions after "moi"
-      []
+      ["toi", "elle"]  // ← Added for last word
     ]
   },
   {
@@ -151,20 +117,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Social",
     difficulty: "medium",
     fakePredictions: [
-      // Predictions when user finishes typing "Il" (predicting "invite")
       ["partage", "rejoint"],
-      // Predictions when user finishes typing "invite" (predicting "son")
       ["un", "le"],
-      // Predictions when user finishes typing "son" (predicting "ami")
       ["chien", "repas"],
-      // Predictions when user finishes typing "ami" (predicting "à")
       ["dans", "chez"],
-      // Predictions when user finishes typing "à" (predicting "la")
       ["un", "le"],
-      // Predictions when user finishes typing "la" (predicting "piscine")
       ["maison", "plage"],
-      // No more predictions after "piscine"
-      []
+      ["parc", "plage"]  // ← Added for last word
     ]
   },
   {
@@ -174,20 +133,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Social",
     difficulty: "medium",
     fakePredictions: [
-      // Predictions when user finishes typing "Elle" (predicting "rejoint")
       ["invite", "partage"],
-      // Predictions when user finishes typing "rejoint" (predicting "le")
       ["son", "un"],
-      // Predictions when user finishes typing "le" (predicting "chien")
       ["ami", "repas"],
-      // Predictions when user finishes typing "chien" (predicting "à")
       ["chez", "dans"],
-      // Predictions when user finishes typing "à" (predicting "la")
       ["le", "un"],
-      // Predictions when user finishes typing "la" (predicting "piscine")
       ["maison", "école"],
-      // No more predictions after "piscine"
-      []
+      ["parc", "plage"]  // ← Added for last word
     ]
   },
   {
@@ -197,20 +149,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Food",
     difficulty: "hard",
     fakePredictions: [
-      // Predictions when user finishes typing "Il" (predicting "partage")
       ["invite", "rejoint"],
-      // Predictions when user finishes typing "partage" (predicting "le")
       ["un", "son"],
-      // Predictions when user finishes typing "le" (predicting "repas")
       ["chien", "ami"],
-      // Predictions when user finishes typing "repas" (predicting "dans")
       ["à", "chez"],
-      // Predictions when user finishes typing "dans" (predicting "la")
       ["le", "un"],
-      // Predictions when user finishes typing "la" (predicting "maison")
       ["piscine", "cuisine"],
-      // No more predictions after "maison"
-      []
+      ["jardin", "garage"]  // ← Added for last word
     ]
   },
   {
@@ -220,18 +165,12 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Social",
     difficulty: "easy",
     fakePredictions: [
-      // Predictions when user finishes typing "Elle" (predicting "invite")
       ["rejoint", "partage"],
-      // Predictions when user finishes typing "invite" (predicting "un")
       ["son", "le"],
-      // Predictions when user finishes typing "un" (predicting "ami")
       ["chien", "repas"],
-      // Predictions when user finishes typing "ami" (predicting "chez")
       ["à", "dans"],
-      // Predictions when user finishes typing "chez" (predicting "moi")
       ["lui", "elle"],
-      // No more predictions after "moi"
-      []
+      ["toi", "nous"]  // ← Added for last word
     ]
   },
   {
@@ -241,20 +180,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Social",
     difficulty: "medium",
     fakePredictions: [
-      // Predictions when user finishes typing "Il" (predicting "rejoint")
       ["partage", "invite"],
-      // Predictions when user finishes typing "rejoint" (predicting "son")
       ["le", "un"],
-      // Predictions when user finishes typing "son" (predicting "ami")
       ["repas", "chien"],
-      // Predictions when user finishes typing "ami" (predicting "à")
       ["dans", "chez"],
-      // Predictions when user finishes typing "à" (predicting "la")
       ["un", "le"],
-      // Predictions when user finishes typing "la" (predicting "piscine")
       ["maison", "plage"],
-      // No more predictions after "piscine"
-      []
+      ["parc", "jardin"]  // ← Added for last word
     ]
   },
   {
@@ -264,18 +196,12 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Food",
     difficulty: "hard",
     fakePredictions: [
-      // Predictions when user finishes typing "Elle" (predicting "partage")
       ["invite", "rejoint"],
-      // Predictions when user finishes typing "partage" (predicting "un")
       ["le", "son"],
-      // Predictions when user finishes typing "un" (predicting "repas")
       ["ami", "chien"],
-      // Predictions when user finishes typing "repas" (predicting "à")
       ["chez", "dans"],
-      // Predictions when user finishes typing "à" (predicting "l'événement")
       ["la", "le"],
-      // No more predictions after "l'événement"
-      []
+      ["fête", "concert"]  // ← Added for last word
     ]
   }
 ];
