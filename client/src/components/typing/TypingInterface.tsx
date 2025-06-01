@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { Volume2 } from "lucide-react";
-import { useState } from "react";
 import { useSuggestions } from "../suggestions/SuggestionProvider";
 import CustomTextInput from "./CustomTextInput";
 
@@ -67,18 +67,20 @@ export default function TypingInterface() {
       {buttonPosition === "right-textbox" && (
         <div className="flex flex-col h-full">
           <div className="flex justify-center mt-4">
-            <div className="flex items-start gap-5 w-[750px]">
-              <div className="w-[500px]">
+            <div className="flex items-start gap-8 w-full max-w-4xl">
+              {/* Text Input Container */}
+              <div className="w-[500px] flex-shrink-0">
                 <CustomTextInput />
               </div>
               
-              <div className="flex flex-col justify-center flex-shrink-0">
-                <div className={`suggestion-buttons ${buttonStyle}-buttons`}>
+              {/* Vertical Suggestion Buttons */}
+              <div className="flex flex-col gap-3 pt-2 min-w-[180px]">
+                <div className={`${buttonStyle}-buttons vertical-stack`}>
                   {suggestions.map((suggestion, index) => (
                     <button
                       key={`${suggestion}-${index}`}
                       onClick={() => handleSuggestionClick(suggestion)}
-                      className="suggestion-button mb-4"
+                      className="suggestion-button vertical-button"
                     >
                       {suggestion}
                     </button>

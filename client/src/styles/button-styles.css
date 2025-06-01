@@ -13,9 +13,26 @@
   border: none;
   outline: none;
   width: 170px;
-  height: 70px; /* Increased height to fit text */
-  white-space: normal; /* Allow text to wrap */
+  height: 70px;
+  white-space: normal;
   line-height: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Vertical button styling for right position */
+.vertical-stack .suggestion-button {
+  width: 180px;
+  height: 60px;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  padding: 10px 16px;
+}
+
+.vertical-stack .suggestion-button:last-child {
+  margin-bottom: 0;
 }
 
 /* Style 1: Primary Eye-Catching Button */
@@ -47,7 +64,7 @@
   background-color: #FFFFFF;
   color: #333333;
   border: 4px solid rgba(51, 51, 51, 0.2);
-  padding: 8px 28px; /* Adjust for border */
+  padding: 8px 28px;
 }
 
 .style2-buttons .suggestion-button:hover {
@@ -55,17 +72,27 @@
   background-color: rgba(51, 51, 51, 0.05);
 }
 
+/* Vertical stack adjustments for Style 2 */
+.style2-buttons.vertical-stack .suggestion-button {
+  padding: 6px 20px;
+}
+
 /* Style 3: Vibrant Highlight Button */
 .style3-buttons .suggestion-button {
   background-color: #EFF6F4;
   color: #333333;
   border: 4px solid rgba(206, 227, 224, 0.58);
-  padding: 8px 28px; /* Adjust padding to account for border */
+  padding: 8px 28px;
 }
 
 .style3-buttons .suggestion-button:hover {
   background-color: #f2f9f6;
   border-color: rgba(206, 227, 224, 0.8);
+}
+
+/* Vertical stack adjustments for Style 3 */
+.style3-buttons.vertical-stack .suggestion-button {
+  padding: 6px 20px;
 }
 
 /* Style 4: Soft Shadowed Button */
@@ -93,4 +120,37 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* Vertical stack layout override */
+.suggestion-buttons.vertical-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .vertical-stack .suggestion-button {
+    width: 160px;
+    height: 55px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* On mobile, convert right position to vertical stack below text */
+  .vertical-stack {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .vertical-stack .suggestion-button {
+    width: 170px;
+    height: 60px;
+    margin: 0 0 12px 0;
+  }
 }
