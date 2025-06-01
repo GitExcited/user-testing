@@ -29,19 +29,26 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       totalClicks: 0,
       totalSuggestions: 0,
       totalTypos: 0,
-      buttonStyle,
-      buttonPosition,
+      buttonStyle,           // Store the button style for this session
+      buttonPosition,        // Store the button position for this session
       finalText: "",
       targetSentence,
       correctSuggestionClicks: 0,
       incorrectSuggestionClicks: 0,
       predictionAccuracy: 0
     };
-    
+
     setTestingData(newTestingData);
     setIsTestingActive(true);
     setClickEvents([]);
     setLastClickTime(Date.now());
+
+    console.log('✅ Testing session started:', {
+      sessionId,
+      targetSentence,
+      buttonStyle,
+      buttonPosition
+    });
   };
 
   const endTesting = async () => {
@@ -50,7 +57,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     const endTime = new Date();
     const totalTime = (endTime.getTime() - testingData.startTime.getTime()) / 1000;
     
-    // Calculate all your existing metrics
+    // Calculate all metrics
     const suggestionClicks = clickEvents.filter(e => e.type === 'suggestion').length;
     const suggestion_usage_rate = testingData.totalSuggestions > 0 
       ? (suggestionClicks / testingData.totalSuggestions) * 100 
@@ -76,34 +83,40 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
 
     console.log('=== USER TESTING DATA ===', finalData);
     
-    // Save to localStorage (keep your existing functionality)
+    // Save to localStorage
     const existingData = localStorage.getItem('userTestingData');
     const allData = existingData ? JSON.parse(existingData) : [];
     allData.push(finalData);
     localStorage.setItem('userTestingData', JSON.stringify(allData));
 
-    // NEW: Submit to Google Forms
+    // Submit to Google Forms with button style and position
     try {
       const googleFormsData = {
         total_time: totalTime,
         suggestion_usage_rate,
         typo_rate,
         suggestion_error_rate,
-        avg_click_interval: avgClickInterval
+        avg_click_interval: avgClickInterval,
+        button_style: testingData.buttonStyle,        // NEW: Include button style
+        button_position: testingData.buttonPosition   // NEW: Include button position
       };
 
-      console.log('Submitting to Google Forms:', googleFormsData);
+      console.log('Submitting to Google Forms with UI config:', {
+        style: testingData.buttonStyle,
+        position: testingData.buttonPosition,
+        session: testingData.sessionId
+      });
+
       const submitted = await submitToGoogleForms(googleFormsData);
       
       if (submitted) {
         console.log('✅ Data successfully submitted to Google Forms');
-        // Optionally show success message to user
+        console.log(`📊 Session completed: ${testingData.buttonStyle} + ${testingData.buttonPosition}`);
       } else {
         console.log('❌ Failed to submit to Google Forms, but data is saved locally');
       }
     } catch (error) {
       console.error('Google Forms submission error:', error);
-      // Data is still saved locally, so this isn't critical
     }
 
     // Clean up
