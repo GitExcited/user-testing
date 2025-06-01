@@ -1,7 +1,7 @@
 import { Play, Square } from "lucide-react";
 import { useTesting } from "./TestingProvider";
 import { useSuggestions } from "../suggestions/SuggestionProvider";
-import { PREDICTION_SCENARIOS } from "../suggestions/PredictionEngine";
+import { PREDICTION_SCENARIOS } from "@/data/predictionScenarios";
 
 export default function TestingControls() {
   const { isTestingActive, startTesting, endTesting, testingData } = useTesting();
@@ -52,9 +52,11 @@ export default function TestingControls() {
         </button>
       )}
 
-      {isTestingActive && testingData && (
-        <div className="text-sm text-green-600 font-medium">
-          Testing Active - Time: {Math.floor((Date.now() - testingData.startTime.getTime()) / 1000)}s
+      {testingData && (
+        <div className="text-xs text-gray-500 ml-4">
+          Session: {testingData.sessionId.slice(0, 8)}... | 
+          Style: {testingData.buttonStyle} | 
+          Position: {testingData.buttonPosition}
         </div>
       )}
     </div>

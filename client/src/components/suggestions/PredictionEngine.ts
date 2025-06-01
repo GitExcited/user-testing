@@ -1,47 +1,4 @@
-export interface PredictionScenario {
-  targetSentence: string;
-  words: string[];
-  fakePredictions: string[][];
-}
-
-export const PREDICTION_SCENARIOS: PredictionScenario[] = [
-  {
-    targetSentence: "Where is the nearest restaurant",
-    words: ["Where", "is", "the", "nearest", "restaurant"],
-    fakePredictions: [
-      // Predictions when user finishes typing "Where" (predicting "is")
-      ["are", "can"],
-      // Predictions when user finishes typing "is" (predicting "the")
-      ["a", "my"],
-      // Predictions when user finishes typing "the" (predicting "nearest")
-      ["best", "closest"],
-      // Predictions when user finishes typing "nearest" (predicting "restaurant")
-      ["store", "hospital"],
-      // No more predictions after "restaurant"
-      []
-    ]
-  },
-  {
-    targetSentence: "How do I get to the airport",
-    words: ["How", "do", "I", "get", "to", "the", "airport"],
-    fakePredictions: [
-      // Predictions when user finishes typing "How" (predicting "do")
-      ["can", "will"],
-      // Predictions when user finishes typing "do" (predicting "I")
-      ["you", "we"],
-      // Predictions when user finishes typing "I" (predicting "get")
-      ["go", "find"],
-      // Predictions when user finishes typing "get" (predicting "to")
-      ["there", "home"],
-      // Predictions when user finishes typing "to" (predicting "the")
-      ["my", "your"],
-      // Predictions when user finishes typing "the" (predicting "airport")
-      ["station", "store"],
-      // No more predictions after "airport"
-      []
-    ]
-  }
-];
+import { PredictionScenario, PREDICTION_SCENARIOS } from "@/data/predictionScenarios";
 
 export class PredictionEngine {
   private currentScenario: PredictionScenario | null = null;
@@ -108,6 +65,10 @@ export class PredictionEngine {
     return this.currentScenario?.targetSentence || "";
   }
   
+  getCurrentScenario(): PredictionScenario | null {
+    return this.currentScenario;
+  }
+  
   getNextCorrectWord(currentInput: string): string | null {
     if (!this.currentScenario) return null;
     
@@ -119,3 +80,5 @@ export class PredictionEngine {
     return this.currentScenario.words[nextWordIndex];
   }
 }
+
+// DO NOT re-export - this was causing the circular dependency!

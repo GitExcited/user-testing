@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
-import { PredictionEngine, PREDICTION_SCENARIOS } from "./PredictionEngine";
+import { PredictionEngine } from "./PredictionEngine";
+import { PREDICTION_SCENARIOS } from "@/data/predictionScenarios";
 import { useTesting } from "../testing/TestingProvider";
 
 interface SuggestionContextType {
