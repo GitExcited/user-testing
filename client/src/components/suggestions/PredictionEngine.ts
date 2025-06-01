@@ -2,9 +2,11 @@ import { PredictionScenario, PREDICTION_SCENARIOS } from "@/data/predictionScena
 
 export class PredictionEngine {
   private currentScenario: PredictionScenario | null = null;
+  private shuffleCache: Map<number, string[]> = new Map(); // Cache shuffled predictions by word index
   
   setScenario(scenario: PredictionScenario) {
     this.currentScenario = scenario;
+    this.shuffleCache.clear(); // Clear cache when scenario changes
   }
   
   // Helper function to shuffle an array randomly
@@ -57,6 +59,13 @@ export class PredictionEngine {
       return [];
     }
     
+    // Check if we already have shuffled predictions cached for this word index
+    if (this.shuffleCache.has(nextWordIndex)) {
+      const cachedPredictions = this.shuffleCache.get(nextWordIndex)!;
+      console.log('Using cached shuffled predictions for index', nextWordIndex, ':', cachedPredictions);
+      return cachedPredictions;
+    }
+    
     // Get the correct next word
     const correctNextWord = this.currentScenario.words[nextWordIndex];
     console.log('Correct next word:', correctNextWord);
@@ -69,8 +78,11 @@ export class PredictionEngine {
     const allPredictions = [correctNextWord, ...fakePredictions];
     const randomizedPredictions = this.shuffleArray(allPredictions);
     
+    // Cache the shuffled predictions for this word index
+    this.shuffleCache.set(nextWordIndex, randomizedPredictions);
+    
     console.log('Original order:', [correctNextWord, ...fakePredictions]);
-    console.log('Randomized order:', randomizedPredictions);
+    console.log('NEW shuffled order for index', nextWordIndex, ':', randomizedPredictions);
     
     return randomizedPredictions;
   }
@@ -98,6 +110,11 @@ export class PredictionEngine {
   isCorrectSuggestion(suggestion: string, currentInput: string): boolean {
     const correctWord = this.getNextCorrectWord(currentInput);
     return suggestion === correctWord;
+  }
+  
+  // Method to clear cache (useful for testing)
+  clearCache() {
+    this.shuffleCache.clear();
   }
 }
 

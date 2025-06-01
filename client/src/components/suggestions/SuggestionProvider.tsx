@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
 import { PredictionEngine } from "./PredictionEngine";
-import { PREDICTION_SCENARIOS } from "@/data/predictionScenarios";
 import { useTesting } from "../testing/TestingProvider";
 
 interface SuggestionContextType {
@@ -9,8 +8,6 @@ interface SuggestionContextType {
   userInput: string;
   setUserInput: (input: string) => void;
   handleSuggestionClick: (suggestion: string) => void;
-  currentScenario: number;
-  setCurrentScenario: (index: number) => void;
   buttonStyle: string;
   buttonPosition: string;
 }
@@ -19,25 +16,25 @@ const SuggestionContext = createContext<SuggestionContextType | null>(null);
 
 interface SuggestionProviderProps {
   children: React.ReactNode;
-  buttonStyle: ButtonStyle;
-  buttonPosition: ButtonPosition;
 }
 
-export default function SuggestionProvider({ 
-  children, 
-  buttonStyle, 
-  buttonPosition 
-}: SuggestionProviderProps) {
+export default function SuggestionProvider({ children }: SuggestionProviderProps) {
   const [userInput, setUserInput] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [predictionEngine] = useState(new PredictionEngine());
-  const [currentScenario, setCurrentScenario] = useState(0);
-  const { trackClick, trackSuggestion, isTestingActive } = useTesting();
+  const { trackClick, trackSuggestion, isTestingActive, currentTest } = useTesting();
+
+  // Use current test configuration or defaults
+  const buttonStyle = currentTest?.buttonStyle || 'style1';
+  const buttonPosition = currentTest?.buttonPosition || 'above-textbox';
 
   useEffect(() => {
-    predictionEngine.setScenario(PREDICTION_SCENARIOS[currentScenario]);
-    updateSuggestions("");
-  }, [currentScenario]);
+    if (currentTest) {
+      predictionEngine.setScenario(currentTest.scenario);
+      setUserInput(""); // Reset input for new test
+      updateSuggestions("");
+    }
+  }, [currentTest]);
 
   useEffect(() => {
     updateSuggestions(userInput);
@@ -46,8 +43,8 @@ export default function SuggestionProvider({
   const updateSuggestions = (input: string) => {
     console.log('updateSuggestions called with:', `"${input}"`, 'isTestingActive:', isTestingActive);
     
-    if (!isTestingActive) {
-      console.log('Testing not active, clearing suggestions');
+    if (!isTestingActive || !currentTest) {
+      console.log('Testing not active or no current test, clearing suggestions');
       setSuggestions([]);
       return;
     }
@@ -91,19 +88,12 @@ export default function SuggestionProvider({
     setUserInput(input);
   };
 
-  const handleScenarioChange = (index: number) => {
-    setCurrentScenario(index);
-    setUserInput("");
-  };
-
   return (
     <SuggestionContext.Provider value={{
       suggestions,
       userInput,
       setUserInput: handleSetUserInput,
       handleSuggestionClick,
-      currentScenario,
-      setCurrentScenario: handleScenarioChange,
       buttonStyle,
       buttonPosition
     }}>

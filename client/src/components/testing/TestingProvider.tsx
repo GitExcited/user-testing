@@ -1,12 +1,21 @@
 import React, { createContext, useContext, useState } from "react";
 import { UserTestingData, ClickEvent } from "@shared/userTesting";
 import { submitToGoogleForms } from "@/utils/googleFormsSubmission";
+import { AutomatedTestingController, TestCombination } from "./AutomatedTestingController";
 
 interface TestingContextType {
+  // Automated testing
+  automatedController: AutomatedTestingController;
+  currentTest: TestCombination | null;
+  isAutomatedTesting: boolean;
+  startAutomatedTesting: () => void;
+  submitCurrentTest: () => Promise<void>;
+  isAllTestsCompleted: boolean;
+  progress: { current: number; total: number; percentage: number };
+  
+  // Single test session data
   isTestingActive: boolean;
   testingData: UserTestingData | null;
-  startTesting: (targetSentence: string, buttonStyle: string, buttonPosition: string) => void;
-  endTesting: () => void;
   trackClick: (type: 'suggestion' | 'keyboard' | 'backspace', value: string) => void;
   trackSuggestion: () => void;
   trackSuggestionAccuracy: (isCorrect: boolean) => void;
@@ -15,13 +24,47 @@ interface TestingContextType {
 const TestingContext = createContext<TestingContextType | null>(null);
 
 export function TestingProvider({ children }: { children: React.ReactNode }) {
+  const [automatedController] = useState(new AutomatedTestingController());
+  const [currentTest, setCurrentTest] = useState<TestCombination | null>(null);
+  const [isAutomatedTesting, setIsAutomatedTesting] = useState(false);
+  const [isAllTestsCompleted, setIsAllTestsCompleted] = useState(false);
+  
+  // Single session data
   const [isTestingActive, setIsTestingActive] = useState(false);
   const [testingData, setTestingData] = useState<UserTestingData | null>(null);
   const [clickEvents, setClickEvents] = useState<ClickEvent[]>([]);
   const [lastClickTime, setLastClickTime] = useState<number | null>(null);
 
-  const startTesting = (targetSentence: string, buttonStyle: string, buttonPosition: string) => {
-    const sessionId = Math.random().toString(36).substring(2, 15);
+  const startAutomatedTesting = () => {
+    console.log('🚀 Starting automated testing sequence...');
+    setIsAutomatedTesting(true);
+    setIsAllTestsCompleted(false);
+    automatedController.reset();
+    startNextTest();
+  };
+
+  const startNextTest = () => {
+    const nextTest = automatedController.getCurrentTest();
+    if (!nextTest) {
+      // All tests completed
+      setIsAllTestsCompleted(true);
+      setIsAutomatedTesting(false);
+      setCurrentTest(null);
+      console.log('🎉 All tests completed!');
+      return;
+    }
+
+    setCurrentTest(nextTest);
+    startSingleTest(nextTest);
+    console.log(`📝 Starting test ${automatedController.getProgress().current + 1}/12:`, {
+      style: nextTest.buttonStyle,
+      position: nextTest.buttonPosition,
+      sentence: nextTest.scenario.targetSentence
+    });
+  };
+
+  const startSingleTest = (test: TestCombination) => {
+    const sessionId = `${test.id}-${Date.now()}`;
     const newTestingData: UserTestingData = {
       sessionId,
       startTime: new Date(),
@@ -29,10 +72,10 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       totalClicks: 0,
       totalSuggestions: 0,
       totalTypos: 0,
-      buttonStyle,           // Store the button style for this session
-      buttonPosition,        // Store the button position for this session
+      buttonStyle: test.buttonStyle,
+      buttonPosition: test.buttonPosition,
       finalText: "",
-      targetSentence,
+      targetSentence: test.scenario.targetSentence,
       correctSuggestionClicks: 0,
       incorrectSuggestionClicks: 0,
       predictionAccuracy: 0
@@ -42,22 +85,15 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     setIsTestingActive(true);
     setClickEvents([]);
     setLastClickTime(Date.now());
-
-    console.log('✅ Testing session started:', {
-      sessionId,
-      targetSentence,
-      buttonStyle,
-      buttonPosition
-    });
   };
 
-  const endTesting = async () => {
-    if (!testingData || !isTestingActive) return;
+  const submitCurrentTest = async () => {
+    if (!testingData || !isTestingActive || !currentTest) return;
 
     const endTime = new Date();
     const totalTime = (endTime.getTime() - testingData.startTime.getTime()) / 1000;
     
-    // Calculate all metrics
+    // Calculate metrics
     const suggestionClicks = clickEvents.filter(e => e.type === 'suggestion').length;
     const suggestion_usage_rate = testingData.totalSuggestions > 0 
       ? (suggestionClicks / testingData.totalSuggestions) * 100 
@@ -81,15 +117,9 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       avg_click_interval: avgClickInterval
     };
 
-    console.log('=== USER TESTING DATA ===', finalData);
-    
-    // Save to localStorage
-    const existingData = localStorage.getItem('userTestingData');
-    const allData = existingData ? JSON.parse(existingData) : [];
-    allData.push(finalData);
-    localStorage.setItem('userTestingData', JSON.stringify(allData));
+    console.log(`✅ Test ${automatedController.getProgress().current + 1} completed:`, finalData);
 
-    // Submit to Google Forms with button style and position
+    // Submit to Google Forms immediately
     try {
       const googleFormsData = {
         total_time: totalTime,
@@ -97,32 +127,32 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
         typo_rate,
         suggestion_error_rate,
         avg_click_interval: avgClickInterval,
-        button_style: testingData.buttonStyle,        // NEW: Include button style
-        button_position: testingData.buttonPosition   // NEW: Include button position
+        button_style: testingData.buttonStyle,
+        button_position: testingData.buttonPosition
       };
 
-      console.log('Submitting to Google Forms with UI config:', {
-        style: testingData.buttonStyle,
-        position: testingData.buttonPosition,
-        session: testingData.sessionId
-      });
-
+      console.log(`📤 Submitting test ${automatedController.getProgress().current + 1} to Google Forms...`);
       const submitted = await submitToGoogleForms(googleFormsData);
       
       if (submitted) {
-        console.log('✅ Data successfully submitted to Google Forms');
-        console.log(`📊 Session completed: ${testingData.buttonStyle} + ${testingData.buttonPosition}`);
+        console.log(`✅ Test ${automatedController.getProgress().current + 1} submitted successfully`);
       } else {
-        console.log('❌ Failed to submit to Google Forms, but data is saved locally');
+        console.log(`❌ Failed to submit test ${automatedController.getProgress().current + 1}`);
       }
     } catch (error) {
-      console.error('Google Forms submission error:', error);
+      console.error(`Google Forms submission error for test ${automatedController.getProgress().current + 1}:`, error);
     }
 
-    // Clean up
+    // Mark test as completed and move to next
+    automatedController.markCurrentTestCompleted();
     setIsTestingActive(false);
     setTestingData(null);
     setClickEvents([]);
+    
+    // Start next test after a brief delay
+    setTimeout(() => {
+      startNextTest();
+    }, 1000);
   };
 
   const trackClick = (type: 'suggestion' | 'keyboard' | 'backspace', value: string) => {
@@ -184,12 +214,19 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     return ((suggestionClicks.length - helpfulClicks.length) / suggestionClicks.length) * 100;
   };
 
+  const progress = automatedController.getProgress();
+
   return (
     <TestingContext.Provider value={{
+      automatedController,
+      currentTest,
+      isAutomatedTesting,
+      startAutomatedTesting,
+      submitCurrentTest,
+      isAllTestsCompleted,
+      progress,
       isTestingActive,
       testingData,
-      startTesting,
-      endTesting,
       trackClick,
       trackSuggestion,
       trackSuggestionAccuracy
