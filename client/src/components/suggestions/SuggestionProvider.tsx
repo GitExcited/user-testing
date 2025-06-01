@@ -58,8 +58,15 @@ export default function SuggestionProvider({
   };
 
   const handleSuggestionClick = (suggestion: string) => {
+    // Check if this suggestion is the correct one before making changes
+    const isCorrect = predictionEngine.isCorrectSuggestion(suggestion, userInput);
+    
+    // Track the click with additional context about correctness
     trackClick('suggestion', suggestion);
     trackSuggestion();
+    
+    // Log for debugging
+    console.log('Suggestion clicked:', suggestion, 'Is correct:', isCorrect);
     
     // Smart word replacement logic
     const words = userInput.trim().split(/\s+/).filter(word => word.length > 0);

@@ -7,6 +7,16 @@ export class PredictionEngine {
     this.currentScenario = scenario;
   }
   
+  // Helper function to shuffle an array randomly
+  private shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+  
   getPredictions(currentInput: string): string[] {
     if (!this.currentScenario) return [];
     
@@ -55,10 +65,14 @@ export class PredictionEngine {
     const fakePredictions = this.currentScenario.fakePredictions[nextWordIndex] || [];
     console.log('Fake predictions:', fakePredictions);
     
-    // Return the correct word first, followed by fake predictions
-    const result = [correctNextWord, ...fakePredictions];
-    console.log('Returning predictions:', result);
-    return result;
+    // Combine correct and fake predictions, then randomize the order
+    const allPredictions = [correctNextWord, ...fakePredictions];
+    const randomizedPredictions = this.shuffleArray(allPredictions);
+    
+    console.log('Original order:', [correctNextWord, ...fakePredictions]);
+    console.log('Randomized order:', randomizedPredictions);
+    
+    return randomizedPredictions;
   }
   
   getTargetSentence(): string {
@@ -78,6 +92,12 @@ export class PredictionEngine {
     if (nextWordIndex >= this.currentScenario.words.length) return null;
     
     return this.currentScenario.words[nextWordIndex];
+  }
+  
+  // Helper method to check if a clicked suggestion is the correct one
+  isCorrectSuggestion(suggestion: string, currentInput: string): boolean {
+    const correctWord = this.getNextCorrectWord(currentInput);
+    return suggestion === correctWord;
   }
 }
 
