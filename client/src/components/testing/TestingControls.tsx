@@ -1,7 +1,8 @@
-import { Play, Square } from "lucide-react";
+import { Play, Square, Send } from "lucide-react";
 import { useTesting } from "./TestingProvider";
 import { useSuggestions } from "../suggestions/SuggestionProvider";
 import { PREDICTION_SCENARIOS } from "@/data/predictionScenarios";
+import { testGoogleFormsSubmission } from "@/utils/googleFormsSubmission";
 
 export default function TestingControls() {
   const { isTestingActive, startTesting, endTesting, testingData } = useTesting();
@@ -10,6 +11,11 @@ export default function TestingControls() {
   const handleStartTesting = () => {
     const scenario = PREDICTION_SCENARIOS[currentScenario];
     startTesting(scenario.targetSentence, buttonStyle, buttonPosition);
+  };
+
+  const handleTestGoogleForms = async () => {
+    console.log('Testing Google Forms submission...');
+    await testGoogleFormsSubmission();
   };
 
   return (
@@ -35,13 +41,25 @@ export default function TestingControls() {
       </div>
 
       {!isTestingActive ? (
-        <button
-          onClick={handleStartTesting}
-          className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-        >
-          <Play className="h-4 w-4" />
-          Start Testing
-        </button>
+        <>
+          <button
+            onClick={handleStartTesting}
+            className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+          >
+            <Play className="h-4 w-4" />
+            Start Testing
+          </button>
+          
+          {/* NEW: Test Google Forms button */}
+          <button
+            onClick={handleTestGoogleForms}
+            className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            title="Send test data to Google Forms"
+          >
+            <Send className="h-4 w-4" />
+            Test Forms
+          </button>
+        </>
       ) : (
         <button
           onClick={endTesting}

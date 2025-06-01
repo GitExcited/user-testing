@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { UserTestingData, ClickEvent } from "@shared/userTesting";
+import { submitToGoogleForms } from "@/utils/googleFormsSubmission";
 
 interface TestingContextType {
   isTestingActive: boolean;
@@ -43,30 +44,25 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     setLastClickTime(Date.now());
   };
 
-  const endTesting = () => {
+  const endTesting = async () => {
     if (!testingData || !isTestingActive) return;
 
     const endTime = new Date();
     const totalTime = (endTime.getTime() - testingData.startTime.getTime()) / 1000;
     
-    // Calculate suggestion usage rate
+    // Calculate all your existing metrics
     const suggestionClicks = clickEvents.filter(e => e.type === 'suggestion').length;
     const suggestion_usage_rate = testingData.totalSuggestions > 0 
       ? (suggestionClicks / testingData.totalSuggestions) * 100 
       : 0;
     
-    // Calculate typo rate
     const typo_rate = calculateTypoRate(testingData.finalText, testingData.targetSentence);
     
-    // Calculate average click interval
     const avgClickInterval = testingData.click_interval_times.length > 0
       ? testingData.click_interval_times.reduce((a, b) => a + b, 0) / testingData.click_interval_times.length
       : 0;
 
-    const totalSuggestionClicks = testingData.correctSuggestionClicks + testingData.incorrectSuggestionClicks;
-    const predictionAccuracy = totalSuggestionClicks > 0 
-      ? (testingData.correctSuggestionClicks / totalSuggestionClicks) * 100 
-      : 0;
+    const suggestion_error_rate = calculateSuggestionErrorRate();
 
     const finalData = {
       ...testingData,
@@ -74,17 +70,46 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       total_time: totalTime,
       suggestion_usage_rate,
       typo_rate,
-      suggestion_error_rate: calculateSuggestionErrorRate(),
-      predictionAccuracy
+      suggestion_error_rate,
+      avg_click_interval: avgClickInterval
     };
 
     console.log('=== USER TESTING DATA ===', finalData);
+    
+    // Save to localStorage (keep your existing functionality)
     const existingData = localStorage.getItem('userTestingData');
     const allData = existingData ? JSON.parse(existingData) : [];
     allData.push(finalData);
     localStorage.setItem('userTestingData', JSON.stringify(allData));
-    
+
+    // NEW: Submit to Google Forms
+    try {
+      const googleFormsData = {
+        total_time: totalTime,
+        suggestion_usage_rate,
+        typo_rate,
+        suggestion_error_rate,
+        avg_click_interval: avgClickInterval
+      };
+
+      console.log('Submitting to Google Forms:', googleFormsData);
+      const submitted = await submitToGoogleForms(googleFormsData);
+      
+      if (submitted) {
+        console.log('✅ Data successfully submitted to Google Forms');
+        // Optionally show success message to user
+      } else {
+        console.log('❌ Failed to submit to Google Forms, but data is saved locally');
+      }
+    } catch (error) {
+      console.error('Google Forms submission error:', error);
+      // Data is still saved locally, so this isn't critical
+    }
+
+    // Clean up
     setIsTestingActive(false);
+    setTestingData(null);
+    setClickEvents([]);
   };
 
   const trackClick = (type: 'suggestion' | 'keyboard' | 'backspace', value: string) => {
