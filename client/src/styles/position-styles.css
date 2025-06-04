@@ -10,6 +10,7 @@
   background-color: #f9f9f9;
   min-height: calc(100vh - 60px);
   padding: 20px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .chat-messages {
@@ -19,41 +20,70 @@
   margin: 0;
   display: flex;
   flex-direction: column;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Above textbox layout */
+/* Above textbox layout with FIXED HEIGHT */
 .position-above-textbox .suggestions {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 0;
   width: 100%;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* FIXED: Always reserve space for 3 horizontal buttons */
+  height: 86px !important;
+  min-height: 86px !important;
+  max-height: 86px !important;
+  align-items: center;
+  overflow: hidden; /* Hide any overflow */
 }
 
 .position-above-textbox .suggestion-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  /* Force fixed height even if fewer buttons */
+  height: 86px !important;
+  min-height: 86px !important;
+  max-height: 86px !important;
 }
 
 .position-above-textbox .input-container {
   background-color: white;
   border-radius: 8px;
   padding: 12px;
-  margin-top: 50px;
+  margin-top: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Below textbox layout */
+/* Below textbox layout with FIXED HEIGHT */
 .position-below-textbox .suggestions {
   margin-top: 20px;
   width: 100%;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* FIXED: Always reserve space for 3 horizontal buttons */
+  height: 86px !important;
+  min-height: 86px !important;
+  max-height: 86px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Hide any overflow */
 }
 
 .position-below-textbox .suggestion-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Force fixed height even if fewer buttons */
+  height: 86px !important;
+  min-height: 86px !important;
+  max-height: 86px !important;
 }
 
 .position-below-textbox .input-container {
@@ -62,9 +92,10 @@
   padding: 16px;
   margin-bottom: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Right of textbox layout - IMPROVED */
+/* CRITICAL FIX: All right position elements get locked height */
 .position-right-textbox {
   display: flex !important;
   align-items: flex-start !important;
@@ -72,17 +103,58 @@
   max-width: 100% !important;
 }
 
-.position-right-textbox .suggestion-buttons {
-  display: flex;
+/* LOCK DOWN THE RIGHT SUGGESTIONS CONTAINER */
+.position-right-textbox .suggestions {
+  /* ABSOLUTE FIXED DIMENSIONS - NO CHANGES ALLOWED */
+  width: 180px !important;
+  height: 216px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+  min-height: 216px !important;
+  max-height: 216px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  display: flex !important;
   flex-direction: column !important;
-  align-items: stretch;
-  gap: 12px;
-  min-width: 180px;
-  flex-shrink: 0;
+  overflow: hidden !important; /* Prevent any size changes */
 }
 
+/* LOCK DOWN THE BUTTON CONTAINER */
+.position-right-textbox .suggestion-buttons {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  /* ABSOLUTE FIXED DIMENSIONS - NO CHANGES ALLOWED */
+  width: 180px !important;
+  height: 216px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+  min-height: 216px !important;
+  max-height: 216px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  justify-content: flex-start !important;
+  align-content: flex-start !important;
+  overflow: hidden !important; /* Prevent any overflow */
+  box-sizing: border-box !important;
+}
+
+/* LOCK DOWN VERTICAL STACK */
 .position-right-textbox .suggestion-buttons.vertical-stack {
-  padding-top: 8px;
+  padding-top: 8px !important;
+  /* ABSOLUTE DIMENSIONS */
+  width: 180px !important;
+  height: 216px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+  min-height: 216px !important;
+  max-height: 216px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 .position-right-textbox .input-container {
@@ -92,6 +164,42 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   flex-shrink: 0;
   width: 500px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* LEGACY RIGHT POSITION - ALSO LOCK DOWN */
+.position-right .suggestions {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ABSOLUTE FIXED DIMENSIONS */
+  width: 180px !important;
+  height: 216px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+  min-height: 216px !important;
+  max-height: 216px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  overflow: hidden !important;
+}
+
+.position-right .suggestion-buttons {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.position-right .suggestion-buttons.vertical-stack {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ABSOLUTE DIMENSIONS */
+  width: 180px !important;
+  height: 216px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+  min-height: 216px !important;
+  max-height: 216px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  justify-content: flex-start !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 /* Responsive layouts */
@@ -102,6 +210,17 @@
   
   .position-right-textbox .input-container {
     width: 450px;
+  }
+  
+  /* ABSOLUTE LOCK on tablet */
+  .position-right-textbox .suggestion-buttons,
+  .position-right-textbox .suggestions {
+    height: 216px !important;
+    width: 180px !important;
+    min-height: 216px !important;
+    max-height: 216px !important;
+    min-width: 180px !important;
+    max-width: 180px !important;
   }
 }
 
@@ -114,8 +233,15 @@
     width: 400px;
   }
   
-  .position-right-textbox .suggestion-buttons {
-    min-width: 160px;
+  /* ABSOLUTE LOCK on smaller tablet */
+  .position-right-textbox .suggestion-buttons,
+  .position-right-textbox .suggestions {
+    height: 216px !important;
+    width: 160px !important;
+    min-height: 216px !important;
+    max-height: 216px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
   }
 }
 
@@ -131,11 +257,44 @@
     max-width: 500px;
   }
   
+  /* Mobile: Switch to horizontal layout with locked height */
   .position-right-textbox .suggestion-buttons {
     flex-direction: row !important;
-    flex-wrap: wrap;
-    justify-content: center;
-    min-width: auto;
-    width: 100%;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 86px !important;
+    min-height: 86px !important;
+    max-height: 86px !important;
+  }
+  
+  .position-right-textbox .suggestions {
+    width: 100% !important;
+    height: 86px !important;
+    min-height: 86px !important;
+    max-height: 86px !important;
+  }
+  
+  /* Mobile adjustments for above/below positions */
+  .position-above-textbox .suggestions,
+  .position-below-textbox .suggestions {
+    height: 86px !important;
+    min-height: 86px !important;
+    max-height: 86px !important;
+  }
+}
+
+/* Responsive smooth transitions */
+@media (max-width: 768px) {
+  .position-right .suggestions {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 86px !important;
+    width: 100% !important;
+    min-height: 86px !important;
+    max-height: 86px !important;
+  }
+  
+  .chat-container {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

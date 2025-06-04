@@ -28,11 +28,11 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Le", "lair", "lait", "lecran"],  // after typing "L"
-        ["Le", "Les", "les", "leve"],  // after typing "Le"
+        ["Le", "lair", "lait", ],  // after typing "L"
+        ["Le", "Les", "les", ],  // after typing "Le"
       ],
       [
-        ["livre", "lair", "lait", "lecran"],  // after typing "l"
+        ["livre", "lair", "lait"],  // after typing "l"
         ["livre", "lisait", "lire"],  // after typing "li"
         ["livre"],  // after typing "liv"
         ["livre"],  // after typing "livr"
@@ -46,39 +46,39 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["etait"],  // after typing "etait"
       ],
       [
-        ["pose", "piece", "pres", "presentation"],  // after typing "p"
-        ["pose", "porte", "portable", "pour"],  // after typing "po"
+        ["pose", "piece", "pres"],  // after typing "p"
+        ["pose", "porte", "portable"],  // after typing "po"
         ["pose"],  // after typing "pos"
         ["pose"],  // after typing "pose"
       ],
       [
-        ["sur", "sommes", "sa", "semblait"],  // after typing "s"
+        ["sur", "sommes", "sa"],  // after typing "s"
         ["sur"],  // after typing "su"
         ["sur"],  // after typing "sur"
       ],
       [
-        ["la", "lair", "lait", "lecran"],  // after typing "l"
-        ["la", "lait", "lampadaire", "lave"],  // after typing "la"
+        ["la", "lair", "lait"],  // after typing "l"
+        ["la", "lait", "lampadaire"],  // after typing "la"
       ],
       [
-        ["table", "tape", "train", "tour"],  // after typing "t"
+        ["table", "tape", "train"],  // after typing "t"
         ["table", "tape", "tapote"],  // after typing "ta"
         ["table"],  // after typing "tab"
         ["table"],  // after typing "tabl"
         ["table"],  // after typing "table"
       ],
       [
-        ["pres", "pose", "piece", "presentation"],  // after typing "p"
-        ["pres", "presentation", "promener", "promenade"],  // after typing "pr"
+        ["pres", "pose", "piece"],  // after typing "p"
+        ["pres", "presentation", "promener"],  // after typing "pr"
         ["pres"],  // after typing "pre"
         ["pres"],  // after typing "pres"
       ],
       [
-        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "du", "dans"],  // after typing "d"
         ["de", "descends", "devenu"],  // after typing "de"
       ],
       [
-        ["fenetre", "fonctionner", "fichier", "formulaire"],  // after typing "f"
+        ["fenetre", "fonctionner", "fichier"],  // after typing "f"
         ["fenetre", "ferme"],  // after typing "fe"
         ["fenetre"],  // after typing "fen"
         ["fenetre"],  // after typing "fene"
@@ -105,30 +105,30 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Elle", "envoye", "encore", "ensoleille"],  // after typing "E"
+        ["Elle", "envoye", "encore"],  // after typing "E"
         ["Elle"],  // after typing "El"
         ["Elle"],  // after typing "Ell"
         ["Elle"],  // after typing "Elle"
       ],
       [
-        ["est", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["est", "envoye", "encore"],  // after typing "e"
         ["est", "essuyee"],  // after typing "es"
         ["est"],  // after typing "est"
       ],
       [
-        ["allee", "avec", "apres", "a"],  // after typing "a"
+        ["allee", "avec", "apres"],  // after typing "a"
         ["allee", "alles"],  // after typing "al"
         ["allee", "alles"],  // after typing "all"
         ["allee", "alles"],  // after typing "alle"
         ["allee"],  // after typing "allee"
       ],
       [
-        ["se", "sur", "sommes", "sa"],  // after typing "s"
+        ["se", "sur", "sommes"],  // after typing "s"
         ["se", "semblait", "secondes"],  // after typing "se"
       ],
       [
-        ["promener", "pose", "piece", "pres"],  // after typing "p"
-        ["promener", "pres", "presentation", "promenade"],  // after typing "pr"
+        ["promener", "pose", "piece"],  // after typing "p"
+        ["promener", "pres", "presentation"],  // after typing "pr"
         ["promener", "promenade"],  // after typing "pro"
         ["promener", "promenade"],  // after typing "prom"
         ["promener", "promenade"],  // after typing "prome"
@@ -137,18 +137,18 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["promener"],  // after typing "promener"
       ],
       [
-        ["dans", "du", "descends", "decroche"],  // after typing "d"
+        ["dans", "du", "descends"],  // after typing "d"
         ["dans"],  // after typing "da"
         ["dans"],  // after typing "dan"
         ["dans"],  // after typing "dans"
       ],
       [
-        ["le", "lair", "lait", "lecran"],  // after typing "l"
-        ["le", "Les", "Le", "les"],  // after typing "le"
+        ["le", "lair", "lait"],  // after typing "l"
+        ["le", "Les", "Le"],  // after typing "le"
       ],
       [
-        ["quartier", "que", "quelques", "quand"],  // after typing "q"
-        ["quartier", "que", "quelques", "quand"],  // after typing "qu"
+        ["quartier", "que", "quelques"],  // after typing "q"
+        ["quartier", "que", "quelques"],  // after typing "qu"
         ["quartier", "quand"],  // after typing "qua"
         ["quartier"],  // after typing "quar"
         ["quartier"],  // after typing "quart"
@@ -174,8 +174,8 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Peux-tu", "pose", "piece", "pres"],  // after typing "P"
-        ["Peux-tu", "peu", "pendant", "petite"],  // after typing "Pe"
+        ["Peux-tu", "pose", "piece"],  // after typing "P"
+        ["Peux-tu", "peu", "pendant"],  // after typing "Pe"
         ["Peux-tu", "peu"],  // after typing "Peu"
         ["Peux-tu"],  // after typing "Peux"
         ["Peux-tu"],  // after typing "Peux-"
@@ -183,7 +183,7 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["Peux-tu"],  // after typing "Peux-tu"
       ],
       [
-        ["apporter", "avec", "apres", "a"],  // after typing "a"
+        ["apporter", "avec", "apres"],  // after typing "a"
         ["apporter", "apres"],  // after typing "ap"
         ["apporter"],  // after typing "app"
         ["apporter"],  // after typing "appo"
@@ -193,29 +193,29 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["apporter"],  // after typing "apporter"
       ],
       [
-        ["les", "lair", "lait", "lecran"],  // after typing "l"
-        ["les", "Les", "Le", "leve"],  // after typing "le"
+        ["les", "lair", "lait"],  // after typing "l"
+        ["les", "Les", "Le"],  // after typing "le"
         ["les", "Les"],  // after typing "les"
       ],
       [
-        ["cles", "colis", "cesse", "cinq"],  // after typing "c"
+        ["cles", "colis", "cesse"],  // after typing "c"
         ["cles"],  // after typing "cl"
         ["cles"],  // after typing "cle"
         ["cles"],  // after typing "cles"
       ],
       [
-        ["quand", "que", "quelques", "quartier"],  // after typing "q"
-        ["quand", "que", "quelques", "quartier"],  // after typing "qu"
+        ["quand", "que", "quelques"],  // after typing "q"
+        ["quand", "que", "quelques"],  // after typing "qu"
         ["quand", "quartier"],  // after typing "qua"
         ["quand"],  // after typing "quan"
         ["quand"],  // after typing "quand"
       ],
       [
-        ["tu", "tape", "train", "tour"],  // after typing "t"
+        ["tu", "tape", "train"],  // after typing "t"
         ["tu"],  // after typing "tu"
       ],
       [
-        ["descends", "du", "dans", "decroche"],  // after typing "d"
+        ["descends", "du", "dans"],  // after typing "d"
         ["descends", "de", "devenu"],  // after typing "de"
         ["descends"],  // after typing "des"
         ["descends"],  // after typing "desc"
@@ -246,12 +246,12 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["La", "lair", "lait", "lecran"],  // after typing "L"
-        ["La", "lait", "lampadaire", "lave"],  // after typing "La"
+        ["La", "lair", "lait"],  // after typing "L"
+        ["La", "lait", "lampadaire"],  // after typing "La"
       ],
       [
-        ["machine", "marche", "magasin", "matin"],  // after typing "m"
-        ["machine", "marche", "magasin", "matin"],  // after typing "ma"
+        ["machine", "marche", "magasin"],  // after typing "m"
+        ["machine", "marche", "magasin"],  // after typing "ma"
         ["machine"],  // after typing "mac"
         ["machine"],  // after typing "mach"
         ["machine"],  // after typing "machi"
@@ -262,27 +262,27 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["a"],  // after typing "a"
       ],
       [
-        ["cafe", "colis", "cesse", "cinq"],  // after typing "c"
+        ["cafe", "colis", "cesse"],  // after typing "c"
         ["cafe", "carnet"],  // after typing "ca"
         ["cafe"],  // after typing "caf"
         ["cafe"],  // after typing "cafe"
       ],
       [
-        ["a", "avec", "apres", "au"],  // after typing "a"
+        ["a", "avec", "apres"],  // after typing "a"
       ],
       [
-        ["cesse", "colis", "cinq", "carnet"],  // after typing "c"
+        ["cesse", "colis", "cinq"],  // after typing "c"
         ["cesse", "ce"],  // after typing "ce"
         ["cesse"],  // after typing "ces"
         ["cesse"],  // after typing "cess"
         ["cesse"],  // after typing "cesse"
       ],
       [
-        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "du", "dans"],  // after typing "d"
         ["de", "descends", "devenu"],  // after typing "de"
       ],
       [
-        ["fonctionner", "fenetre", "fichier", "formulaire"],  // after typing "f"
+        ["fonctionner", "fenetre", "fichier"],  // after typing "f"
         ["fonctionner", "formulaire"],  // after typing "fo"
         ["fonctionner"],  // after typing "fon"
         ["fonctionner"],  // after typing "fonc"
@@ -295,23 +295,23 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["fonctionner"],  // after typing "fonctionner"
       ],
       [
-        ["ce", "colis", "cesse", "cinq"],  // after typing "c"
+        ["ce", "colis", "cesse"],  // after typing "c"
         ["ce", "cesse"],  // after typing "ce"
       ],
       [
-        ["matin", "marche", "magasin", "mise"],  // after typing "m"
-        ["matin", "marche", "magasin", "machine"],  // after typing "ma"
+        ["matin", "marche", "magasin"],  // after typing "m"
+        ["matin", "marche", "magasin"],  // after typing "ma"
         ["matin"],  // after typing "mat"
         ["matin"],  // after typing "mati"
         ["matin"],  // after typing "matin"
       ],
       [
-        ["je", "jai", "jusquau", "jenverrai"],  // after typing "j"
+        ["je", "jai", "jusquau"],  // after typing "j"
         ["je"],  // after typing "je"
       ],
       [
-        ["pense", "pose", "piece", "pres"],  // after typing "p"
-        ["pense", "peu", "pendant", "petite"],  // after typing "pe"
+        ["pense", "pose", "piece"],  // after typing "p"
+        ["pense", "peu", "pendant"],  // after typing "pe"
         ["pense", "pendant"],  // after typing "pen"
         ["pense"],  // after typing "pens"
         ["pense"],  // after typing "pense"
@@ -335,7 +335,7 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Jenverrai", "je", "jai", "jusquau"],  // after typing "J"
+        ["Jenverrai", "je", "jai"],  // after typing "J"
         ["Jenverrai", "jai"],  // after typing "Je"
         ["Jenverrai"],  // after typing "Jen"
         ["Jenverrai"],  // after typing "Jenv"
@@ -346,11 +346,11 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["Jenverrai"],  // after typing "Jenverrai"
       ],
       [
-        ["le", "lair", "lait", "lecran"],  // after typing "l"
-        ["le", "Les", "Le", "les"],  // after typing "le"
+        ["le", "lair", "lait"],  // after typing "l"
+        ["le", "Les", "Le"],  // after typing "le"
       ],
       [
-        ["rapport", "retard", "rempli", "restes"],  // after typing "r"
+        ["rapport", "retard", "rempli"],  // after typing "r"
         ["rapport", "rangee"],  // after typing "ra"
         ["rapport"],  // after typing "rap"
         ["rapport"],  // after typing "rapp"
@@ -359,26 +359,26 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["rapport"],  // after typing "rapport"
       ],
       [
-        ["dici", "du", "dans", "descends"],  // after typing "d"
+        ["dici", "du", "dans"],  // after typing "d"
         ["dici"],  // after typing "di"
         ["dici"],  // after typing "dic"
         ["dici"],  // after typing "dici"
       ],
       [
-        ["la", "lair", "lait", "lecran"],  // after typing "l"
-        ["la", "lait", "lampadaire", "lave"],  // after typing "la"
+        ["la", "lair", "lait"],  // after typing "l"
+        ["la", "lait", "lampadaire"],  // after typing "la"
       ],
       [
-        ["fin", "fenetre", "fonctionner", "fichier"],  // after typing "f"
+        ["fin", "fenetre", "fonctionner"],  // after typing "f"
         ["fin", "fichier"],  // after typing "fi"
         ["fin"],  // after typing "fin"
       ],
       [
-        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "du", "dans"],  // after typing "d"
         ["de", "descends", "devenu"],  // after typing "de"
       ],
       [
-        ["journee", "je", "jai", "jusquau"],  // after typing "j"
+        ["journee", "je", "jai"],  // after typing "j"
         ["journee", "jour"],  // after typing "jo"
         ["journee", "jour"],  // after typing "jou"
         ["journee", "jour"],  // after typing "jour"
@@ -404,15 +404,15 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Il", "imprimees", "immediatement", "Ils"],  // after typing "I"
+        ["Il", "imprimees", "immediatement"],  // after typing "I"
         ["Il", "Ils"],  // after typing "Il"
       ],
       [
-        ["a", "avec", "apres", "au"],  // after typing "a"
+        ["a", "avec", "apres"],  // after typing "a"
       ],
       [
-        ["regarde", "retard", "rapport", "rempli"],  // after typing "r"
-        ["regarde", "retard", "rempli", "restes"],  // after typing "re"
+        ["regarde", "retard", "rapport"],  // after typing "r"
+        ["regarde", "retard", "rempli"],  // after typing "re"
         ["regarde"],  // after typing "reg"
         ["regarde"],  // after typing "rega"
         ["regarde"],  // after typing "regar"
@@ -420,19 +420,19 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["regarde"],  // after typing "regarde"
       ],
       [
-        ["lecran", "lair", "lait", "lecran"],  // after typing "l"
-        ["lecran", "lair", "lecran", "lont"],  // after typing "le"
-        ["lecran", "lecran", "letagere"],  // after typing "lec"
-        ["lecran", "lecran"],  // after typing "lecr"
-        ["lecran", "lecran"],  // after typing "lecra"
-        ["lecran", "lecran"],  // after typing "lecran"
+        ["lecran", "lair", "lait"],  // after typing "l"
+        ["lecran", "lair", "lont"],  // after typing "le"
+        ["lecran", "letagere"],  // after typing "lec"
+        ["lecran"],  // after typing "lecr"
+        ["lecran"],  // after typing "lecra"
+        ["lecran"],  // after typing "lecran"
       ],
       [
-        ["et", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["et", "envoye", "encore"],  // after typing "e"
         ["et"],  // after typing "et"
       ],
       [
-        ["tapote", "tape", "train", "tour"],  // after typing "t"
+        ["tapote", "tape", "train"],  // after typing "t"
         ["tapote", "tape", "table"],  // after typing "ta"
         ["tapote", "tape"],  // after typing "tap"
         ["tapote"],  // after typing "tapo"
@@ -440,8 +440,8 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["tapote"],  // after typing "tapote"
       ],
       [
-        ["le", "lair", "lait", "lecran"],  // after typing "l"
-        ["le", "Les", "Le", "les"],  // after typing "le"
+        ["le", "lair", "lait"],  // after typing "l"
+        ["le", "Les", "Le"],  // after typing "le"
       ],
       [
         ["bouton", "bien", "bureau"],  // after typing "b"
@@ -470,25 +470,25 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Ils", "imprimees", "immediatement", "instructions"],  // after typing "I"
+        ["Ils", "imprimees", "immediatement"],  // after typing "I"
         ["Ils", "Il"],  // after typing "Il"
         ["Ils"],  // after typing "Ils"
       ],
       [
-        ["ont", "ouvert", "oublie", "ordinateur"],  // after typing "o"
+        ["ont", "ouvert", "oublie"],  // after typing "o"
         ["ont"],  // after typing "on"
         ["ont"],  // after typing "ont"
       ],
       [
-        ["marche", "magasin", "matin", "mise"],  // after typing "m"
-        ["marche", "magasin", "matin", "machine"],  // after typing "ma"
+        ["marche", "magasin", "matin"],  // after typing "m"
+        ["marche", "magasin", "machine"],  // after typing "ma"
         ["marche"],  // after typing "mar"
         ["marche"],  // after typing "marc"
         ["marche"],  // after typing "march"
         ["marche"],  // after typing "marche"
       ],
       [
-        ["jusquau", "je", "jai", "jenverrai"],  // after typing "j"
+        ["jusquau", "je", "jai"],  // after typing "j"
         ["jusquau", "juste"],  // after typing "ju"
         ["jusquau", "juste"],  // after typing "jus"
         ["jusquau"],  // after typing "jusq"
@@ -497,8 +497,8 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["jusquau"],  // after typing "jusquau"
       ],
       [
-        ["magasin", "marche", "matin", "mise"],  // after typing "m"
-        ["magasin", "marche", "matin", "machine"],  // after typing "ma"
+        ["magasin", "marche", "matin"],  // after typing "m"
+        ["magasin", "marche", "machine"],  // after typing "ma"
         ["magasin"],  // after typing "mag"
         ["magasin"],  // after typing "maga"
         ["magasin"],  // after typing "magas"
@@ -506,14 +506,14 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["magasin"],  // after typing "magasin"
       ],
       [
-        ["pour", "pose", "piece", "pres"],  // after typing "p"
-        ["pour", "pose", "porte", "portable"],  // after typing "po"
+        ["pour", "pose", "piece"],  // after typing "p"
+        ["pour", "pose", "porte"],  // after typing "po"
         ["pour"],  // after typing "pou"
         ["pour"],  // after typing "pour"
       ],
       [
-        ["prendre", "pose", "piece", "pres"],  // after typing "p"
-        ["prendre", "pres", "presentation", "promener"],  // after typing "pr"
+        ["prendre", "pose", "piece"],  // after typing "p"
+        ["prendre", "pres", "presentation"],  // after typing "pr"
         ["prendre"],  // after typing "pre"
         ["prendre"],  // after typing "pren"
         ["prendre"],  // after typing "prend"
@@ -521,12 +521,12 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["prendre"],  // after typing "prendre"
       ],
       [
-        ["du", "dans", "descends", "decroche"],  // after typing "d"
+        ["du", "dans", "descends"],  // after typing "d"
         ["du"],  // after typing "du"
       ],
       [
-        ["lait", "lair", "lecran", "lisait"],  // after typing "l"
-        ["lait", "lampadaire", "lave", "La"],  // after typing "la"
+        ["lait", "lair", "lecran"],  // after typing "l"
+        ["lait", "lampadaire", "lave"],  // after typing "la"
         ["lait", "laisse", "laisser"],  // after typing "lai"
         ["lait"],  // after typing "lait"
       ],
@@ -549,18 +549,18 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["La", "lair", "lait", "lecran"],  // after typing "L"
-        ["La", "lait", "lampadaire", "lave"],  // after typing "La"
+        ["La", "lair", "lait"],  // after typing "L"
+        ["La", "lait", "lampadaire"],  // after typing "La"
       ],
       [
-        ["piece", "pose", "pres", "presentation"],  // after typing "p"
+        ["piece", "pose", "pres"],  // after typing "p"
         ["piece"],  // after typing "pi"
         ["piece"],  // after typing "pie"
         ["piece"],  // after typing "piec"
         ["piece"],  // after typing "piece"
       ],
       [
-        ["semblait", "sur", "sommes", "sa"],  // after typing "s"
+        ["semblait", "sur", "sommes"],  // after typing "s"
         ["semblait", "secondes", "se"],  // after typing "se"
         ["semblait"],  // after typing "sem"
         ["semblait"],  // after typing "semb"
@@ -570,7 +570,7 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["semblait"],  // after typing "semblait"
       ],
       [
-        ["lumineuse", "lair", "lait", "lecran"],  // after typing "l"
+        ["lumineuse", "lair", "lait"],  // after typing "l"
         ["lumineuse", "lumieres"],  // after typing "lu"
         ["lumineuse", "lumieres"],  // after typing "lum"
         ["lumineuse", "lumieres"],  // after typing "lumi"
@@ -581,11 +581,11 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["lumineuse"],  // after typing "lumineuse"
       ],
       [
-        ["et", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["et", "envoye", "encore"],  // after typing "e"
         ["et"],  // after typing "et"
       ],
       [
-        ["vraiment", "verrouiller", "vaisselle", "voiture"],  // after typing "v"
+        ["vraiment", "verrouiller", "vaisselle"],  // after typing "v"
         ["vraiment"],  // after typing "vr"
         ["vraiment"],  // after typing "vra"
         ["vraiment"],  // after typing "vrai"
@@ -601,7 +601,7 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["bien"],  // after typing "bien"
       ],
       [
-        ["rangee", "retard", "rapport", "rempli"],  // after typing "r"
+        ["rangee", "retard", "rapport"],  // after typing "r"
         ["rangee", "rapport"],  // after typing "ra"
         ["rangee"],  // after typing "ran"
         ["rangee"],  // after typing "rang"
@@ -626,27 +626,27 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Elle", "envoye", "encore", "ensoleille"],  // after typing "E"
+        ["Elle", "envoye", "encore"],  // after typing "E"
         ["Elle"],  // after typing "El"
         ["Elle"],  // after typing "Ell"
         ["Elle"],  // after typing "Elle"
       ],
       [
-        ["a", "avec", "apres", "au"],  // after typing "a"
+        ["a", "avec", "apres"],  // after typing "a"
       ],
       [
-        ["tape", "train", "tour", "termine"],  // after typing "t"
+        ["tape", "train", "tour"],  // after typing "t"
         ["tape", "table", "tapote"],  // after typing "ta"
         ["tape", "tapote"],  // after typing "tap"
         ["tape"],  // after typing "tape"
       ],
       [
-        ["son", "sur", "sommes", "sa"],  // after typing "s"
-        ["son", "sommes", "sonneries", "soir"],  // after typing "so"
+        ["son", "sur", "sommes"],  // after typing "s"
+        ["son", "sommes", "sonneries"],  // after typing "so"
         ["son", "sonneries"],  // after typing "son"
       ],
       [
-        ["message", "marche", "magasin", "matin"],  // after typing "m"
+        ["message", "marche", "magasin"],  // after typing "m"
         ["message"],  // after typing "me"
         ["message"],  // after typing "mes"
         ["message"],  // after typing "mess"
@@ -655,19 +655,19 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["message"],  // after typing "message"
       ],
       [
-        ["et", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["et", "envoye", "encore"],  // after typing "e"
         ["et"],  // after typing "et"
       ],
       [
-        ["envoye", "encore", "ensoleille", "essuyee"],  // after typing "e"
-        ["envoye", "encore", "ensoleille", "entrer"],  // after typing "en"
+        ["envoye", "encore", "ensoleille"],  // after typing "e"
+        ["envoye", "encore", "entrer"],  // after typing "en"
         ["envoye", "environ"],  // after typing "env"
         ["envoye"],  // after typing "envo"
         ["envoye"],  // after typing "envoy"
         ["envoye"],  // after typing "envoye"
       ],
       [
-        ["immediatement", "imprimees", "Ils", "instructions"],  // after typing "i"
+        ["immediatement", "imprimees", "Ils"],  // after typing "i"
         ["immediatement", "imprimees"],  // after typing "im"
         ["immediatement"],  // after typing "imm"
         ["immediatement"],  // after typing "imme"
@@ -701,23 +701,23 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Le", "lair", "lait", "lecran"],  // after typing "L"
-        ["Le", "Les", "les", "leve"],  // after typing "Le"
+        ["Le", "lair", "lait"],  // after typing "L"
+        ["Le", "Les", "les"],  // after typing "Le"
       ],
       [
-        ["train", "tape", "tour", "termine"],  // after typing "t"
+        ["train", "tape", "tour"],  // after typing "t"
         ["train"],  // after typing "tr"
         ["train"],  // after typing "tra"
         ["train"],  // after typing "trai"
         ["train"],  // after typing "train"
       ],
       [
-        ["est", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["est", "envoye", "encore"],  // after typing "e"
         ["est", "essuyee"],  // after typing "es"
         ["est"],  // after typing "est"
       ],
       [
-        ["arrive", "avec", "apres", "a"],  // after typing "a"
+        ["arrive", "avec", "apres"],  // after typing "a"
         ["arrive"],  // after typing "ar"
         ["arrive"],  // after typing "arr"
         ["arrive"],  // after typing "arri"
@@ -725,14 +725,14 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["arrive"],  // after typing "arrive"
       ],
       [
-        ["avec", "apres", "a", "au"],  // after typing "a"
+        ["avec", "apres", "a"],  // after typing "a"
         ["avec", "avons", "avant"],  // after typing "av"
         ["avec"],  // after typing "ave"
         ["avec"],  // after typing "avec"
       ],
       [
-        ["environ", "envoye", "encore", "ensoleille"],  // after typing "e"
-        ["environ", "envoye", "encore", "ensoleille"],  // after typing "en"
+        ["environ", "envoye", "encore"],  // after typing "e"
+        ["environ", "envoye", "entrer"],  // after typing "en"
         ["environ", "envoye"],  // after typing "env"
         ["environ"],  // after typing "envi"
         ["environ"],  // after typing "envir"
@@ -740,13 +740,13 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["environ"],  // after typing "environ"
       ],
       [
-        ["cinq", "colis", "cesse", "carnet"],  // after typing "c"
+        ["cinq", "colis", "cesse"],  // after typing "c"
         ["cinq"],  // after typing "ci"
         ["cinq"],  // after typing "cin"
         ["cinq"],  // after typing "cinq"
       ],
       [
-        ["minutes", "marche", "magasin", "matin"],  // after typing "m"
+        ["minutes", "marche", "magasin"],  // after typing "m"
         ["minutes", "mise", "mis"],  // after typing "mi"
         ["minutes"],  // after typing "min"
         ["minutes"],  // after typing "minu"
@@ -755,12 +755,12 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["minutes"],  // after typing "minutes"
       ],
       [
-        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "du", "dans"],  // after typing "d"
         ["de", "descends", "devenu"],  // after typing "de"
       ],
       [
-        ["retard", "rapport", "rempli", "restes"],  // after typing "r"
-        ["retard", "rempli", "restes", "regarde"],  // after typing "re"
+        ["retard", "rapport", "rempli"],  // after typing "r"
+        ["retard", "rempli", "restes"],  // after typing "re"
         ["retard"],  // after typing "ret"
         ["retard"],  // after typing "reta"
         ["retard"],  // after typing "retar"
@@ -787,14 +787,14 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["Un", "une", "un"],  // after typing "Un"
       ],
       [
-        ["chien", "colis", "cesse", "cinq"],  // after typing "c"
+        ["chien", "colis", "cesse"],  // after typing "c"
         ["chien", "charger"],  // after typing "ch"
         ["chien"],  // after typing "chi"
         ["chien"],  // after typing "chie"
         ["chien"],  // after typing "chien"
       ],
       [
-        ["aboyait", "avec", "apres", "a"],  // after typing "a"
+        ["aboyait", "avec", "apres"],  // after typing "a"
         ["aboyait"],  // after typing "ab"
         ["aboyait"],  // after typing "abo"
         ["aboyait"],  // after typing "aboy"
@@ -803,8 +803,8 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["aboyait"],  // after typing "aboyait"
       ],
       [
-        ["quelque", "que", "quelques", "quand"],  // after typing "q"
-        ["quelque", "que", "quelques", "quand"],  // after typing "qu"
+        ["quelque", "que", "quelques"],  // after typing "q"
+        ["quelque", "que", "quelques"],  // after typing "qu"
         ["quelque", "que", "quelques"],  // after typing "que"
         ["quelque", "quelques"],  // after typing "quel"
         ["quelque", "quelques"],  // after typing "quelq"
@@ -812,17 +812,17 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["quelque", "quelques"],  // after typing "quelque"
       ],
       [
-        ["part", "pose", "piece", "pres"],  // after typing "p"
-        ["part", "partir", "parc", "page"],  // after typing "pa"
-        ["part", "partir", "parc", "pars"],  // after typing "par"
+        ["part", "pose", "piece"],  // after typing "p"
+        ["part", "partir", "parc"],  // after typing "pa"
+        ["part", "partir", "pars"],  // after typing "par"
         ["part", "partir"],  // after typing "part"
       ],
       [
-        ["au", "avec", "apres", "a"],  // after typing "a"
+        ["au", "avec", "apres"],  // after typing "a"
         ["au", "aujourdhui"],  // after typing "au"
       ],
       [
-        ["loin", "lair", "lait", "lecran"],  // after typing "l"
+        ["loin", "lair", "lait"],  // after typing "l"
         ["loin"],  // after typing "lo"
         ["loin"],  // after typing "loi"
         ["loin"],  // after typing "loin"
@@ -846,23 +846,23 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ],
     wordCompletions: [
       [
-        ["Il", "imprimees", "immediatement", "Ils"],  // after typing "I"
+        ["Il", "imprimees", "immediatement"],  // after typing "I"
         ["Il", "Ils"],  // after typing "Il"
       ],
       [
-        ["a", "avec", "apres", "au"],  // after typing "a"
+        ["a", "avec", "apres"],  // after typing "a"
       ],
       [
-        ["mis", "marche", "magasin", "matin"],  // after typing "m"
+        ["mis", "marche", "magasin"],  // after typing "m"
         ["mis", "mise", "minutes"],  // after typing "mi"
         ["mis", "mise"],  // after typing "mis"
       ],
       [
-        ["le", "lair", "lait", "lecran"],  // after typing "l"
-        ["le", "Les", "Le", "les"],  // after typing "le"
+        ["le", "lair", "lait"],  // after typing "l"
+        ["le", "Les", "Le"],  // after typing "le"
       ],
       [
-        ["dossier", "du", "dans", "descends"],  // after typing "d"
+        ["dossier", "du", "dans"],  // after typing "d"
         ["dossier", "doucement"],  // after typing "do"
         ["dossier"],  // after typing "dos"
         ["dossier"],  // after typing "doss"
@@ -871,14 +871,14 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["dossier"],  // after typing "dossier"
       ],
       [
-        ["sur", "sommes", "sa", "semblait"],  // after typing "s"
+        ["sur", "sommes", "sa"],  // after typing "s"
         ["sur"],  // after typing "su"
         ["sur"],  // after typing "sur"
       ],
       [
-        ["letagere", "lair", "lait", "lecran"],  // after typing "l"
-        ["letagere", "lair", "lecran", "lont"],  // after typing "le"
-        ["letagere", "lecran", "lecran"],  // after typing "let"
+        ["letagere", "lair", "lait"],  // after typing "l"
+        ["letagere", "lair", "lecran"],  // after typing "le"
+        ["letagere", "lecran"],  // after typing "let"
         ["letagere"],  // after typing "leta"
         ["letagere"],  // after typing "letag"
         ["letagere"],  // after typing "letage"
@@ -886,7 +886,7 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
         ["letagere"],  // after typing "letagere"
       ],
       [
-        ["du", "dans", "descends", "decroche"],  // after typing "d"
+        ["du", "dans", "descends"],  // after typing "d"
         ["du"],  // after typing "du"
       ],
       [
