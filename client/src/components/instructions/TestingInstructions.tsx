@@ -3,22 +3,10 @@ import { Play, CheckCircle, Clock, BarChart3 } from "lucide-react";
 export default function TestingInstructions() {
   return (
     <div className="p-6 w-80 bg-gradient-to-br from-white to-gray-50">
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Comment effectuer le test</h3>
-        <p className="text-sm text-gray-600">Suivez ces étapes pour compléter votre session de test utilisateur</p>
-      </div>
+      
 
       <div className="space-y-4">
-        {/* Step 1 */}
-        <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-gray-100">
-          <div className="flex-shrink-0 w-8 h-8 bg-[#36CFB3] text-white rounded-full flex items-center justify-center">
-            <Play className="h-4 w-4" />
-          </div>
-          <div className="flex-1">
-            <h4 className="font-medium text-gray-800 text-sm mb-1">Démarrer le test</h4>
-            <p className="text-xs text-gray-600">Cliquez sur "Start Testing" pour commencer la séquence automatique de 12 tests</p>
-          </div>
-        </div>
+        
 
         {/* Step 2 */}
         <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-gray-100">
