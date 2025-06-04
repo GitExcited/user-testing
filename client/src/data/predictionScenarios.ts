@@ -3,207 +3,900 @@ export interface PredictionScenario {
   targetSentence: string;
   words: string[];
   fakePredictions: string[][];
+  wordCompletions?: string[][][]; // New property for character-level completions
   category?: string;
   difficulty?: 'easy' | 'medium' | 'hard';
 }
 
 export const PREDICTION_SCENARIOS: PredictionScenario[] = [
   {
-    id: "invite-ami-piscine",
-    targetSentence: "Il invite un ami à la piscine",
-    words: ["Il", "invite", "un", "ami", "à", "la", "piscine"],
-    category: "Social",
-    difficulty: "easy",
-    fakePredictions: [
-      // Predictions when user finishes typing "Il" (predicting "invite")
-      ["mange", "va"],
-      // Predictions when user finishes typing "invite" (predicting "un")
-      ["son", "le"],
-      // Predictions when user finishes typing "un" (predicting "ami")
-      ["chien", "repas"],
-      // Predictions when user finishes typing "ami" (predicting "à")
-      ["dans", "chez"],
-      // Predictions when user finishes typing "à" (predicting "la")
-      ["le", "un"],
-      // Predictions when user finishes typing "la" (predicting "piscine")
-      ["maison", "école"],
-      // After "piscine" - no more words but you can still show this for testing
-      ["plage", "parc"]  // ← Added fake predictions for after last word
-    ]
-  },
-  {
-    id: "rejoint-chien-maison",
-    targetSentence: "Elle rejoint le chien dans la maison",
-    words: ["Elle", "rejoint", "le", "chien", "dans", "la", "maison"],
-    category: "Social",
+    id: "sentence-1",
+    targetSentence: "Le livre etait pose sur la table pres de fenetre",
+    words: ["Le", "livre", "etait", "pose", "sur", "la", "table", "pres", "de", "fenetre"],
+    category: "Neutral",
     difficulty: "medium",
     fakePredictions: [
-      ["invite", "partage"],
-      ["un", "son"],
-      ["ami", "repas"],
-      ["à", "chez"],
-      ["le", "un"],
-      ["piscine", "école"],
-      ["cuisine", "jardin"]  
+      ["chat", "soleil"],        // after "Le"
+      ["rouge", "ouvert"],       // after "Le livre"
+      ["lourd", "ferme"],        // after "Le livre etait"
+      ["delicatement", "soigneusement"], // after "Le livre etait pose"
+      ["dans", "sous"],          // after "Le livre etait pose sur"
+      ["petite", "grande"],      // after "Le livre etait pose sur la"
+      ["basse", "ronde"],        // after "Le livre etait pose sur la table"
+      ["loin", "derriere"],      // after "Le livre etait pose sur la table pres"
+      ["cette", "ma"],           // after "Le livre etait pose sur la table pres de"
+    ],
+    wordCompletions: [
+      [
+        ["Le", "lair", "lait", "lecran"],  // after typing "L"
+        ["Le", "Les", "les", "leve"],  // after typing "Le"
+      ],
+      [
+        ["livre", "lair", "lait", "lecran"],  // after typing "l"
+        ["livre", "lisait", "lire"],  // after typing "li"
+        ["livre"],  // after typing "liv"
+        ["livre"],  // after typing "livr"
+        ["livre"],  // after typing "livre"
+      ],
+      [
+        ["etait", "eteint", "etaient"],  // after typing "e"
+        ["etait", "eteint", "etaient"],  // after typing "et"
+        ["etait", "etaient"],  // after typing "eta"
+        ["etait", "etaient"],  // after typing "etai"
+        ["etait"],  // after typing "etait"
+      ],
+      [
+        ["pose", "piece", "pres", "presentation"],  // after typing "p"
+        ["pose", "porte", "portable", "pour"],  // after typing "po"
+        ["pose"],  // after typing "pos"
+        ["pose"],  // after typing "pose"
+      ],
+      [
+        ["sur", "sommes", "sa", "semblait"],  // after typing "s"
+        ["sur"],  // after typing "su"
+        ["sur"],  // after typing "sur"
+      ],
+      [
+        ["la", "lair", "lait", "lecran"],  // after typing "l"
+        ["la", "lait", "lampadaire", "lave"],  // after typing "la"
+      ],
+      [
+        ["table", "tape", "train", "tour"],  // after typing "t"
+        ["table", "tape", "tapote"],  // after typing "ta"
+        ["table"],  // after typing "tab"
+        ["table"],  // after typing "tabl"
+        ["table"],  // after typing "table"
+      ],
+      [
+        ["pres", "pose", "piece", "presentation"],  // after typing "p"
+        ["pres", "presentation", "promener", "promenade"],  // after typing "pr"
+        ["pres"],  // after typing "pre"
+        ["pres"],  // after typing "pres"
+      ],
+      [
+        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "descends", "devenu"],  // after typing "de"
+      ],
+      [
+        ["fenetre", "fonctionner", "fichier", "formulaire"],  // after typing "f"
+        ["fenetre", "ferme"],  // after typing "fe"
+        ["fenetre"],  // after typing "fen"
+        ["fenetre"],  // after typing "fene"
+        ["fenetre"],  // after typing "fenet"
+        ["fenetre"],  // after typing "fenetr"
+        ["fenetre"],  // after typing "fenetre"
+      ],
     ]
   },
   {
-    id: "partage-repas-piscine",
-    targetSentence: "Il partage son repas à la piscine",
-    words: ["Il", "partage", "son", "repas", "à", "la", "piscine"],
-    category: "Food",
+    id: "sentence-2",
+    targetSentence: "Elle est allee se promener dans le quartier",
+    words: ["Elle", "est", "allee", "se", "promener", "dans", "le", "quartier"],
+    category: "Neutral",
     difficulty: "medium",
     fakePredictions: [
-      ["rejoint", "invite"],
-      ["le", "un"],
-      ["ami", "chien"],
-      ["dans", "chez"],
-      ["un", "le"],
-      ["maison", "table"],
-      ["plage", "parc"]  // ← Added for last word
+      ["mange", "dort"],         // after "Elle"
+      ["tres", "toujours"],      // after "Elle est"
+      ["vite", "tard"],          // after "Elle est allee"
+      ["bien", "doucement"],     // after "Elle est allee se"
+      ["seule", "tranquillement"], // after "Elle est allee se promener"
+      ["vers", "sur"],           // after "Elle est allee se promener dans"
+      ["vieux", "nouveau"],      // after "Elle est allee se promener dans le"
+    ],
+    wordCompletions: [
+      [
+        ["Elle", "envoye", "encore", "ensoleille"],  // after typing "E"
+        ["Elle"],  // after typing "El"
+        ["Elle"],  // after typing "Ell"
+        ["Elle"],  // after typing "Elle"
+      ],
+      [
+        ["est", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["est", "essuyee"],  // after typing "es"
+        ["est"],  // after typing "est"
+      ],
+      [
+        ["allee", "avec", "apres", "a"],  // after typing "a"
+        ["allee", "alles"],  // after typing "al"
+        ["allee", "alles"],  // after typing "all"
+        ["allee", "alles"],  // after typing "alle"
+        ["allee"],  // after typing "allee"
+      ],
+      [
+        ["se", "sur", "sommes", "sa"],  // after typing "s"
+        ["se", "semblait", "secondes"],  // after typing "se"
+      ],
+      [
+        ["promener", "pose", "piece", "pres"],  // after typing "p"
+        ["promener", "pres", "presentation", "promenade"],  // after typing "pr"
+        ["promener", "promenade"],  // after typing "pro"
+        ["promener", "promenade"],  // after typing "prom"
+        ["promener", "promenade"],  // after typing "prome"
+        ["promener", "promenade"],  // after typing "promen"
+        ["promener"],  // after typing "promene"
+        ["promener"],  // after typing "promener"
+      ],
+      [
+        ["dans", "du", "descends", "decroche"],  // after typing "d"
+        ["dans"],  // after typing "da"
+        ["dans"],  // after typing "dan"
+        ["dans"],  // after typing "dans"
+      ],
+      [
+        ["le", "lair", "lait", "lecran"],  // after typing "l"
+        ["le", "Les", "Le", "les"],  // after typing "le"
+      ],
+      [
+        ["quartier", "que", "quelques", "quand"],  // after typing "q"
+        ["quartier", "que", "quelques", "quand"],  // after typing "qu"
+        ["quartier", "quand"],  // after typing "qua"
+        ["quartier"],  // after typing "quar"
+        ["quartier"],  // after typing "quart"
+        ["quartier"],  // after typing "quarti"
+        ["quartier"],  // after typing "quartie"
+        ["quartier"],  // after typing "quartier"
+      ],
     ]
   },
   {
-    id: "invite-chien-ami",
-    targetSentence: "Elle invite le chien chez un ami",
-    words: ["Elle", "invite", "le", "chien", "chez", "un", "ami"],
-    category: "Social",
-    difficulty: "hard",
-    fakePredictions: [
-      ["partage", "rejoint"],
-      ["son", "un"],
-      ["repas", "ami"],
-      ["à", "dans"],
-      ["le", "son"],
-      ["chien", "repas"],
-      ["voisin", "collègue"]  // ← Added for last word
-    ]
-  },
-  {
-    id: "rejoint-ami-maison",
-    targetSentence: "Il rejoint un ami à la maison",
-    words: ["Il", "rejoint", "un", "ami", "à", "la", "maison"],
-    category: "Social",
-    difficulty: "easy",
-    fakePredictions: [
-      ["invite", "partage"],
-      ["le", "son"],
-      ["repas", "chien"],
-      ["chez", "dans"],
-      ["le", "un"],
-      ["piscine", "école"],
-      ["cuisine", "garage"]  // ← Added for last word
-    ]
-  },
-  {
-    id: "partage-repas-chez-moi",
-    targetSentence: "Elle partage un repas chez moi",
-    words: ["Elle", "partage", "un", "repas", "chez", "moi"],
-    category: "Food",
-    difficulty: "easy",
-    fakePredictions: [
-      ["rejoint", "invite"],
-      ["son", "le"],
-      ["ami", "chien"],
-      ["à", "dans"],
-      ["lui", "nous"],
-      ["toi", "elle"]  // ← Added for last word
-    ]
-  },
-  {
-    id: "invite-son-ami-piscine",
-    targetSentence: "Il invite son ami à la piscine",
-    words: ["Il", "invite", "son", "ami", "à", "la", "piscine"],
-    category: "Social",
+    id: "sentence-3",
+    targetSentence: "Peux-tu apporter les cles quand tu descends",
+    words: ["Peux-tu", "apporter", "les", "cles", "quand", "tu", "descends"],
+    category: "Neutral",
     difficulty: "medium",
     fakePredictions: [
-      ["partage", "rejoint"],
-      ["un", "le"],
-      ["chien", "repas"],
-      ["dans", "chez"],
-      ["un", "le"],
-      ["maison", "plage"],
-      ["parc", "plage"]  // ← Added for last word
+      ["me", "nous"],            // after "Peux-tu"
+      ["aussi", "maintenant"],   // after "Peux-tu apporter"
+      ["autres", "nouvelles"],   // after "Peux-tu apporter les"
+      ["demain", "plus"],        // after "Peux-tu apporter les cles"
+      ["on", "nous"],            // after "Peux-tu apporter les cles quand"
+      ["montes", "sors"],        // after "Peux-tu apporter les cles quand tu"
+    ],
+    wordCompletions: [
+      [
+        ["Peux-tu", "pose", "piece", "pres"],  // after typing "P"
+        ["Peux-tu", "peu", "pendant", "petite"],  // after typing "Pe"
+        ["Peux-tu", "peu"],  // after typing "Peu"
+        ["Peux-tu"],  // after typing "Peux"
+        ["Peux-tu"],  // after typing "Peux-"
+        ["Peux-tu"],  // after typing "Peux-t"
+        ["Peux-tu"],  // after typing "Peux-tu"
+      ],
+      [
+        ["apporter", "avec", "apres", "a"],  // after typing "a"
+        ["apporter", "apres"],  // after typing "ap"
+        ["apporter"],  // after typing "app"
+        ["apporter"],  // after typing "appo"
+        ["apporter"],  // after typing "appor"
+        ["apporter"],  // after typing "apport"
+        ["apporter"],  // after typing "apporte"
+        ["apporter"],  // after typing "apporter"
+      ],
+      [
+        ["les", "lair", "lait", "lecran"],  // after typing "l"
+        ["les", "Les", "Le", "leve"],  // after typing "le"
+        ["les", "Les"],  // after typing "les"
+      ],
+      [
+        ["cles", "colis", "cesse", "cinq"],  // after typing "c"
+        ["cles"],  // after typing "cl"
+        ["cles"],  // after typing "cle"
+        ["cles"],  // after typing "cles"
+      ],
+      [
+        ["quand", "que", "quelques", "quartier"],  // after typing "q"
+        ["quand", "que", "quelques", "quartier"],  // after typing "qu"
+        ["quand", "quartier"],  // after typing "qua"
+        ["quand"],  // after typing "quan"
+        ["quand"],  // after typing "quand"
+      ],
+      [
+        ["tu", "tape", "train", "tour"],  // after typing "t"
+        ["tu"],  // after typing "tu"
+      ],
+      [
+        ["descends", "du", "dans", "decroche"],  // after typing "d"
+        ["descends", "de", "devenu"],  // after typing "de"
+        ["descends"],  // after typing "des"
+        ["descends"],  // after typing "desc"
+        ["descends"],  // after typing "desce"
+        ["descends"],  // after typing "descen"
+        ["descends"],  // after typing "descend"
+        ["descends"],  // after typing "descends"
+      ],
     ]
   },
   {
-    id: "rejoint-chien-piscine",
-    targetSentence: "Elle rejoint le chien à la piscine",
-    words: ["Elle", "rejoint", "le", "chien", "à", "la", "piscine"],
-    category: "Social",
+    id: "sentence-4",
+    targetSentence: "La machine a cafe a cesse de fonctionner ce matin je pense",
+    words: ["La", "machine", "a", "cafe", "a", "cesse", "de", "fonctionner", "ce", "matin", "je", "pense"],
+    category: "Neutral",
     difficulty: "medium",
     fakePredictions: [
-      ["invite", "partage"],
-      ["son", "un"],
-      ["ami", "repas"],
-      ["chez", "dans"],
-      ["le", "un"],
-      ["maison", "école"],
-      ["parc", "plage"]  // ← Added for last word
+      ["voiture", "porte"],      // after "La"
+      ["nouvelle", "vieille"],   // after "La machine"
+      ["espresso", "expresso"],  // after "La machine a"
+      ["marche", "fonctionne"],  // after "La machine a cafe"
+      ["commence", "arrete"],    // after "La machine a cafe a"
+      ["completement", "soudain"], // after "La machine a cafe a cesse"
+      ["bien", "correctement"],  // after "La machine a cafe a cesse de"
+      ["hier", "aujourdhui"],    // after "La machine a cafe a cesse de fonctionner"
+      ["tot", "tard"],           // after "La machine a cafe a cesse de fonctionner ce"
+      ["crois", "suppose"],      // after "La machine a cafe a cesse de fonctionner ce matin"
+    ],
+    wordCompletions: [
+      [
+        ["La", "lair", "lait", "lecran"],  // after typing "L"
+        ["La", "lait", "lampadaire", "lave"],  // after typing "La"
+      ],
+      [
+        ["machine", "marche", "magasin", "matin"],  // after typing "m"
+        ["machine", "marche", "magasin", "matin"],  // after typing "ma"
+        ["machine"],  // after typing "mac"
+        ["machine"],  // after typing "mach"
+        ["machine"],  // after typing "machi"
+        ["machine"],  // after typing "machin"
+        ["machine"],  // after typing "machine"
+      ],
+      [
+        ["a"],  // after typing "a"
+      ],
+      [
+        ["cafe", "colis", "cesse", "cinq"],  // after typing "c"
+        ["cafe", "carnet"],  // after typing "ca"
+        ["cafe"],  // after typing "caf"
+        ["cafe"],  // after typing "cafe"
+      ],
+      [
+        ["a", "avec", "apres", "au"],  // after typing "a"
+      ],
+      [
+        ["cesse", "colis", "cinq", "carnet"],  // after typing "c"
+        ["cesse", "ce"],  // after typing "ce"
+        ["cesse"],  // after typing "ces"
+        ["cesse"],  // after typing "cess"
+        ["cesse"],  // after typing "cesse"
+      ],
+      [
+        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "descends", "devenu"],  // after typing "de"
+      ],
+      [
+        ["fonctionner", "fenetre", "fichier", "formulaire"],  // after typing "f"
+        ["fonctionner", "formulaire"],  // after typing "fo"
+        ["fonctionner"],  // after typing "fon"
+        ["fonctionner"],  // after typing "fonc"
+        ["fonctionner"],  // after typing "fonct"
+        ["fonctionner"],  // after typing "foncti"
+        ["fonctionner"],  // after typing "fonctio"
+        ["fonctionner"],  // after typing "fonction"
+        ["fonctionner"],  // after typing "fonctionn"
+        ["fonctionner"],  // after typing "fonctionne"
+        ["fonctionner"],  // after typing "fonctionner"
+      ],
+      [
+        ["ce", "colis", "cesse", "cinq"],  // after typing "c"
+        ["ce", "cesse"],  // after typing "ce"
+      ],
+      [
+        ["matin", "marche", "magasin", "mise"],  // after typing "m"
+        ["matin", "marche", "magasin", "machine"],  // after typing "ma"
+        ["matin"],  // after typing "mat"
+        ["matin"],  // after typing "mati"
+        ["matin"],  // after typing "matin"
+      ],
+      [
+        ["je", "jai", "jusquau", "jenverrai"],  // after typing "j"
+        ["je"],  // after typing "je"
+      ],
+      [
+        ["pense", "pose", "piece", "pres"],  // after typing "p"
+        ["pense", "peu", "pendant", "petite"],  // after typing "pe"
+        ["pense", "pendant"],  // after typing "pen"
+        ["pense"],  // after typing "pens"
+        ["pense"],  // after typing "pense"
+      ],
     ]
   },
   {
-    id: "partage-repas-maison",
-    targetSentence: "Il partage le repas dans la maison",
-    words: ["Il", "partage", "le", "repas", "dans", "la", "maison"],
-    category: "Food",
-    difficulty: "hard",
-    fakePredictions: [
-      ["invite", "rejoint"],
-      ["un", "son"],
-      ["chien", "ami"],
-      ["à", "chez"],
-      ["le", "un"],
-      ["piscine", "cuisine"],
-      ["jardin", "garage"]  // ← Added for last word
-    ]
-  },
-  {
-    id: "invite-ami-chez-moi",
-    targetSentence: "Elle invite un ami chez moi",
-    words: ["Elle", "invite", "un", "ami", "chez", "moi"],
-    category: "Social",
-    difficulty: "easy",
-    fakePredictions: [
-      ["rejoint", "partage"],
-      ["son", "le"],
-      ["chien", "repas"],
-      ["à", "dans"],
-      ["lui", "elle"],
-      ["toi", "nous"]  // ← Added for last word
-    ]
-  },
-  {
-    id: "rejoint-son-ami-piscine",
-    targetSentence: "Il rejoint son ami à la piscine",
-    words: ["Il", "rejoint", "son", "ami", "à", "la", "piscine"],
-    category: "Social",
+    id: "sentence-5",
+    targetSentence: "Jenverrai le rapport dici la fin de journee",
+    words: ["Jenverrai", "le", "rapport", "dici", "la", "fin", "de", "journee"],
+    category: "Neutral",
     difficulty: "medium",
     fakePredictions: [
-      ["partage", "invite"],
-      ["le", "un"],
-      ["repas", "chien"],
-      ["dans", "chez"],
-      ["un", "le"],
-      ["maison", "plage"],
-      ["parc", "jardin"]  // ← Added for last word
+      ["mon", "un"],             // after "Jenverrai"
+      ["document", "fichier"],   // after "Jenverrai le"
+      ["demain", "bientot"],     // after "Jenverrai le rapport"
+      ["prochaine", "cette"],    // after "Jenverrai le rapport dici"
+      ["semaine", "soiree"],     // after "Jenverrai le rapport dici la"
+      ["du", "cette"],           // after "Jenverrai le rapport dici la fin"
+      ["cette", "la"],           // after "Jenverrai le rapport dici la fin de"
+    ],
+    wordCompletions: [
+      [
+        ["Jenverrai", "je", "jai", "jusquau"],  // after typing "J"
+        ["Jenverrai", "jai"],  // after typing "Je"
+        ["Jenverrai"],  // after typing "Jen"
+        ["Jenverrai"],  // after typing "Jenv"
+        ["Jenverrai"],  // after typing "Jenve"
+        ["Jenverrai"],  // after typing "Jenver"
+        ["Jenverrai"],  // after typing "Jenverr"
+        ["Jenverrai"],  // after typing "Jenverra"
+        ["Jenverrai"],  // after typing "Jenverrai"
+      ],
+      [
+        ["le", "lair", "lait", "lecran"],  // after typing "l"
+        ["le", "Les", "Le", "les"],  // after typing "le"
+      ],
+      [
+        ["rapport", "retard", "rempli", "restes"],  // after typing "r"
+        ["rapport", "rangee"],  // after typing "ra"
+        ["rapport"],  // after typing "rap"
+        ["rapport"],  // after typing "rapp"
+        ["rapport"],  // after typing "rappo"
+        ["rapport"],  // after typing "rappor"
+        ["rapport"],  // after typing "rapport"
+      ],
+      [
+        ["dici", "du", "dans", "descends"],  // after typing "d"
+        ["dici"],  // after typing "di"
+        ["dici"],  // after typing "dic"
+        ["dici"],  // after typing "dici"
+      ],
+      [
+        ["la", "lair", "lait", "lecran"],  // after typing "l"
+        ["la", "lait", "lampadaire", "lave"],  // after typing "la"
+      ],
+      [
+        ["fin", "fenetre", "fonctionner", "fichier"],  // after typing "f"
+        ["fin", "fichier"],  // after typing "fi"
+        ["fin"],  // after typing "fin"
+      ],
+      [
+        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "descends", "devenu"],  // after typing "de"
+      ],
+      [
+        ["journee", "je", "jai", "jusquau"],  // after typing "j"
+        ["journee", "jour"],  // after typing "jo"
+        ["journee", "jour"],  // after typing "jou"
+        ["journee", "jour"],  // after typing "jour"
+        ["journee"],  // after typing "journ"
+        ["journee"],  // after typing "journe"
+        ["journee"],  // after typing "journee"
+      ],
     ]
   },
   {
-    id: "partage-repas-evenement",
-    targetSentence: "Elle partage un repas à l'événement",
-    words: ["Elle", "partage", "un", "repas", "à", "l'événement"],
-    category: "Food",
-    difficulty: "hard",
+    id: "sentence-6",
+    targetSentence: "Il a regarde lecran et tapote le bouton",
+    words: ["Il", "a", "regarde", "lecran", "et", "tapote", "le", "bouton"],
+    category: "Neutral",
+    difficulty: "medium",
     fakePredictions: [
-      ["invite", "rejoint"],
-      ["le", "son"],
-      ["ami", "chien"],
-      ["chez", "dans"],
-      ["la", "le"],
-      ["fête", "concert"]  // ← Added for last word
+      ["mange", "dort"],         // after "Il"
+      ["fixe", "observe"],       // after "Il a"
+      ["attentivement", "rapidement"], // after "Il a regarde"
+      ["puis", "ensuite"],       // after "Il a regarde lecran"
+      ["presse", "clique"],      // after "Il a regarde lecran et"
+      ["gros", "petit"],         // after "Il a regarde lecran et tapote"
+    ],
+    wordCompletions: [
+      [
+        ["Il", "imprimees", "immediatement", "Ils"],  // after typing "I"
+        ["Il", "Ils"],  // after typing "Il"
+      ],
+      [
+        ["a", "avec", "apres", "au"],  // after typing "a"
+      ],
+      [
+        ["regarde", "retard", "rapport", "rempli"],  // after typing "r"
+        ["regarde", "retard", "rempli", "restes"],  // after typing "re"
+        ["regarde"],  // after typing "reg"
+        ["regarde"],  // after typing "rega"
+        ["regarde"],  // after typing "regar"
+        ["regarde"],  // after typing "regard"
+        ["regarde"],  // after typing "regarde"
+      ],
+      [
+        ["lecran", "lair", "lait", "lecran"],  // after typing "l"
+        ["lecran", "lair", "lecran", "lont"],  // after typing "le"
+        ["lecran", "lecran", "letagere"],  // after typing "lec"
+        ["lecran", "lecran"],  // after typing "lecr"
+        ["lecran", "lecran"],  // after typing "lecra"
+        ["lecran", "lecran"],  // after typing "lecran"
+      ],
+      [
+        ["et", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["et"],  // after typing "et"
+      ],
+      [
+        ["tapote", "tape", "train", "tour"],  // after typing "t"
+        ["tapote", "tape", "table"],  // after typing "ta"
+        ["tapote", "tape"],  // after typing "tap"
+        ["tapote"],  // after typing "tapo"
+        ["tapote"],  // after typing "tapot"
+        ["tapote"],  // after typing "tapote"
+      ],
+      [
+        ["le", "lair", "lait", "lecran"],  // after typing "l"
+        ["le", "Les", "Le", "les"],  // after typing "le"
+      ],
+      [
+        ["bouton", "bien", "bureau"],  // after typing "b"
+        ["bouton"],  // after typing "bo"
+        ["bouton"],  // after typing "bou"
+        ["bouton"],  // after typing "bout"
+        ["bouton"],  // after typing "bouto"
+        ["bouton"],  // after typing "bouton"
+      ],
     ]
-  }
+  },
+  {
+    id: "sentence-7",
+    targetSentence: "Ils ont marche jusquau magasin pour prendre du lait",
+    words: ["Ils", "ont", "marche", "jusquau", "magasin", "pour", "prendre", "du", "lait"],
+    category: "Neutral",
+    difficulty: "medium",
+    fakePredictions: [
+      ["sont", "vont"],          // after "Ils"
+      ["couru", "roule"],        // after "Ils ont"
+      ["vers", "au"],            // after "Ils ont marche"
+      ["supermarche", "centre"], // after "Ils ont marche jusquau"
+      ["acheter", "chercher"],   // after "Ils ont marche jusquau magasin"
+      ["acheter", "chercher"],   // after "Ils ont marche jusquau magasin pour"
+      ["pain", "fromage"],       // after "Ils ont marche jusquau magasin pour prendre"
+    ],
+    wordCompletions: [
+      [
+        ["Ils", "imprimees", "immediatement", "instructions"],  // after typing "I"
+        ["Ils", "Il"],  // after typing "Il"
+        ["Ils"],  // after typing "Ils"
+      ],
+      [
+        ["ont", "ouvert", "oublie", "ordinateur"],  // after typing "o"
+        ["ont"],  // after typing "on"
+        ["ont"],  // after typing "ont"
+      ],
+      [
+        ["marche", "magasin", "matin", "mise"],  // after typing "m"
+        ["marche", "magasin", "matin", "machine"],  // after typing "ma"
+        ["marche"],  // after typing "mar"
+        ["marche"],  // after typing "marc"
+        ["marche"],  // after typing "march"
+        ["marche"],  // after typing "marche"
+      ],
+      [
+        ["jusquau", "je", "jai", "jenverrai"],  // after typing "j"
+        ["jusquau", "juste"],  // after typing "ju"
+        ["jusquau", "juste"],  // after typing "jus"
+        ["jusquau"],  // after typing "jusq"
+        ["jusquau"],  // after typing "jusqu"
+        ["jusquau"],  // after typing "jusqua"
+        ["jusquau"],  // after typing "jusquau"
+      ],
+      [
+        ["magasin", "marche", "matin", "mise"],  // after typing "m"
+        ["magasin", "marche", "matin", "machine"],  // after typing "ma"
+        ["magasin"],  // after typing "mag"
+        ["magasin"],  // after typing "maga"
+        ["magasin"],  // after typing "magas"
+        ["magasin"],  // after typing "magasi"
+        ["magasin"],  // after typing "magasin"
+      ],
+      [
+        ["pour", "pose", "piece", "pres"],  // after typing "p"
+        ["pour", "pose", "porte", "portable"],  // after typing "po"
+        ["pour"],  // after typing "pou"
+        ["pour"],  // after typing "pour"
+      ],
+      [
+        ["prendre", "pose", "piece", "pres"],  // after typing "p"
+        ["prendre", "pres", "presentation", "promener"],  // after typing "pr"
+        ["prendre"],  // after typing "pre"
+        ["prendre"],  // after typing "pren"
+        ["prendre"],  // after typing "prend"
+        ["prendre"],  // after typing "prendr"
+        ["prendre"],  // after typing "prendre"
+      ],
+      [
+        ["du", "dans", "descends", "decroche"],  // after typing "d"
+        ["du"],  // after typing "du"
+      ],
+      [
+        ["lait", "lair", "lecran", "lisait"],  // after typing "l"
+        ["lait", "lampadaire", "lave", "La"],  // after typing "la"
+        ["lait", "laisse", "laisser"],  // after typing "lai"
+        ["lait"],  // after typing "lait"
+      ],
+    ]
+  },
+  {
+    id: "sentence-8",
+    targetSentence: "La piece semblait lumineuse et vraiment bien rangee",
+    words: ["La", "piece", "semblait", "lumineuse", "et", "vraiment", "bien", "rangee"],
+    category: "Neutral",
+    difficulty: "medium",
+    fakePredictions: [
+      ["maison", "chambre"],     // after "La"
+      ["etait", "paraissait"],   // after "La piece"
+      ["sombre", "claire"],      // after "La piece semblait"
+      ["mais", "donc"],          // after "La piece semblait lumineuse"
+      ["assez", "tres"],         // after "La piece semblait lumineuse et"
+      ["mal", "peu"],            // after "La piece semblait lumineuse et vraiment"
+      ["organisee", "nettoyee"], // after "La piece semblait lumineuse et vraiment bien"
+    ],
+    wordCompletions: [
+      [
+        ["La", "lair", "lait", "lecran"],  // after typing "L"
+        ["La", "lait", "lampadaire", "lave"],  // after typing "La"
+      ],
+      [
+        ["piece", "pose", "pres", "presentation"],  // after typing "p"
+        ["piece"],  // after typing "pi"
+        ["piece"],  // after typing "pie"
+        ["piece"],  // after typing "piec"
+        ["piece"],  // after typing "piece"
+      ],
+      [
+        ["semblait", "sur", "sommes", "sa"],  // after typing "s"
+        ["semblait", "secondes", "se"],  // after typing "se"
+        ["semblait"],  // after typing "sem"
+        ["semblait"],  // after typing "semb"
+        ["semblait"],  // after typing "sembl"
+        ["semblait"],  // after typing "sembla"
+        ["semblait"],  // after typing "semblai"
+        ["semblait"],  // after typing "semblait"
+      ],
+      [
+        ["lumineuse", "lair", "lait", "lecran"],  // after typing "l"
+        ["lumineuse", "lumieres"],  // after typing "lu"
+        ["lumineuse", "lumieres"],  // after typing "lum"
+        ["lumineuse", "lumieres"],  // after typing "lumi"
+        ["lumineuse"],  // after typing "lumin"
+        ["lumineuse"],  // after typing "lumine"
+        ["lumineuse"],  // after typing "lumineu"
+        ["lumineuse"],  // after typing "lumineus"
+        ["lumineuse"],  // after typing "lumineuse"
+      ],
+      [
+        ["et", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["et"],  // after typing "et"
+      ],
+      [
+        ["vraiment", "verrouiller", "vaisselle", "voiture"],  // after typing "v"
+        ["vraiment"],  // after typing "vr"
+        ["vraiment"],  // after typing "vra"
+        ["vraiment"],  // after typing "vrai"
+        ["vraiment"],  // after typing "vraim"
+        ["vraiment"],  // after typing "vraime"
+        ["vraiment"],  // after typing "vraimen"
+        ["vraiment"],  // after typing "vraiment"
+      ],
+      [
+        ["bien", "bureau", "bouton"],  // after typing "b"
+        ["bien"],  // after typing "bi"
+        ["bien"],  // after typing "bie"
+        ["bien"],  // after typing "bien"
+      ],
+      [
+        ["rangee", "retard", "rapport", "rempli"],  // after typing "r"
+        ["rangee", "rapport"],  // after typing "ra"
+        ["rangee"],  // after typing "ran"
+        ["rangee"],  // after typing "rang"
+        ["rangee"],  // after typing "range"
+        ["rangee"],  // after typing "rangee"
+      ],
+    ]
+  },
+  {
+    id: "sentence-9",
+    targetSentence: "Elle a tape son message et envoye immediatement",
+    words: ["Elle", "a", "tape", "son", "message", "et", "envoye", "immediatement"],
+    category: "Neutral",
+    difficulty: "medium",
+    fakePredictions: [
+      ["vient", "mange"],        // after "Elle"
+      ["ecrit", "lu"],           // after "Elle a"
+      ["long", "court"],         // after "Elle a tape"
+      ["texte", "email"],        // after "Elle a tape son"
+      ["puis", "avant"],         // after "Elle a tape son message"
+      ["tout", "le"],            // after "Elle a tape son message et"
+    ],
+    wordCompletions: [
+      [
+        ["Elle", "envoye", "encore", "ensoleille"],  // after typing "E"
+        ["Elle"],  // after typing "El"
+        ["Elle"],  // after typing "Ell"
+        ["Elle"],  // after typing "Elle"
+      ],
+      [
+        ["a", "avec", "apres", "au"],  // after typing "a"
+      ],
+      [
+        ["tape", "train", "tour", "termine"],  // after typing "t"
+        ["tape", "table", "tapote"],  // after typing "ta"
+        ["tape", "tapote"],  // after typing "tap"
+        ["tape"],  // after typing "tape"
+      ],
+      [
+        ["son", "sur", "sommes", "sa"],  // after typing "s"
+        ["son", "sommes", "sonneries", "soir"],  // after typing "so"
+        ["son", "sonneries"],  // after typing "son"
+      ],
+      [
+        ["message", "marche", "magasin", "matin"],  // after typing "m"
+        ["message"],  // after typing "me"
+        ["message"],  // after typing "mes"
+        ["message"],  // after typing "mess"
+        ["message"],  // after typing "messa"
+        ["message"],  // after typing "messag"
+        ["message"],  // after typing "message"
+      ],
+      [
+        ["et", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["et"],  // after typing "et"
+      ],
+      [
+        ["envoye", "encore", "ensoleille", "essuyee"],  // after typing "e"
+        ["envoye", "encore", "ensoleille", "entrer"],  // after typing "en"
+        ["envoye", "environ"],  // after typing "env"
+        ["envoye"],  // after typing "envo"
+        ["envoye"],  // after typing "envoy"
+        ["envoye"],  // after typing "envoye"
+      ],
+      [
+        ["immediatement", "imprimees", "Ils", "instructions"],  // after typing "i"
+        ["immediatement", "imprimees"],  // after typing "im"
+        ["immediatement"],  // after typing "imm"
+        ["immediatement"],  // after typing "imme"
+        ["immediatement"],  // after typing "immed"
+        ["immediatement"],  // after typing "immedi"
+        ["immediatement"],  // after typing "immedia"
+        ["immediatement"],  // after typing "immediat"
+        ["immediatement"],  // after typing "immediate"
+        ["immediatement"],  // after typing "immediatem"
+        ["immediatement"],  // after typing "immediateme"
+        ["immediatement"],  // after typing "immediatemen"
+        ["immediatement"],  // after typing "immediatement"
+      ],
+    ]
+  },
+  {
+    id: "sentence-10",
+    targetSentence: "Le train est arrive avec environ cinq minutes de retard",
+    words: ["Le", "train", "est", "arrive", "avec", "environ", "cinq", "minutes", "de", "retard"],
+    category: "Neutral",
+    difficulty: "medium",
+    fakePredictions: [
+      ["bus", "metro"],          // after "Le"
+      ["etait", "semble"],       // after "Le train"
+      ["parti", "passe"],        // after "Le train est"
+      ["sans", "dans"],          // after "Le train est arrive"
+      ["presque", "plus"],       // after "Le train est arrive avec"
+      ["dix", "trois"],          // after "Le train est arrive avec environ"
+      ["heures", "secondes"],    // after "Le train est arrive avec environ cinq"
+      ["davance", "en"],         // after "Le train est arrive avec environ cinq minutes"
+    ],
+    wordCompletions: [
+      [
+        ["Le", "lair", "lait", "lecran"],  // after typing "L"
+        ["Le", "Les", "les", "leve"],  // after typing "Le"
+      ],
+      [
+        ["train", "tape", "tour", "termine"],  // after typing "t"
+        ["train"],  // after typing "tr"
+        ["train"],  // after typing "tra"
+        ["train"],  // after typing "trai"
+        ["train"],  // after typing "train"
+      ],
+      [
+        ["est", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["est", "essuyee"],  // after typing "es"
+        ["est"],  // after typing "est"
+      ],
+      [
+        ["arrive", "avec", "apres", "a"],  // after typing "a"
+        ["arrive"],  // after typing "ar"
+        ["arrive"],  // after typing "arr"
+        ["arrive"],  // after typing "arri"
+        ["arrive"],  // after typing "arriv"
+        ["arrive"],  // after typing "arrive"
+      ],
+      [
+        ["avec", "apres", "a", "au"],  // after typing "a"
+        ["avec", "avons", "avant"],  // after typing "av"
+        ["avec"],  // after typing "ave"
+        ["avec"],  // after typing "avec"
+      ],
+      [
+        ["environ", "envoye", "encore", "ensoleille"],  // after typing "e"
+        ["environ", "envoye", "encore", "ensoleille"],  // after typing "en"
+        ["environ", "envoye"],  // after typing "env"
+        ["environ"],  // after typing "envi"
+        ["environ"],  // after typing "envir"
+        ["environ"],  // after typing "enviro"
+        ["environ"],  // after typing "environ"
+      ],
+      [
+        ["cinq", "colis", "cesse", "carnet"],  // after typing "c"
+        ["cinq"],  // after typing "ci"
+        ["cinq"],  // after typing "cin"
+        ["cinq"],  // after typing "cinq"
+      ],
+      [
+        ["minutes", "marche", "magasin", "matin"],  // after typing "m"
+        ["minutes", "mise", "mis"],  // after typing "mi"
+        ["minutes"],  // after typing "min"
+        ["minutes"],  // after typing "minu"
+        ["minutes"],  // after typing "minut"
+        ["minutes"],  // after typing "minute"
+        ["minutes"],  // after typing "minutes"
+      ],
+      [
+        ["de", "du", "dans", "descends"],  // after typing "d"
+        ["de", "descends", "devenu"],  // after typing "de"
+      ],
+      [
+        ["retard", "rapport", "rempli", "restes"],  // after typing "r"
+        ["retard", "rempli", "restes", "regarde"],  // after typing "re"
+        ["retard"],  // after typing "ret"
+        ["retard"],  // after typing "reta"
+        ["retard"],  // after typing "retar"
+        ["retard"],  // after typing "retard"
+      ],
+    ]
+  },
+  {
+    id: "sentence-11",
+    targetSentence: "Un chien aboyait quelque part au loin",
+    words: ["Un", "chien", "aboyait", "quelque", "part", "au", "loin"],
+    category: "Neutral",
+    difficulty: "medium",
+    fakePredictions: [
+      ["chat", "oiseau"],        // after "Un"
+      ["dormait", "courait"],    // after "Un chien"
+      ["quelquun", "quelques"],  // after "Un chien aboyait"
+      ["dans", "vers"],          // after "Un chien aboyait quelque"
+      ["tres", "assez"],         // after "Un chien aboyait quelque part"
+    ],
+    wordCompletions: [
+      [
+        ["Un", "une", "un"],  // after typing "U"
+        ["Un", "une", "un"],  // after typing "Un"
+      ],
+      [
+        ["chien", "colis", "cesse", "cinq"],  // after typing "c"
+        ["chien", "charger"],  // after typing "ch"
+        ["chien"],  // after typing "chi"
+        ["chien"],  // after typing "chie"
+        ["chien"],  // after typing "chien"
+      ],
+      [
+        ["aboyait", "avec", "apres", "a"],  // after typing "a"
+        ["aboyait"],  // after typing "ab"
+        ["aboyait"],  // after typing "abo"
+        ["aboyait"],  // after typing "aboy"
+        ["aboyait"],  // after typing "aboya"
+        ["aboyait"],  // after typing "aboyai"
+        ["aboyait"],  // after typing "aboyait"
+      ],
+      [
+        ["quelque", "que", "quelques", "quand"],  // after typing "q"
+        ["quelque", "que", "quelques", "quand"],  // after typing "qu"
+        ["quelque", "que", "quelques"],  // after typing "que"
+        ["quelque", "quelques"],  // after typing "quel"
+        ["quelque", "quelques"],  // after typing "quelq"
+        ["quelque", "quelques"],  // after typing "quelqu"
+        ["quelque", "quelques"],  // after typing "quelque"
+      ],
+      [
+        ["part", "pose", "piece", "pres"],  // after typing "p"
+        ["part", "partir", "parc", "page"],  // after typing "pa"
+        ["part", "partir", "parc", "pars"],  // after typing "par"
+        ["part", "partir"],  // after typing "part"
+      ],
+      [
+        ["au", "avec", "apres", "a"],  // after typing "a"
+        ["au", "aujourdhui"],  // after typing "au"
+      ],
+      [
+        ["loin", "lair", "lait", "lecran"],  // after typing "l"
+        ["loin"],  // after typing "lo"
+        ["loin"],  // after typing "loi"
+        ["loin"],  // after typing "loin"
+      ],
+    ]
+  },
+  {
+    id: "sentence-12",
+    targetSentence: "Il a mis le dossier sur letagere du haut",
+    words: ["Il", "a", "mis", "le", "dossier", "sur", "letagere", "du", "haut"],
+    category: "Neutral",
+    difficulty: "medium",
+    fakePredictions: [
+      ["vient", "mange"],        // after "Il"
+      ["pris", "pose"],          // after "Il a"
+      ["son", "un"],             // after "Il a mis"
+      ["livre", "carton"],       // after "Il a mis le"
+      ["dans", "sous"],          // after "Il a mis le dossier"
+      ["bureau", "armoire"],     // after "Il a mis le dossier sur"
+      ["cote", "bas"],           // after "Il a mis le dossier sur letagere"
+    ],
+    wordCompletions: [
+      [
+        ["Il", "imprimees", "immediatement", "Ils"],  // after typing "I"
+        ["Il", "Ils"],  // after typing "Il"
+      ],
+      [
+        ["a", "avec", "apres", "au"],  // after typing "a"
+      ],
+      [
+        ["mis", "marche", "magasin", "matin"],  // after typing "m"
+        ["mis", "mise", "minutes"],  // after typing "mi"
+        ["mis", "mise"],  // after typing "mis"
+      ],
+      [
+        ["le", "lair", "lait", "lecran"],  // after typing "l"
+        ["le", "Les", "Le", "les"],  // after typing "le"
+      ],
+      [
+        ["dossier", "du", "dans", "descends"],  // after typing "d"
+        ["dossier", "doucement"],  // after typing "do"
+        ["dossier"],  // after typing "dos"
+        ["dossier"],  // after typing "doss"
+        ["dossier"],  // after typing "dossi"
+        ["dossier"],  // after typing "dossie"
+        ["dossier"],  // after typing "dossier"
+      ],
+      [
+        ["sur", "sommes", "sa", "semblait"],  // after typing "s"
+        ["sur"],  // after typing "su"
+        ["sur"],  // after typing "sur"
+      ],
+      [
+        ["letagere", "lair", "lait", "lecran"],  // after typing "l"
+        ["letagere", "lair", "lecran", "lont"],  // after typing "le"
+        ["letagere", "lecran", "lecran"],  // after typing "let"
+        ["letagere"],  // after typing "leta"
+        ["letagere"],  // after typing "letag"
+        ["letagere"],  // after typing "letage"
+        ["letagere"],  // after typing "letager"
+        ["letagere"],  // after typing "letagere"
+      ],
+      [
+        ["du", "dans", "descends", "decroche"],  // after typing "d"
+        ["du"],  // after typing "du"
+      ],
+      [
+        ["haut", "hier"],  // after typing "h"
+        ["haut"],  // after typing "ha"
+        ["haut"],  // after typing "hau"
+        ["haut"],  // after typing "haut"
+      ],
+    ]
+  },
 ];
 
 // Helper functions
