@@ -25,6 +25,17 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["basse", "ronde"],        // after "Le livre etait pose sur la table"
       ["loin", "derriere"],      // after "Le livre etait pose sur la table pres"
       ["cette", "ma"],           // after "Le livre etait pose sur la table pres de"
+    ],trickWords: [
+      null,      // No trick for "Le" (first word)
+      "stylo",   // Trick for "livre" (second word)
+      "leger",   // Trick for "etait" 
+      "cache",   // Trick for "pose"
+      "avec",    // Trick for "sur"
+      "une",     // Trick for "la"
+      "chaise",  // Trick for "table"
+      "loin",    // Trick for "pres"
+      "cette",   // Trick for "de"
+      "porte"    // Trick for "fenetre"
     ],
     wordCompletions: [
       [
@@ -102,6 +113,15 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["seule", "tranquillement"], // after "Elle est allee se promener"
       ["vers", "sur"],           // after "Elle est allee se promener dans"
       ["vieux", "nouveau"],      // after "Elle est allee se promener dans le"
+    ],trickWords: [
+      null,        // No trick for "Elle" (first word)
+      "était",     // Trick for "est"
+      "partie",    // Trick for "allee"
+      "pour",      // Trick for "se"
+      "marcher",   // Trick for "promener"
+      "avec",      // Trick for "dans"
+      "du",        // Trick for "le"
+      "parc"       // Trick for "quartier"
     ],
     wordCompletions: [
       [
@@ -171,7 +191,15 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["demain", "plus"],        // after "Peux-tu apporter les cles"
       ["on", "nous"],            // after "Peux-tu apporter les cles quand"
       ["montes", "sors"],        // after "Peux-tu apporter les cles quand tu"
-    ],
+    ],trickWords: [
+      null,        // No trick for "Peux-tu" (first word)
+      "prendre",   // Trick for "apporter"
+      "des",       // Trick for "les"
+      "livres",    // Trick for "cles"
+      "si",        // Trick for "quand"
+      "je",        // Trick for "tu"
+      "arrives"    // Trick for "descends"
+    ],    
     wordCompletions: [
       [
         ["Peux-tu", "pose", "piece"],  // after typing "P"
@@ -243,6 +271,19 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["hier", "aujourdhui"],    // after "La machine a cafe a cesse de fonctionner"
       ["tot", "tard"],           // after "La machine a cafe a cesse de fonctionner ce"
       ["crois", "suppose"],      // after "La machine a cafe a cesse de fonctionner ce matin"
+    ],trickWords: [
+      null,          // No trick for "La" (first word)
+      "imprimante",  // Trick for "machine"
+      "du",          // Trick for "a"
+      "the",         // Trick for "cafe"
+      "est",         // Trick for "a"
+      "refuse",      // Trick for "cesse"
+      "sans",        // Trick for "de"
+      "marcher",     // Trick for "fonctionner"
+      "le",          // Trick for "ce"
+      "soir",        // Trick for "matin"
+      "tu",          // Trick for "je"
+      "sais"         // Trick for "pense"
     ],
     wordCompletions: [
       [
@@ -332,6 +373,15 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["semaine", "soiree"],     // after "Jenverrai le rapport dici la"
       ["du", "cette"],           // after "Jenverrai le rapport dici la fin"
       ["cette", "la"],           // after "Jenverrai le rapport dici la fin de"
+    ],trickWords: [
+      null,         // No trick for "Jenverrai" (first word)
+      "ce",         // Trick for "le"
+      "email",      // Trick for "rapport"
+      "avant",      // Trick for "dici"
+      "une",        // Trick for "la"
+      "debut",      // Trick for "fin"
+      "ma",         // Trick for "de"
+      "matinee"     // Trick for "journee"
     ],
     wordCompletions: [
       [
@@ -401,6 +451,15 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["puis", "ensuite"],       // after "Il a regarde lecran"
       ["presse", "clique"],      // after "Il a regarde lecran et"
       ["gros", "petit"],         // after "Il a regarde lecran et tapote"
+    ],trickWords: [
+      null,        // No trick for "Il" (first word)
+      "va",        // Trick for "a"
+      "touche",    // Trick for "regarde"
+      "clavier",   // Trick for "lecran"
+      "ou",        // Trick for "et"
+      "pousse",    // Trick for "tapote"
+      "du",        // Trick for "le"
+      "ecran"      // Trick for "bouton"
     ],
     wordCompletions: [
       [
@@ -467,6 +526,16 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["acheter", "chercher"],   // after "Ils ont marche jusquau magasin"
       ["acheter", "chercher"],   // after "Ils ont marche jusquau magasin pour"
       ["pain", "fromage"],       // after "Ils ont marche jusquau magasin pour prendre"
+    ],trickWords: [
+      null,        // No trick for "Ils" (first word)
+      "vont",      // Trick for "ont"
+      "alle",      // Trick for "marche"
+      "dans",      // Trick for "jusquau"
+      "parc",      // Trick for "magasin"
+      "sans",      // Trick for "pour"
+      "boire",     // Trick for "prendre"
+      "de",        // Trick for "du"
+      "eau"        // Trick for "lait"
     ],
     wordCompletions: [
       [
@@ -546,6 +615,15 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["assez", "tres"],         // after "La piece semblait lumineuse et"
       ["mal", "peu"],            // after "La piece semblait lumineuse et vraiment"
       ["organisee", "nettoyee"], // after "La piece semblait lumineuse et vraiment bien"
+    ],trickWords: [
+      null,        // No trick for "La" (first word)
+      "cuisine",   // Trick for "piece"
+      "devient",   // Trick for "semblait"
+      "petite",    // Trick for "lumineuse"
+      "ou",        // Trick for "et"
+      "plutot",    // Trick for "vraiment"
+      "tres",      // Trick for "bien"
+      "decoree"    // Trick for "rangee"
     ],
     wordCompletions: [
       [
@@ -623,6 +701,15 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["texte", "email"],        // after "Elle a tape son"
       ["puis", "avant"],         // after "Elle a tape son message"
       ["tout", "le"],            // after "Elle a tape son message et"
+    ],trickWords: [
+      null,           // No trick for "Elle" (first word)
+      "va",           // Trick for "a"
+      "ecrit",        // Trick for "tape"
+      "ce",           // Trick for "son"
+      "rapport",      // Trick for "message"
+      "ou",           // Trick for "et"
+      "recu",         // Trick for "envoye"
+      "rapidement"    // Trick for "immediatement"
     ],
     wordCompletions: [
       [
@@ -698,6 +785,17 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["dix", "trois"],          // after "Le train est arrive avec environ"
       ["heures", "secondes"],    // after "Le train est arrive avec environ cinq"
       ["davance", "en"],         // after "Le train est arrive avec environ cinq minutes"
+    ],trickWords: [
+      null,        // No trick for "Le" (first word)
+      "avion",     // Trick for "train"
+      "va",        // Trick for "est"
+      "reste",     // Trick for "arrive"
+      "pour",      // Trick for "avec"
+      "exactement", // Trick for "environ"
+      "deux",      // Trick for "cinq"
+      "jours",     // Trick for "minutes"
+      "en",        // Trick for "de"
+      "avance"     // Trick for "retard"
     ],
     wordCompletions: [
       [
@@ -780,6 +878,14 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["quelquun", "quelques"],  // after "Un chien aboyait"
       ["dans", "vers"],          // after "Un chien aboyait quelque"
       ["tres", "assez"],         // after "Un chien aboyait quelque part"
+    ],trickWords: [
+      null,        // No trick for "Un" (first word)
+      "enfant",    // Trick for "chien"
+      "jouait",    // Trick for "aboyait"
+      "autre",     // Trick for "quelque"
+      "fois",      // Trick for "part"
+      "du",        // Trick for "au"
+      "dehors"     // Trick for "loin"
     ],
     wordCompletions: [
       [
@@ -843,6 +949,16 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
       ["dans", "sous"],          // after "Il a mis le dossier"
       ["bureau", "armoire"],     // after "Il a mis le dossier sur"
       ["cote", "bas"],           // after "Il a mis le dossier sur letagere"
+    ],trickWords: [
+      null,        // No trick for "Il" (first word)
+      "va",        // Trick for "a"
+      "pris",      // Trick for "mis"
+      "ce",        // Trick for "le"
+      "cahier",    // Trick for "dossier"
+      "avec",      // Trick for "sur"
+      "table",     // Trick for "letagere"
+      "de",        // Trick for "du"
+      "milieu"     // Trick for "haut"
     ],
     wordCompletions: [
       [

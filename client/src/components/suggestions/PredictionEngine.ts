@@ -3,10 +3,12 @@ import { PredictionScenario, PREDICTION_SCENARIOS } from "@/data/predictionScena
 export class PredictionEngine {
   private currentScenario: PredictionScenario | null = null;
   private shuffleCache: Map<string, string[]> = new Map();
+  private trickWordDecisions: Map<number, boolean> = new Map(); // Cache 50% decisions per word
 
   setScenario(scenario: PredictionScenario) {
     this.currentScenario = scenario;
     this.shuffleCache.clear();
+    this.trickWordDecisions.clear(); // Reset trick decisions for new scenario
   }
   
   private shuffleArray<T>(array: T[]): T[] {
@@ -16,6 +18,32 @@ export class PredictionEngine {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
+  }
+
+  private shouldUseTrickWord(wordIndex: number): boolean {
+    // FIXED: Apply to ANY word that has a trick word available (not just index 1)
+    if (!this.currentScenario?.trickWords) return false;
+    if (wordIndex >= this.currentScenario.trickWords.length) return false;
+    if (this.currentScenario.trickWords[wordIndex] === null) return false; // No trick for this position
+    
+    // Check if we've already made a decision for this word in this scenario
+    if (this.trickWordDecisions.has(wordIndex)) {
+      return this.trickWordDecisions.get(wordIndex)!;
+    }
+    
+    // Make a 50% decision and cache it
+    const useTrick = Math.random() < 0.5;
+    this.trickWordDecisions.set(wordIndex, useTrick);
+    
+    console.log(`Trick word decision for word ${wordIndex}: ${useTrick ? 'USE TRICK' : 'USE CORRECT'} (trick available: "${this.currentScenario.trickWords[wordIndex]}")`);
+    
+    return useTrick;
+  }
+
+  private getTrickWord(wordIndex: number): string | null {
+    if (!this.currentScenario?.trickWords) return null;
+    if (wordIndex >= this.currentScenario.trickWords.length) return null;
+    return this.currentScenario.trickWords[wordIndex];
   }
 
   getPredictions(currentInput: string): string[] {
@@ -67,14 +95,26 @@ export class PredictionEngine {
     }
     
     // Get the correct next word
-    const correctNextWord = this.currentScenario.words[nextWordIndex];
-    console.log('Correct next word:', correctNextWord);
+    let correctNextWord = this.currentScenario.words[nextWordIndex];
+    
+    // FIXED: Check if we should use a trick word instead (50% chance for ANY word that has a trick)
+    if (this.shouldUseTrickWord(nextWordIndex)) {
+      const trickWord = this.getTrickWord(nextWordIndex);
+      if (trickWord) {
+        correctNextWord = trickWord;
+        console.log(`🎭 Using TRICK WORD "${trickWord}" instead of "${this.currentScenario.words[nextWordIndex]}" for position ${nextWordIndex}`);
+      }
+    } else {
+      console.log(`✅ Using CORRECT WORD "${correctNextWord}" for position ${nextWordIndex}`);
+    }
+    
+    console.log('Final word to include:', correctNextWord);
     
     // Get fake predictions for this position
     const fakePredictions = this.currentScenario.fakePredictions[nextWordIndex] || [];
     console.log('Fake predictions:', fakePredictions);
     
-    // Combine correct and fake predictions, then randomize the order
+    // Combine correct/trick and fake predictions, then randomize the order
     const allPredictions = [correctNextWord, ...fakePredictions];
     const randomizedPredictions = this.shuffleArray(allPredictions);
     
@@ -123,12 +163,25 @@ export class PredictionEngine {
     }
     
     // Get completions for this character position
-    const completions = wordCompletionsForWord[characterIndex];
+    let completions = wordCompletionsForWord[characterIndex];
     console.log('Raw completions for position:', completions);
     
     if (!Array.isArray(completions)) {
       console.log('Completions is not an array:', completions);
       return [];
+    }
+    
+    // FIXED: For character-level completions, consider trick words for ANY position (not just index 1)
+    if (this.shouldUseTrickWord(wordIndex)) {
+      const trickWord = this.getTrickWord(wordIndex);
+      if (trickWord && trickWord.toLowerCase().startsWith(currentWord.toLowerCase())) {
+        // Add the trick word to the completions if it matches what user is typing
+        completions = [...completions];
+        if (!completions.includes(trickWord)) {
+          completions.unshift(trickWord); // Add trick word at the beginning
+        }
+        console.log('🎭 Added trick word to character completions:', trickWord);
+      }
     }
     
     // Filter completions to only show those that start with what the user has typed
@@ -166,11 +219,25 @@ export class PredictionEngine {
       // User finished a word, get next word
       const nextWordIndex = inputWords.length;
       if (nextWordIndex >= this.currentScenario.words.length) return null;
+      
+      // FIXED: Check if we should return the trick word instead (for ANY position)
+      if (this.shouldUseTrickWord(nextWordIndex)) {
+        const trickWord = this.getTrickWord(nextWordIndex);
+        if (trickWord) return trickWord;
+      }
+      
       return this.currentScenario.words[nextWordIndex];
     } else {
       // User is typing a word, get the target word they should be completing
       const currentWordIndex = inputWords.length - 1;
       if (currentWordIndex < 0 || currentWordIndex >= this.currentScenario.words.length) return null;
+      
+      // FIXED: Check if we should return the trick word instead (for ANY position)
+      if (this.shouldUseTrickWord(currentWordIndex)) {
+        const trickWord = this.getTrickWord(currentWordIndex);
+        if (trickWord) return trickWord;
+      }
+      
       return this.currentScenario.words[currentWordIndex];
     }
   }
@@ -182,6 +249,27 @@ export class PredictionEngine {
   
   clearCache() {
     this.shuffleCache.clear();
+    this.trickWordDecisions.clear(); // Also clear trick decisions
+  }
+
+  // NEW: Method to get current trick word decisions (for debugging/analytics)
+  getTrickWordDecisions(): Map<number, boolean> {
+    return new Map(this.trickWordDecisions);
+  }
+
+  // NEW: Method to force a specific trick word decision (for testing)
+  setTrickWordDecision(wordIndex: number, useTrick: boolean): void {
+    this.trickWordDecisions.set(wordIndex, useTrick);
+  }
+
+  // NEW: Debug method to see what decisions were made
+  logTrickWordDecisions(): void {
+    console.log('🎭 Trick Word Decisions for current scenario:');
+    this.trickWordDecisions.forEach((useTrick, wordIndex) => {
+      const trickWord = this.getTrickWord(wordIndex);
+      const correctWord = this.currentScenario?.words[wordIndex];
+      console.log(`  Word ${wordIndex}: ${useTrick ? `TRICK "${trickWord}"` : `CORRECT "${correctWord}"`}`);
+    });
   }
 }
 
