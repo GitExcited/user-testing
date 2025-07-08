@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
+import { ButtonStyle } from "@/lib/styleUtils";
 import { PredictionEngine } from "./PredictionEngine";
 import { useTesting } from "../testing/TestingProvider";
 
@@ -8,8 +8,8 @@ interface SuggestionContextType {
   userInput: string;
   setUserInput: (input: string) => void;
   handleSuggestionClick: (suggestion: string) => void;
-  buttonStyle: string;
-  buttonPosition: string;
+  buttonStyle: ButtonStyle; // Use ButtonStyle type
+  predictionEnabled: boolean; // New: Indicates if prediction is enabled
 }
 
 const SuggestionContext = createContext<SuggestionContextType | null>(null);
@@ -24,9 +24,9 @@ export default function SuggestionProvider({ children }: SuggestionProviderProps
   const [predictionEngine] = useState(new PredictionEngine());
   const { trackClick, trackSuggestion, isTestingActive, currentTest } = useTesting();
 
-  // Use current test configuration or defaults
-  const buttonStyle = currentTest?.buttonStyle || 'style1';
-  const buttonPosition = currentTest?.buttonPosition || 'above-textbox';
+  // Get buttonStyle and predictionEnabled from currentTest
+  const buttonStyle = currentTest?.buttonStyle || 'style1'; // Default if no currentTest
+  const predictionEnabled = currentTest?.predictionEnabled || false; // Default to false
 
   useEffect(() => {
     if (currentTest) {
@@ -38,13 +38,13 @@ export default function SuggestionProvider({ children }: SuggestionProviderProps
 
   useEffect(() => {
     updateSuggestions(userInput);
-  }, [userInput, isTestingActive]);
+  }, [userInput, isTestingActive, predictionEnabled]); // Add predictionEnabled to dependencies
 
   const updateSuggestions = (input: string) => {
-    console.log('updateSuggestions called with:', `"${input}"`, 'isTestingActive:', isTestingActive);
+    console.log('updateSuggestions called with:', `"${input}"`, 'isTestingActive:', isTestingActive, 'predictionEnabled:', predictionEnabled);
     
-    if (!isTestingActive || !currentTest) {
-      console.log('Testing not active or no current test, clearing suggestions');
+    if (!isTestingActive || !currentTest || !predictionEnabled) {
+      console.log('Testing not active, no current test, or prediction disabled, clearing suggestions');
       setSuggestions([]);
       return;
     }
@@ -95,7 +95,7 @@ export default function SuggestionProvider({ children }: SuggestionProviderProps
       setUserInput: handleSetUserInput,
       handleSuggestionClick,
       buttonStyle,
-      buttonPosition
+      predictionEnabled
     }}>
       {children}
     </SuggestionContext.Provider>

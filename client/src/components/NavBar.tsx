@@ -4,7 +4,7 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, HelpCircle } from "lucide-react";
-import vocalifyLogo from "@assets/image_1747158009500.png";
+import vocalityLogo from "@assets/image_1747158009500.png";
 import TestingInstructions from "@/components/instructions/TestingInstructions";
 
 export default function NavBar() {
@@ -13,7 +13,7 @@ export default function NavBar() {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center">
-          <img src={vocalifyLogo} alt="Vocalify Logo" className="h-6" />
+          <img src={vocalityLogo} alt="Vocality Logo" className="h-6" />
         </div>
         
         {/* Instructions Only */}

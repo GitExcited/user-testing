@@ -4,9 +4,7 @@ import SuggestionProvider from "./suggestions/SuggestionProvider";
 import TypingInterface from "./typing/TypingInterface";
 import VirtualKeyboard from "./keyboard/VirtualKeyboard";
 
-// Import the CSS files to ensure styles are loaded
-import "../styles/button-styles.css";
-import "../styles/position-styles.css";
+
 
 export default function TypingTestApp() {
   return (

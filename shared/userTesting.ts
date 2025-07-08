@@ -11,7 +11,7 @@ export interface UserTestingData {
   totalSuggestions: number;
   totalTypos: number;
   buttonStyle: string;
-  buttonPosition: string;
+  predictionEnabled: boolean;
   finalText: string;
   targetSentence: string;
   correctSuggestionClicks: number;    // ADD THIS

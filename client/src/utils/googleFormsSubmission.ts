@@ -4,8 +4,8 @@ interface GoogleFormsData {
     typo_rate: number;
     suggestion_error_rate: number;
     avg_click_interval: number;
-    button_style: string;        // NEW: Track which button style was used
-    button_position: string;     // NEW: Track which button position was used
+    button_style: string;
+    prediction_enabled: boolean; // NEW: Track whether prediction was enabled
   }
   
   // Add the new fields to your Google Form and update these entry IDs
@@ -17,8 +17,8 @@ interface GoogleFormsData {
       typo_rate: 'entry.1403094540',
       suggestion_error_rate: 'entry.1139193925',
       avg_click_interval: 'entry.1687756209',
-      button_style: 'entry.2089806948',      
-      button_position: 'entry.260987655'    
+      button_style: 'entry.2089806948',
+      prediction_enabled: 'entry.1239196792', // NEW: Entry ID for prediction_enabled
     }
   };
   
@@ -34,9 +34,9 @@ interface GoogleFormsData {
       formData.append(GOOGLE_FORM_CONFIG.fields.suggestion_error_rate, data.suggestion_error_rate.toString());
       formData.append(GOOGLE_FORM_CONFIG.fields.avg_click_interval, data.avg_click_interval.toString());
       
-      // NEW: Include button style and position
+      // NEW: Include button style and prediction enabled status
       formData.append(GOOGLE_FORM_CONFIG.fields.button_style, data.button_style);
-      formData.append(GOOGLE_FORM_CONFIG.fields.button_position, data.button_position);
+      formData.append(GOOGLE_FORM_CONFIG.fields.prediction_enabled, data.prediction_enabled.toString());
 
       // Submit to Google Forms (no-cors mode because Google Forms doesn't support CORS)
       const response = await fetch(GOOGLE_FORM_CONFIG.formUrl, {
@@ -62,8 +62,8 @@ interface GoogleFormsData {
       typo_rate: 12.3,
       suggestion_error_rate: 8.2,
       avg_click_interval: 1.85,
-      button_style: 'style1',           // NEW: Test with style1
-      button_position: 'above-textbox'  // NEW: Test with above-textbox position
+      button_style: 'style1',
+      prediction_enabled: true // NEW: Test with prediction enabled
     };
   
     console.log('Testing Google Forms submission with data:', testData);

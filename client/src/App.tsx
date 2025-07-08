@@ -1,8 +1,7 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Switch, Route } from "wouter"; // Lightweight routing library to navigate in the application
+
+import { Toaster } from "@/components/ui/toaster"; //Library for displaying pop-up messasges
+import { TooltipProvider } from "@/components/ui/tooltip"; //LIbrary for displaying tooltips accross app
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Landing from "@/pages/Landing";
@@ -19,13 +18,12 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <TooltipProvider>
+      <Toaster />
+      <Router />
+    </TooltipProvider>
   );
 }
 
 export default App;
+

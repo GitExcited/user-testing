@@ -1,0 +1,57 @@
+import { Globe } from "lucide-react";
+
+export default function LandingHowItWorks() {
+  return (
+    <section className="bg-white/50 py-16">
+      <div className="container mx-auto px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Comment ça fonctionne
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-[#36CFB3] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-1">1</div>
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">Tapez la phrase affichée au dessus de l'écrean</h3>
+                  <p className="text-gray-600 text-sm">Utilisez notre clavier virtuel pour taper 12 phrases courtes et simples.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-[#36CFB3] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-1">2</div>
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">Testez les différents styles</h3>
+                  <p className="text-gray-600 text-sm">Au cours de vos 12 tests, vous allez pouvoir tester 12 combinaisons de design différents.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-[#36CFB3] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-1">3</div>
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">Données automatiquement sauvées</h3>
+                  <p className="text-gray-600 text-sm">Vos interactions sont enregistrées pour nous aider à identifier le plus intuitif de l'utilisateur</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-[#36CFB3]/5 to-[#ED9390]/5 rounded-2xl p-8 border border-gray-100">
+              <div className="text-center">
+                <Globe className="h-16 w-16 text-[#36CFB3] mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-800 mb-3">Impact Global</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Vos données contribuent à une recherche universitaire pour optimiser les interfaces de prédiction de phrases, aidant des millions d'utilisateurs, notamment ceux ayant perdu la capacité de parler.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

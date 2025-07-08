@@ -70,11 +70,11 @@ export default function TestingControls() {
         <div className="flex items-center gap-4 px-4 py-2 bg-gray-50 rounded-lg">
           <Settings className="h-4 w-4 text-gray-500" />
           <span className="text-sm text-gray-600">
-            <strong>Style:</strong> {getStyleDisplayName(buttonStyle)}
+            <strong>Style:</strong> {getStyleDisplayName('style1')}
           </span>
           <span className="text-gray-300">|</span>
           <span className="text-sm text-gray-600">
-            <strong>Position:</strong> {getPositionDisplayName(buttonPosition)}
+            <strong>Position:</strong> {getPositionDisplayName('below-textbox')}
           </span>
         </div>
 

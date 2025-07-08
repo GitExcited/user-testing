@@ -57,9 +57,9 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     setCurrentTest(nextTest);
     startSingleTest(nextTest);
     console.log(`📝 Starting test ${automatedController.getProgress().current + 1}/12:`, {
-      style: nextTest.buttonStyle,
-      position: nextTest.buttonPosition,
-      sentence: nextTest.scenario.targetSentence
+      buttonStyle: nextTest.buttonStyle,
+      predictionEnabled: nextTest.predictionEnabled,
+      scenario: nextTest.scenario.targetSentence
     });
   };
 
@@ -73,7 +73,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       totalSuggestions: 0,
       totalTypos: 0,
       buttonStyle: test.buttonStyle,
-      buttonPosition: test.buttonPosition,
+      predictionEnabled: test.predictionEnabled,
       finalText: "",
       targetSentence: test.scenario.targetSentence,
       correctSuggestionClicks: 0,
@@ -128,7 +128,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
         suggestion_error_rate,
         avg_click_interval: avgClickInterval,
         button_style: testingData.buttonStyle,
-        button_position: testingData.buttonPosition
+        prediction_enabled: testingData.predictionEnabled
       };
 
       console.log(`📤 Submitting test ${automatedController.getProgress().current + 1} to Google Forms...`);

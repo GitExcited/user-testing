@@ -42,8 +42,7 @@ export default function AutomatedTestingControls() {
               Bienvenue dans l'étude de test utilisateur
             </h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              Vous allez compléter 12 tests de frappe courts avec différents styles et positions de boutons. 
-              Chaque test consiste à taper une phrase française en utilisant notre clavier virtuel et système de prédiction.
+              Vous allez compléter 12 tests de frappe courts. Chaque test consiste à taper une phrase française en utilisant notre clavier virtuel et, pour certains tests, un système de prédiction de texte.
             </p>
             <div className="flex justify-center">
               <button
@@ -62,25 +61,6 @@ export default function AutomatedTestingControls() {
 
   if (!currentTest) return null;
 
-  const getStyleDisplayName = (style: string) => {
-    const styleMap: Record<string, string> = {
-      'style1': 'Style Principal',
-      'style2': 'Style Subtil', 
-      'style3': 'Style Vibrant',
-      'style4': 'Style Ombré'
-    };
-    return styleMap[style] || style;
-  };
-
-  const getPositionDisplayName = (position: string) => {
-    const positionMap: Record<string, string> = {
-      'above-textbox': 'Au-dessus du texte',
-      'below-textbox': 'En-dessous du texte',
-      'right-textbox': 'À droite du texte'
-    };
-    return positionMap[position] || position;
-  };
-
   return (
     <div className="bg-white shadow-sm border-b">
       {/* Progress Bar */}
@@ -98,11 +78,8 @@ export default function AutomatedTestingControls() {
             <span className="text-sm font-medium text-gray-600">
               Test {progress.current + 1} sur {progress.total}
             </span>
-            <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
-              {getStyleDisplayName(currentTest.buttonStyle)}
-            </span>
-            <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">
-              {getPositionDisplayName(currentTest.buttonPosition)}
+            <span className="text-sm font-medium text-gray-600">
+              Prédiction: {currentTest.predictionEnabled ? 'Activée' : 'Désactivée'}
             </span>
           </div>
           

@@ -15,7 +15,7 @@ export default function TestingInstructions() {
           </div>
           <div className="flex-1">
             <h4 className="font-medium text-gray-800 text-sm mb-1">Tapez la phrase</h4>
-            <p className="text-xs text-gray-600">Utilisez le clavier virtuel pour taper la phrase française affichée. Les suggestions apparaîtront automatiquement</p>
+            <p className="text-xs text-gray-600">Utilisez le clavier virtuel pour taper la phrase française affichée. Les suggestions apparaîtront pour certains tests.</p>
           </div>
         </div>
 
@@ -25,7 +25,7 @@ export default function TestingInstructions() {
             💡
           </div>
           <div className="flex-1">
-            <h4 className="font-medium text-gray-800 text-sm mb-1">Utilisez les suggestions</h4>
+            <h4 className="font-medium text-gray-800 text-sm mb-1">Utilisez les suggestions (si disponibles)</h4>
             <p className="text-xs text-gray-600">Cliquez sur les boutons de suggestion ou continuez à taper manuellement - les deux options sont valides</p>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default function TestingInstructions() {
           </div>
           <div className="flex-1">
             <h4 className="font-medium text-gray-800 text-sm mb-1">Répéter 12 fois</h4>
-            <p className="text-xs text-gray-600">Le système vous présentera automatiquement 12 tests avec différents styles et positions de boutons</p>
+            <p className="text-xs text-gray-600">Le système vous présentera automatiquement 12 tests avec et sans prédiction de texte.</p>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@ export default function TestingInstructions() {
         <h4 className="font-medium text-blue-800 text-sm mb-2">📋 Informations importantes</h4>
         <ul className="text-xs text-blue-700 space-y-1">
           <li>• Chaque test dure environ 1-2 minutes</li>
-          <li>• Vous verrez différents styles de boutons automatiquement</li>
+          <li>• Vous verrez différents styles de boutons automatiquement, et la prédiction sera activée ou désactivée selon le test.</li>
           <li>• Tapez naturellement - vitesse et précision sont mesurées</li>
           <li>• Vos données sont automatiquement sauvegardées</li>
         </ul>
@@ -65,7 +65,7 @@ export default function TestingInstructions() {
 
       <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-100">
         <div className="flex items-center gap-2 mb-2">
-          <Clock className="h-4 w-4 text-green-600" />
+          <Clock className="h-4 w-4" />
           <h4 className="font-medium text-green-800 text-sm">Durée estimée</h4>
         </div>
         <p className="text-xs text-green-700">

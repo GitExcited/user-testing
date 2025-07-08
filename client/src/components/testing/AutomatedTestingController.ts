@@ -1,11 +1,11 @@
-import { ButtonStyle, ButtonPosition } from "@/lib/styleUtils";
-import { PREDICTION_SCENARIOS } from "@/data/predictionScenarios";
+import { ButtonStyle } from "@/lib/styleUtils";
+import { PREDICTION_SCENARIOS, PredictionScenario } from "@/data/predictionScenarios";
 
 export interface TestCombination {
   id: string;
   buttonStyle: ButtonStyle;
-  buttonPosition: ButtonPosition;
-  scenario: typeof PREDICTION_SCENARIOS[0];
+  predictionEnabled: boolean; // New: Indicates if prediction is enabled for this test
+  scenario: PredictionScenario;
   completed: boolean;
 }
 
@@ -19,32 +19,43 @@ export class AutomatedTestingController {
 
   private generateRandomizedCombinations() {
     const buttonStyles: ButtonStyle[] = ['style1', 'style2', 'style3', 'style4'];
-    const buttonPositions: ButtonPosition[] = ['above-textbox', 'below-textbox', 'right-textbox'];
-    
-    // Create all 12 combinations (4 styles × 3 positions)
     const allCombinations: Omit<TestCombination, 'id' | 'scenario' | 'completed'>[] = [];
-    
-    buttonStyles.forEach(style => {
-      buttonPositions.forEach(position => {
-        allCombinations.push({
-          buttonStyle: style,
-          buttonPosition: position
-        });
+
+    // Create 6 combinations with prediction enabled
+    for (let i = 0; i < 6; i++) {
+      allCombinations.push({
+        buttonStyle: buttonStyles[i % buttonStyles.length], // Cycle through styles
+        predictionEnabled: true,
       });
-    });
+    }
+
+    // Create 6 combinations with prediction disabled
+    for (let i = 0; i < 6; i++) {
+      allCombinations.push({
+        buttonStyle: buttonStyles[i % buttonStyles.length], // Cycle through styles
+        predictionEnabled: false,
+      });
+    }
 
     // Shuffle combinations randomly
     const shuffledCombinations = this.shuffleArray(allCombinations);
-    
-    // Shuffle scenarios randomly
-    const shuffledScenarios = this.shuffleArray([...PREDICTION_SCENARIOS]);
 
-    // Pair each combination with a random scenario
+    // Shuffle scenarios randomly and ensure we have enough for 12 tests
+    const shuffledScenarios = this.shuffleArray([...PREDICTION_SCENARIOS]);
+    if (shuffledScenarios.length < 12) {
+      console.error("Not enough prediction scenarios for 12 tests!");
+      // Duplicate scenarios if not enough, for testing purposes
+      while (shuffledScenarios.length < 12) {
+        shuffledScenarios.push(...this.shuffleArray([...PREDICTION_SCENARIOS]));
+      }
+    }
+
+    // Pair each combination with a unique scenario
     this.combinations = shuffledCombinations.map((combo, index) => ({
       id: `test-${index + 1}`,
       ...combo,
-      scenario: shuffledScenarios[index % shuffledScenarios.length],
-      completed: false
+      scenario: shuffledScenarios[index], // Assign unique scenario
+      completed: false,
     }));
 
     console.log('🎯 Generated randomized test combinations:', this.combinations);
@@ -77,7 +88,7 @@ export class AutomatedTestingController {
     const current = this.currentTestIndex;
     const total = this.combinations.length;
     const percentage = Math.round((current / total) * 100);
-    
+
     return { current, total, percentage };
   }
 
@@ -88,7 +99,7 @@ export class AutomatedTestingController {
   reset() {
     this.currentTestIndex = 0;
     this.combinations.forEach(combo => combo.completed = false);
-    this.generateRandomizedCombinations();
+    this.generateRandomizedCombinations(); // Regenerate combinations on reset
   }
 
   getAllCombinations(): TestCombination[] {
