@@ -2,25 +2,24 @@ import React, { useState } from "react";
 import { Volume2 } from "lucide-react";
 import { useSuggestions } from "../suggestions/SuggestionProvider";
 import CustomTextInput from "./CustomTextInput";
+import "../../styles/SuggestionStyles.css"; // Import the new styles
 
 export default function TypingInterface() {
-  const { suggestions, handleSuggestionClick, buttonStyle, predictionEnabled } = useSuggestions();
+  const { suggestions, handleSuggestionClick, predictionEnabled } = useSuggestions();
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentlySpeaking, setCurrentlySpeaking] = useState("");
 
   const suggestionElements = (
-    <div className="suggestions">
-      <div className={`suggestion-buttons ${buttonStyle}-buttons`}>
-        {suggestions.map((suggestion, index) => (
-          <button
-            key={`${suggestion}-${index}`}
-            onClick={() => handleSuggestionClick(suggestion)}
-            className="suggestion-button"
-          >
-            {suggestion}
-          </button>
-        ))}
-      </div>
+    <div className="suggestion-buttons">
+      {suggestions.map((suggestion, index) => (
+        <button
+          key={`${suggestion}-${index}`}
+          onClick={() => handleSuggestionClick(suggestion)}
+          className="suggestion-button"
+        >
+          {suggestion}
+        </button>
+      ))}
     </div>
   );
 

@@ -6,6 +6,10 @@ export class PredictionEngine {
   setScenario(scenario: PredictionScenario) {
     this.currentScenario = scenario;
   }
+
+  private normalizeString(str: string): string {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/'/g, "");
+  }
   
   private shuffleArray<T>(array: T[]): T[] {
     const shuffled = [...array];
@@ -14,6 +18,18 @@ export class PredictionEngine {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
+  }
+
+  private getUniqueSuggestions(suggestions: string[]): string[] {
+    const seen = new Set<string>();
+    return suggestions.filter(suggestion => {
+      const lowercased = suggestion.toLowerCase();
+      if (seen.has(lowercased)) {
+        return false;
+      }
+      seen.add(lowercased);
+      return true;
+    });
   }
 
   getPredictions(currentInput: string): string[] {
@@ -41,23 +57,61 @@ export class PredictionEngine {
   }
 
   private getWordLevelPredictions(nextWordIndex: number): string[] {
-    if (!this.currentScenario) return [];
-    
-    console.log('Getting word-level predictions for index:', nextWordIndex);
-    
-    // If we've reached the end of the target sentence, return empty
+    if (!this.currentScenario?.wordCompletions) {
+      console.log('No wordCompletions available in scenario');
+      return [];
+    }
+
     if (nextWordIndex >= this.currentScenario.words.length) {
       console.log('Reached end of target sentence');
       return [];
     }
-    
-    // Get the correct next word
+
+    if (
+      nextWordIndex >= this.currentScenario.wordCompletions.length ||
+      !this.currentScenario.wordCompletions[nextWordIndex]?.[0]?.[0]
+    ) {
+      console.log('No word completions available for word index:', nextWordIndex);
+      return [];
+    }
+
     const correctNextWord = this.currentScenario.words[nextWordIndex];
-    
-    console.log(`✅ Using CORRECT WORD "${correctNextWord}" for position ${nextWordIndex}`);
-    
-    // Return the correct word as the only prediction
-    return [correctNextWord];
+    let initialSuggestions = this.currentScenario.wordCompletions[nextWordIndex][0][0];
+
+    const isCorrectTrial = Math.random() <= 0.7;
+    let suggestions;
+
+    if (isCorrectTrial) {
+      console.log(`✅ Correct trial for "${correctNextWord}"`);
+      suggestions = [...initialSuggestions];
+      if (!suggestions.some(s => s.toLowerCase() === correctNextWord.toLowerCase())) {
+        suggestions[suggestions.length - 1] = correctNextWord;
+      }
+    } else {
+      console.log(`❌ Incorrect trial for "${correctNextWord}"`);
+      suggestions = initialSuggestions.filter(word => word.toLowerCase() !== correctNextWord.toLowerCase());
+    }
+
+    let uniqueSuggestions = this.getUniqueSuggestions(suggestions);
+
+    // Pad with distractors if we don't have enough unique suggestions
+    if (uniqueSuggestions.length < 3) {
+      const allWords = [...new Set(this.currentScenario.wordCompletions.flat(3))];
+      const existingLowercased = uniqueSuggestions.map(s => s.toLowerCase());
+      existingLowercased.push(correctNextWord.toLowerCase());
+
+      let distractorPool = allWords.filter(word => !existingLowercased.includes(word.toLowerCase()));
+
+      while (uniqueSuggestions.length < 3 && distractorPool.length > 0) {
+        const randomIndex = Math.floor(Math.random() * distractorPool.length);
+        const newWord = distractorPool.splice(randomIndex, 1)[0];
+        uniqueSuggestions.push(newWord);
+      }
+    }
+
+    const finalSuggestions = this.shuffleArray(uniqueSuggestions).slice(0, 3);
+    console.log('Final word-level predictions:', finalSuggestions);
+    return finalSuggestions;
   }
 
   private getCharacterLevelCompletions(wordIndex: number, currentWord: string): string[] {
@@ -89,7 +143,12 @@ export class PredictionEngine {
     }
     
     // Get completions for this character position
-    let completions = wordCompletionsForWord[characterIndex];
+    const completionsArray = wordCompletionsForWord[characterIndex];
+    if (!completionsArray || completionsArray.length === 0) {
+      console.log('No completions array available for character index:', characterIndex);
+      return [];
+    }
+    let completions = completionsArray[0];
     console.log('Raw completions for position:', completions);
     
     if (!Array.isArray(completions)) {
@@ -98,18 +157,18 @@ export class PredictionEngine {
     }
     
     // Filter completions to only show those that start with what the user has typed
+    const normalizedCurrentWord = this.normalizeString(currentWord.toLowerCase());
     const filteredCompletions = completions.filter(completion => 
-      completion.toLowerCase().startsWith(currentWord.toLowerCase())
+      this.normalizeString(completion.toLowerCase()).startsWith(normalizedCurrentWord)
     );
     
     console.log('Filtered completions:', filteredCompletions);
     
-    // Shuffle the filtered completions (optional, but keeps existing behavior)
-    const shuffledCompletions = this.shuffleArray(filteredCompletions);
+    const uniqueCompletions = this.getUniqueSuggestions(filteredCompletions);
+
+    console.log('Final character-level completions:', uniqueCompletions);
     
-    console.log('Final character-level completions:', shuffledCompletions);
-    
-    return shuffledCompletions;
+    return uniqueCompletions;
   }
   
   getTargetSentence(): string {

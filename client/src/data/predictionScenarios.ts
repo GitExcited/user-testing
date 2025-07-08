@@ -2,7 +2,7 @@ export interface PredictionScenario {
   id: string;
   targetSentence: string;
   words: string[];
-  wordCompletions?: string[][][]; // New property for character-level completions
+  wordCompletions?: string[][][];
   category?: string;
   difficulty?: 'easy' | 'medium' | 'hard';
 }
@@ -10,668 +10,675 @@ export interface PredictionScenario {
 export const PREDICTION_SCENARIOS: PredictionScenario[] = [
   {
     id: "sentence-1",
-    targetSentence: "Le livre etait pose sur la table pres de fenetre",
-    words: ["Le", "livre", "etait", "pose", "sur", "la", "table", "pres", "de", "fenetre"],
+    targetSentence: "Le livre était posé sur la table près de la fenêtre",
+    words: ["Le", "livre", "était", "posé", "sur", "la", "table", "près", "de", "la", "fenêtre"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Le", "lair", "lait", ],  // after typing "L"
-        ["Le", "Les", "les", ],  // after typing "Le"
+      [ // Le
+        [["Le", "Les", "Lait"]],
+        [["Le", "Les"]],
       ],
-      [
-        ["livre", "lair", "lait"],  // after typing "l"
-        ["livre", "lisait", "lire"],  // after typing "li"
-        ["livre"],  // after typing "liv"
-        ["livre"],  // after typing "livr"
-        ["livre"],  // after typing "livre"
+      [ // livre
+        [["livre", "lire", "lit"]],
+        [["livre", "lire"]],
+        [["livre"]],
+        [["livre"]],
+        [["livre"]],
       ],
-      [
-        ["etait", "eteint", "etaient"],  // after typing "e"
-        ["etait", "eteint", "etaient"],  // after typing "et"
-        ["etait", "etaient"],  // after typing "eta"
-        ["etait", "etaient"],  // after typing "etai"
-        ["etait"],  // after typing "etait"
+      [ // était
+        [["était", "étais", "étaient"]],
+        [["était", "étais", "étaient"]],
+        [["était", "étaient"]],
+        [["était", "étaient"]],
+        [["était"]],
       ],
-      [
-        ["pose", "piece", "pres"],  // after typing "p"
-        ["pose", "porte", "portable"],  // after typing "po"
-        ["pose"],  // after typing "pos"
-        ["pose"],  // after typing "pose"
+      [ // posé
+        [["posé", "posté", "porté"]],
+        [["posé", "posté"]],
+        [["posé"]],
+        [["posé"]],
       ],
-      [
-        ["sur", "sommes", "sa"],  // after typing "s"
-        ["sur"],  // after typing "su"
-        ["sur"],  // after typing "sur"
+      [ // sur
+        [["sur", "sous", "sans"]],
+        [["sur", "sous"]],
+        [["sur"]],
       ],
-      [
-        ["la", "lair", "lait"],  // after typing "l"
-        ["la", "lait", "lampadaire"],  // after typing "la"
+      [ // la
+        [["la", "le", "les"]],
+        [["la", "les"]],
       ],
-      [
-        ["table", "tape", "train"],  // after typing "t"
-        ["table", "tape", "tapote"],  // after typing "ta"
-        ["table"],  // after typing "tab"
-        ["table"],  // after typing "tabl"
-        ["table"],  // after typing "table"
+      [ // table
+        [["table", "tablette", "tabouret"]],
+        [["table", "tablette"]],
+        [["table"]],
+        [["table"]],
+        [["table"]],
       ],
-      [
-        ["pres", "pose", "piece"],  // after typing "p"
-        ["pres", "presentation", "promener"],  // after typing "pr"
-        ["pres"],  // after typing "pre"
-        ["pres"],  // after typing "pres"
+      [ // près
+        [["près", "prêt", "premier"]],
+        [["près", "prêt"]],
+        [["près"]],
+        [["près"]],
       ],
-      [
-        ["de", "du", "dans"],  // after typing "d"
-        ["de", "descends", "devenu"],  // after typing "de"
+      [ // de
+        [["de", "des", "du"]],
+        [["de", "des"]],
       ],
-      [
-        ["fenetre", "fonctionner", "fichier"],  // after typing "f"
-        ["fenetre", "ferme"],  // after typing "fe"
-        ["fenetre"],  // after typing "fen"
-        ["fenetre"],  // after typing "fene"
-        ["fenetre"],  // after typing "fenet"
-        ["fenetre"],  // after typing "fenetr"
-        ["fenetre"],  // after typing "fenetre"
+      [ // la
+        [["la", "le", "les"]],
+        [["la", "les"]],
+      ],
+      [ // fenêtre
+        [["fenêtre", "ferme", "fête"]],
+        [["fenêtre", "ferme"]],
+        [["fenêtre"]],
+        [["fenêtre"]],
+        [["fenêtre"]],
+        [["fenêtre"]],
+        [["fenêtre"]],
       ],
     ]
   },
   {
     id: "sentence-2",
-    targetSentence: "Elle est allee se promener dans le quartier",
-    words: ["Elle", "est", "allee", "se", "promener", "dans", "le", "quartier"],
+    targetSentence: "Elle est allée se promener dans le quartier",
+    words: ["Elle", "est", "allée", "se", "promener", "dans", "le", "quartier"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Elle", "envoye", "encore"],  // after typing "E"
-        ["Elle"],  // after typing "El"
-        ["Elle"],  // after typing "Ell"
-        ["Elle"],  // after typing "Elle"
-      ],
-      [
-        ["est", "envoye", "encore"],  // after typing "e"
-        ["est", "essuyee"],  // after typing "es"
-        ["est"],  // after typing "est"
-      ],
-      [
-        ["allee", "avec", "apres"],  // after typing "a"
-        ["allee", "alles"],  // after typing "al"
-        ["allee", "alles"],  // after typing "all"
-        ["allee", "alles"],  // after typing "alle"
-        ["allee"],  // after typing "allee"
-      ],
-      [
-        ["se", "sur", "sommes"],  // after typing "s"
-        ["se", "semblait", "secondes"],  // after typing "se"
-      ],
-      [
-        ["promener", "pose", "piece"],  // after typing "p"
-        ["promener", "pres", "presentation"],  // after typing "pr"
-        ["promener", "promenade"],  // after typing "pro"
-        ["promener", "promenade"],  // after typing "prom"
-        ["promener", "promenade"],  // after typing "prome"
-        ["promener", "promenade"],  // after typing "promen"
-        ["promener"],  // after typing "promene"
-        ["promener"],  // after typing "promener"
-      ],
-      [
-        ["dans", "du", "descends"],  // after typing "d"
-        ["dans"],  // after typing "da"
-        ["dans"],  // after typing "dan"
-        ["dans"],  // after typing "dans"
-      ],
-      [
-        ["le", "lair", "lait"],  // after typing "l"
-        ["le", "Les", "Le"],  // after typing "le"
-      ],
-      [
-        ["quartier", "que", "quelques"],  // after typing "q"
-        ["quartier", "que", "quelques"],  // after typing "qu"
-        ["quartier", "quand"],  // after typing "qua"
-        ["quartier"],  // after typing "quar"
-        ["quartier"],  // after typing "quart"
-        ["quartier"],  // after typing "quarti"
-        ["quartier"],  // after typing "quartie"
-        ["quartier"],  // after typing "quartier"
-      ],
+        [ // Elle
+            [["Elle", "Elles", "Et"]],
+            [["Elle", "Elles"]],
+            [["Elle"]],
+            [["Elle"]],
+        ],
+        [ // est
+            [["est", "et", "es"]],
+            [["est", "es"]],
+            [["est"]],
+        ],
+        [ // allée
+            [["allée", "aller", "allées"]],
+            [["allée", "aller", "allées"]],
+            [["allée", "allées"]],
+            [["allée", "allées"]],
+            [["allée"]],
+        ],
+        [ // se
+            [["se", "ce", "ses"]],
+            [["se", "ses"]],
+        ],
+        [ // promener
+            [["promener", "promenade", "premier"]],
+            [["promener", "promenade"]],
+            [["promener"]],
+            [["promener"]],
+            [["promener"]],
+            [["promener"]],
+            [["promener"]],
+            [["promener"]],
+        ],
+        [ // dans
+            [["dans", "d'un", "devant"]],
+            [["dans"]],
+            [["dans"]],
+            [["dans"]],
+        ],
+        [ // le
+            [["le", "la", "les"]],
+            [["le", "les"]],
+        ],
+        [ // quartier
+            [["quartier", "quartiers", "quatre"]],
+            [["quartier", "quartiers"]],
+            [["quartier"]],
+            [["quartier"]],
+            [["quartier"]],
+            [["quartier"]],
+            [["quartier"]],
+            [["quartier"]],
+        ],
     ]
   },
   {
     id: "sentence-3",
-    targetSentence: "Peux-tu apporter les cles quand tu descends",
-    words: ["Peux-tu", "apporter", "les", "cles", "quand", "tu", "descends"],
+    targetSentence: "Peux-tu m'apporter les clés quand tu descends",
+    words: ["Peux-tu", "m'apporter", "les", "clés", "quand", "tu", "descends"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Peux-tu", "pose", "piece"],  // after typing "P"
-        ["Peux-tu", "peu", "pendant"],  // after typing "Pe"
-        ["Peux-tu", "peu"],  // after typing "Peu"
-        ["Peux-tu"],  // after typing "Peux"
-        ["Peux-tu"],  // after typing "Peux-"
-        ["Peux-tu"],  // after typing "Peux-t"
-        ["Peux-tu"],  // after typing "Peux-tu"
-      ],
-      [
-        ["apporter", "avec", "apres"],  // after typing "a"
-        ["apporter", "apres"],  // after typing "ap"
-        ["apporter"],  // after typing "app"
-        ["apporter"],  // after typing "appo"
-        ["apporter"],  // after typing "appor"
-        ["apporter"],  // after typing "apport"
-        ["apporter"],  // after typing "apporte"
-        ["apporter"],  // after typing "apporter"
-      ],
-      [
-        ["les", "lair", "lait"],  // after typing "l"
-        ["les", "Les", "Le"],  // after typing "le"
-        ["les", "Les"],  // after typing "les"
-      ],
-      [
-        ["cles", "colis", "cesse"],  // after typing "c"
-        ["cles"],  // after typing "cl"
-        ["cles"],  // after typing "cle"
-        ["cles"],  // after typing "cles"
-      ],
-      [
-        ["quand", "que", "quelques"],  // after typing "q"
-        ["quand", "que", "quelques"],  // after typing "qu"
-        ["quand", "quartier"],  // after typing "qua"
-        ["quand"],  // after typing "quan"
-        ["quand"],  // after typing "quand"
-      ],
-      [
-        ["tu", "tape", "train"],  // after typing "t"
-        ["tu"],  // after typing "tu"
-      ],
-      [
-        ["descends", "du", "dans"],  // after typing "d"
-        ["descends", "de", "devenu"],  // after typing "de"
-        ["descends"],  // after typing "des"
-        ["descends"],  // after typing "desc"
-        ["descends"],  // after typing "desce"
-        ["descends"],  // after typing "descen"
-        ["descends"],  // after typing "descend"
-        ["descends"],  // after typing "descends"
-      ],
+        [ // Peux-tu
+            [["Peux-tu", "Peux", "peut"]],
+            [["Peux-tu", "Peux"]],
+            [["Peux-tu"]],
+            [["Peux-tu"]],
+            [["Peux-tu"]],
+            [["Peux-tu"]],
+            [["Peux-tu"]],
+        ],
+        [ // m'apporter
+            [["m'apporter", "apporter", "emporter"]],
+            [["m'apporter", "apporter"]],
+            [["m'apporter"]],
+            [["m'apporter"]],
+            [["m'apporter"]],
+            [["m'apporter"]],
+            [["m'apporter"]],
+            [["m'apporter"]],
+            [["m'apporter"]],
+        ],
+        [ // les
+            [["les", "le", "la"]],
+            [["les"]],
+            [["les"]],
+        ],
+        [ // clés
+            [["clés", "clefs", "claires"]],
+            [["clés", "clefs"]],
+            [["clés"]],
+            [["clés"]],
+        ],
+        [ // quand
+            [["quand", "quant", "comme"]],
+            [["quand", "quant"]],
+            [["quand"]],
+            [["quand"]],
+            [["quand"]],
+        ],
+        [ // tu
+            [["tu", "te", "tout"]],
+            [["tu"]],
+        ],
+        [ // descends
+            [["descends", "descendras", "descendre"]],
+            [["descends", "descendre"]],
+            [["descends"]],
+            [["descends"]],
+            [["descends"]],
+            [["descends"]],
+            [["descends"]],
+            [["descends"]],
+        ],
     ]
   },
   {
     id: "sentence-4",
-    targetSentence: "La machine a cafe a cesse de fonctionner ce matin je pense",
-    words: ["La", "machine", "a", "cafe", "a", "cesse", "de", "fonctionner", "ce", "matin", "je", "pense"],
+    targetSentence: "La machine à café a cessé de fonctionner ce matin",
+    words: ["La", "machine", "à", "café", "a", "cessé", "de", "fonctionner", "ce", "matin"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["La", "lair", "lait"],  // after typing "L"
-        ["La", "lait", "lampadaire"],  // after typing "La"
-      ],
-      [
-        ["machine", "marche", "magasin"],  // after typing "m"
-        ["machine", "marche", "magasin"],  // after typing "ma"
-        ["machine"],  // after typing "mac"
-        ["machine"],  // after typing "mach"
-        ["machine"],  // after typing "machi"
-        ["machine"],  // after typing "machin"
-        ["machine"],  // after typing "machine"
-      ],
-      [
-        ["a"],  // after typing "a"
-      ],
-      [
-        ["cafe", "colis", "cesse"],  // after typing "c"
-        ["cafe", "carnet"],  // after typing "ca"
-        ["cafe"],  // after typing "caf"
-        ["cafe"],  // after typing "cafe"
-      ],
-      [
-        ["a", "avec", "apres"],  // after typing "a"
-      ],
-      [
-        ["cesse", "colis", "cinq"],  // after typing "c"
-        ["cesse", "ce"],  // after typing "ce"
-        ["cesse"],  // after typing "ces"
-        ["cesse"],  // after typing "cess"
-        ["cesse"],  // after typing "cesse"
-      ],
-      [
-        ["de", "du", "dans"],  // after typing "d"
-        ["de", "descends", "devenu"],  // after typing "de"
-      ],
-      [
-        ["fonctionner", "fenetre", "fichier"],  // after typing "f"
-        ["fonctionner", "formulaire"],  // after typing "fo"
-        ["fonctionner"],  // after typing "fon"
-        ["fonctionner"],  // after typing "fonc"
-        ["fonctionner"],  // after typing "fonct"
-        ["fonctionner"],  // after typing "foncti"
-        ["fonctionner"],  // after typing "fonctio"
-        ["fonctionner"],  // after typing "fonction"
-        ["fonctionner"],  // after typing "fonctionn"
-        ["fonctionner"],  // after typing "fonctionne"
-        ["fonctionner"],  // after typing "fonctionner"
-      ],
-      [
-        ["ce", "colis", "cesse"],  // after typing "c"
-        ["ce", "cesse"],  // after typing "ce"
-      ],
-      [
-        ["matin", "marche", "magasin"],  // after typing "m"
-        ["matin", "marche", "magasin"],  // after typing "ma"
-        ["matin"],  // after typing "mat"
-        ["matin"],  // after typing "mati"
-        ["matin"],  // after typing "matin"
-      ],
-      [
-        ["je", "jai", "jusquau"],  // after typing "j"
-        ["je"],  // after typing "je"
-      ],
-      [
-        ["pense", "pose", "piece"],  // after typing "p"
-        ["pense", "peu", "pendant"],  // after typing "pe"
-        ["pense", "pendant"],  // after typing "pen"
-        ["pense"],  // after typing "pens"
-        ["pense"],  // after typing "pense"
-      ],
+        [ // La
+            [["La", "Le", "Les"]],
+            [["La"]],
+        ],
+        [ // machine
+            [["machine", "machines", "machin"]],
+            [["machine", "machines"]],
+            [["machine"]],
+            [["machine"]],
+            [["machine"]],
+            [["machine"]],
+            [["machine"]],
+        ],
+        [ // à
+            [["à", "a", "as"]],
+        ],
+        [ // café
+            [["café", "cahier", "cacao"]],
+            [["café"]],
+            [["café"]],
+            [["café"]],
+        ],
+        [ // a
+            [["a", "à", "as"]],
+        ],
+        [ // cessé
+            [["cessé", "cesser", "cesse"]],
+            [["cessé", "cesse"]],
+            [["cessé"]],
+            [["cessé"]],
+            [["cessé"]],
+        ],
+        [ // de
+            [["de", "des", "du"]],
+            [["de"]],
+        ],
+        [ // fonctionner
+            [["fonctionner", "fonctionnait", "fonction"]],
+            [["fonctionner", "fonction"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+            [["fonctionner"]],
+        ],
+        [ // ce
+            [["ce", "se", "ces"]],
+            [["ce"]],
+        ],
+        [ // matin
+            [["matin", "matinée", "matinal"]],
+            [["matin", "matinée"]],
+            [["matin"]],
+            [["matin"]],
+            [["matin"]],
+        ],
     ]
   },
   {
     id: "sentence-5",
-    targetSentence: "Jenverrai le rapport dici la fin de journee",
-    words: ["Jenverrai", "le", "rapport", "dici", "la", "fin", "de", "journee"],
+    targetSentence: "J'enverrai le rapport d'ici la fin de la journée",
+    words: ["J'enverrai", "le", "rapport", "d'ici", "la", "fin", "de", "la", "journée"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Jenverrai", "je", "jai"],  // after typing "J"
-        ["Jenverrai", "jai"],  // after typing "Je"
-        ["Jenverrai"],  // after typing "Jen"
-        ["Jenverrai"],  // after typing "Jenv"
-        ["Jenverrai"],  // after typing "Jenve"
-        ["Jenverrai"],  // after typing "Jenver"
-        ["Jenverrai"],  // after typing "Jenverr"
-        ["Jenverrai"],  // after typing "Jenverra"
-        ["Jenverrai"],  // after typing "Jenverrai"
-      ],
-      [
-        ["le", "lair", "lait"],  // after typing "l"
-        ["le", "Les", "Le"],  // after typing "le"
-      ],
-      [
-        ["rapport", "retard", "rempli"],  // after typing "r"
-        ["rapport", "rangee"],  // after typing "ra"
-        ["rapport"],  // after typing "rap"
-        ["rapport"],  // after typing "rapp"
-        ["rapport"],  // after typing "rappo"
-        ["rapport"],  // after typing "rappor"
-        ["rapport"],  // after typing "rapport"
-      ],
-      [
-        ["dici", "du", "dans"],  // after typing "d"
-        ["dici"],  // after typing "di"
-        ["dici"],  // after typing "dic"
-        ["dici"],  // after typing "dici"
-      ],
-      [
-        ["la", "lair", "lait"],  // after typing "l"
-        ["la", "lait", "lampadaire"],  // after typing "la"
-      ],
-      [
-        ["fin", "fenetre", "fonctionner"],  // after typing "f"
-        ["fin", "fichier"],  // after typing "fi"
-        ["fin"],  // after typing "fin"
-      ],
-      [
-        ["de", "du", "dans"],  // after typing "d"
-        ["de", "descends", "devenu"],  // after typing "de"
-      ],
-      [
-        ["journee", "je", "jai"],  // after typing "j"
-        ["journee", "jour"],  // after typing "jo"
-        ["journee", "jour"],  // after typing "jou"
-        ["journee", "jour"],  // after typing "jour"
-        ["journee"],  // after typing "journ"
-        ["journee"],  // after typing "journe"
-        ["journee"],  // after typing "journee"
-      ],
+        [ // J'enverrai
+            [["J'enverrai", "J'envoie", "J'ai envoyé"]],
+            [["J'enverrai", "J'envoie"]],
+            [["J'enverrai"]],
+            [["J'enverrai"]],
+            [["J'enverrai"]],
+            [["J'enverrai"]],
+            [["J'enverrai"]],
+            [["J'enverrai"]],
+            [["J'enverrai"]],
+        ],
+        [ // le
+            [["le", "la", "les"]],
+            [["le"]],
+        ],
+        [ // rapport
+            [["rapport", "rapports", "rapidement"]],
+            [["rapport", "rapports"]],
+            [["rapport"]],
+            [["rapport"]],
+            [["rapport"]],
+            [["rapport"]],
+            [["rapport"]],
+        ],
+        [ // d'ici
+            [["d'ici", "ici", "d'où"]],
+            [["d'ici"]],
+            [["d'ici"]],
+            [["d'ici"]],
+        ],
+        [ // la
+            [["la", "le", "les"]],
+            [["la"]],
+        ],
+        [ // fin
+            [["fin", "final", "finalement"]],
+            [["fin"]],
+            [["fin"]],
+        ],
+        [ // de
+            [["de", "des", "du"]],
+            [["de"]],
+        ],
+        [ // la
+            [["la", "le", "les"]],
+            [["la"]],
+        ],
+        [ // journée
+            [["journée", "jour", "journal"]],
+            [["journée", "jour"]],
+            [["journée"]],
+            [["journée"]],
+            [["journée"]],
+            [["journée"]],
+            [["journée"]],
+        ],
     ]
   },
   {
     id: "sentence-6",
-    targetSentence: "Il a regarde lecran et tapote le bouton",
-    words: ["Il", "a", "regarde", "lecran", "et", "tapote", "le", "bouton"],
+    targetSentence: "Il a regardé l'écran et a tapoté le bouton",
+    words: ["Il", "a", "regardé", "l'écran", "et", "a", "tapoté", "le", "bouton"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Il", "imprimees", "immediatement"],  // after typing "I"
-        ["Il", "Ils"],  // after typing "Il"
-      ],
-      [
-        ["a", "avec", "apres"],  // after typing "a"
-      ],
-      [
-        ["regarde", "retard", "rapport"],  // after typing "r"
-        ["regarde", "retard", "rempli"],  // after typing "re"
-        ["regarde"],  // after typing "reg"
-        ["regarde"],  // after typing "rega"
-        ["regarde"],  // after typing "regar"
-        ["regarde"],  // after typing "regard"
-        ["regarde"],  // after typing "regarde"
-      ],
-      [
-        ["lecran", "lair", "lait"],  // after typing "l"
-        ["lecran", "lair", "lont"],  // after typing "le"
-        ["lecran", "letagere"],  // after typing "lec"
-        ["lecran"],  // after typing "lecr"
-        ["lecran"],  // after typing "lecra"
-        ["lecran"],  // after typing "lecran"
-      ],
-      [
-        ["et", "envoye", "encore"],  // after typing "e"
-        ["et"],  // after typing "et"
-      ],
-      [
-        ["tapote", "tape", "train"],  // after typing "t"
-        ["tapote", "tape", "table"],  // after typing "ta"
-        ["tapote", "tape"],  // after typing "tap"
-        ["tapote"],  // after typing "tapo"
-        ["tapote"],  // after typing "tapot"
-        ["tapote"],  // after typing "tapote"
-      ],
-      [
-        ["le", "lair", "lait"],  // after typing "l"
-        ["le", "Les", "Le"],  // after typing "le"
-      ],
-      [
-        ["bouton", "bien", "bureau"],  // after typing "b"
-        ["bouton"],  // after typing "bo"
-        ["bouton"],  // after typing "bou"
-        ["bouton"],  // after typing "bout"
-        ["bouton"],  // after typing "bouto"
-        ["bouton"],  // after typing "bouton"
-      ],
+        [ // Il
+            [["Il", "Ils", "Elle"]],
+            [["Il", "Ils"]],
+        ],
+        [ // a
+            [["a", "à", "as"]],
+        ],
+        [ // regardé
+            [["regardé", "regarder", "regarde"]],
+            [["regardé", "regarder"]],
+            [["regardé"]],
+            [["regardé"]],
+            [["regardé"]],
+            [["regardé"]],
+            [["regardé"]],
+        ],
+        [ // l'écran
+            [["l'écran", "écran", "écrans"]],
+            [["l'écran", "écran"]],
+            [["l'écran"]],
+            [["l'écran"]],
+            [["l'écran"]],
+            [["l'écran"]],
+        ],
+        [ // et
+            [["et", "est", "es"]],
+            [["et", "est"]],
+        ],
+        [ // a
+            [["a", "à", "as"]],
+        ],
+        [ // tapoté
+            [["tapoté", "tapoter", "tape"]],
+            [["tapoté", "tapoter"]],
+            [["tapoté"]],
+            [["tapoté"]],
+            [["tapoté"]],
+            [["tapoté"]],
+        ],
+        [ // le
+            [["le", "la", "les"]],
+            [["le"]],
+        ],
+        [ // bouton
+            [["bouton", "boutons", "boutonner"]],
+            [["bouton", "boutons"]],
+            [["bouton"]],
+            [["bouton"]],
+            [["bouton"]],
+            [["bouton"]],
+        ],
     ]
   },
   {
     id: "sentence-7",
-    targetSentence: "Ils ont marche jusquau magasin pour prendre du lait",
-    words: ["Ils", "ont", "marche", "jusquau", "magasin", "pour", "prendre", "du", "lait"],
+    targetSentence: "Ils ont marché jusqu'au magasin pour prendre du lait",
+    words: ["Ils", "ont", "marché", "jusqu'au", "magasin", "pour", "prendre", "du", "lait"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Ils", "imprimees", "immediatement"],  // after typing "I"
-        ["Ils", "Il"],  // after typing "Il"
-        ["Ils"],  // after typing "Ils"
-      ],
-      [
-        ["ont", "ouvert", "oublie"],  // after typing "o"
-        ["ont"],  // after typing "on"
-        ["ont"],  // after typing "ont"
-      ],
-      [
-        ["marche", "magasin", "matin"],  // after typing "m"
-        ["marche", "magasin", "machine"],  // after typing "ma"
-        ["marche"],  // after typing "mar"
-        ["marche"],  // after typing "marc"
-        ["marche"],  // after typing "march"
-        ["marche"],  // after typing "marche"
-      ],
-      [
-        ["jusquau", "je", "jai"],  // after typing "j"
-        ["jusquau", "juste"],  // after typing "ju"
-        ["jusquau", "juste"],  // after typing "jus"
-        ["jusquau"],  // after typing "jusq"
-        ["jusquau"],  // after typing "jusqu"
-        ["jusquau"],  // after typing "jusqua"
-        ["jusquau"],  // after typing "jusquau"
-      ],
-      [
-        ["magasin", "marche", "matin"],  // after typing "m"
-        ["magasin", "marche", "machine"],  // after typing "ma"
-        ["magasin"],  // after typing "mag"
-        ["magasin"],  // after typing "maga"
-        ["magasin"],  // after typing "magas"
-        ["magasin"],  // after typing "magasi"
-        ["magasin"],  // after typing "magasin"
-      ],
-      [
-        ["pour", "pose", "piece"],  // after typing "p"
-        ["pour", "pose", "porte"],  // after typing "po"
-        ["pour"],  // after typing "pou"
-        ["pour"],  // after typing "pour"
-      ],
-      [
-        ["prendre", "pose", "piece"],  // after typing "p"
-        ["prendre", "pres", "presentation"],  // after typing "pr"
-        ["prendre"],  // after typing "pre"
-        ["prendre"],  // after typing "pren"
-        ["prendre"],  // after typing "prend"
-        ["prendre"],  // after typing "prendr"
-        ["prendre"],  // after typing "prendre"
-      ],
-      [
-        ["du", "dans", "descends"],  // after typing "d"
-        ["du"],  // after typing "du"
-      ],
-      [
-        ["lait", "lair", "lecran"],  // after typing "l"
-        ["lait", "lampadaire", "lave"],  // after typing "la"
-        ["lait", "laisse", "laisser"],  // after typing "lai"
-        ["lait"],  // after typing "lait"
-      ],
+        [ // Ils
+            [["Ils", "Il", "Elles"]],
+            [["Ils", "Il"]],
+            [["Ils"]],
+        ],
+        [ // ont
+            [["ont", "on", "ont-ils"]],
+            [["ont", "on"]],
+            [["ont"]],
+        ],
+        [ // marché
+            [["marché", "marcher", "marche"]],
+            [["marché", "marcher"]],
+            [["marché"]],
+            [["marché"]],
+            [["marché"]],
+            [["marché"]],
+        ],
+        [ // jusqu'au
+            [["jusqu'au", "jusque", "jusqu'à"]],
+            [["jusqu'au", "jusque"]],
+            [["jusqu'au"]],
+            [["jusqu'au"]],
+            [["jusqu'au"]],
+            [["jusqu'au"]],
+            [["jusqu'au"]],
+            [["jusqu'au"]],
+        ],
+        [ // magasin
+            [["magasin", "magasins", "magazine"]],
+            [["magasin", "magasins"]],
+            [["magasin"]],
+            [["magasin"]],
+            [["magasin"]],
+            [["magasin"]],
+            [["magasin"]],
+        ],
+        [ // pour
+            [["pour", "par", "pendant"]],
+            [["pour", "par"]],
+            [["pour"]],
+            [["pour"]],
+        ],
+        [ // prendre
+            [["prendre", "pris", "prenaient"]],
+            [["prendre", "pris"]],
+            [["prendre"]],
+            [["prendre"]],
+            [["prendre"]],
+            [["prendre"]],
+            [["prendre"]],
+        ],
+        [ // du
+            [["du", "de", "des"]],
+            [["du"]],
+        ],
+        [ // lait
+            [["lait", "l'air", "laid"]],
+            [["lait", "laid"]],
+            [["lait"]],
+            [["lait"]],
+        ],
     ]
   },
   {
     id: "sentence-8",
-    targetSentence: "La piece semblait lumineuse et vraiment bien rangee",
-    words: ["La", "piece", "semblait", "lumineuse", "et", "vraiment", "bien", "rangee"],
+    targetSentence: "La pièce semblait lumineuse et vraiment bien rangée",
+    words: ["La", "pièce", "semblait", "lumineuse", "et", "vraiment", "bien", "rangée"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["La", "lair", "lait"],  // after typing "L"
-        ["La", "lait", "lampadaire"],  // after typing "La"
-      ],
-      [
-        ["piece", "pose", "pres"],  // after typing "p"
-        ["piece"],  // after typing "pi"
-        ["piece"],  // after typing "pie"
-        ["piece"],  // after typing "piec"
-        ["piece"],  // after typing "piece"
-      ],
-      [
-        ["semblait", "sur", "sommes"],  // after typing "s"
-        ["semblait", "secondes", "se"],  // after typing "se"
-        ["semblait"],  // after typing "sem"
-        ["semblait"],  // after typing "semb"
-        ["semblait"],  // after typing "sembl"
-        ["semblait"],  // after typing "sembla"
-        ["semblait"],  // after typing "semblai"
-        ["semblait"],  // after typing "semblait"
-      ],
-      [
-        ["lumineuse", "lair", "lait"],  // after typing "l"
-        ["lumineuse", "lumieres"],  // after typing "lu"
-        ["lumineuse", "lumieres"],  // after typing "lum"
-        ["lumineuse", "lumieres"],  // after typing "lumi"
-        ["lumineuse"],  // after typing "lumin"
-        ["lumineuse"],  // after typing "lumine"
-        ["lumineuse"],  // after typing "lumineu"
-        ["lumineuse"],  // after typing "lumineus"
-        ["lumineuse"],  // after typing "lumineuse"
-      ],
-      [
-        ["et", "envoye", "encore"],  // after typing "e"
-        ["et"],  // after typing "et"
-      ],
-      [
-        ["vraiment", "verrouiller", "vaisselle"],  // after typing "v"
-        ["vraiment"],  // after typing "vr"
-        ["vraiment"],  // after typing "vra"
-        ["vraiment"],  // after typing "vrai"
-        ["vraiment"],  // after typing "vraim"
-        ["vraiment"],  // after typing "vraime"
-        ["vraiment"],  // after typing "vraimen"
-        ["vraiment"],  // after typing "vraiment"
-      ],
-      [
-        ["bien", "bureau", "bouton"],  // after typing "b"
-        ["bien"],  // after typing "bi"
-        ["bien"],  // after typing "bie"
-        ["bien"],  // after typing "bien"
-      ],
-      [
-        ["rangee", "retard", "rapport"],  // after typing "r"
-        ["rangee", "rapport"],  // after typing "ra"
-        ["rangee"],  // after typing "ran"
-        ["rangee"],  // after typing "rang"
-        ["rangee"],  // after typing "range"
-        ["rangee"],  // after typing "rangee"
-      ],
+        [ // La
+            [["La", "Le", "Les"]],
+            [["La"]],
+        ],
+        [ // pièce
+            [["pièce", "pièces", "petit"]],
+            [["pièce", "pièces"]],
+            [["pièce"]],
+            [["pièce"]],
+            [["pièce"]],
+        ],
+        [ // semblait
+            [["semblait", "semble", "semblent"]],
+            [["semblait", "semble"]],
+            [["semblait"]],
+            [["semblait"]],
+            [["semblait"]],
+            [["semblait"]],
+            [["semblait"]],
+            [["semblait"]],
+        ],
+        [ // lumineuse
+            [["lumineuse", "lumineux", "lumière"]],
+            [["lumineuse", "lumineux"]],
+            [["lumineuse"]],
+            [["lumineuse"]],
+            [["lumineuse"]],
+            [["lumineuse"]],
+            [["lumineuse"]],
+            [["lumineuse"]],
+            [["lumineuse"]],
+        ],
+        [ // et
+            [["et", "est", "es"]],
+            [["et", "est"]],
+        ],
+        [ // vraiment
+            [["vraiment", "vrai", "vraie"]],
+            [["vraiment", "vrai"]],
+            [["vraiment"]],
+            [["vraiment"]],
+            [["vraiment"]],
+            [["vraiment"]],
+            [["vraiment"]],
+            [["vraiment"]],
+        ],
+        [ // bien
+            [["bien", "biens", "bientôt"]],
+            [["bien", "biens"]],
+            [["bien"]],
+            [["bien"]],
+        ],
+        [ // rangée
+            [["rangée", "ranger", "rangement"]],
+            [["rangée", "ranger"]],
+            [["rangée"]],
+            [["rangée"]],
+            [["rangée"]],
+            [["rangée"]],
+        ],
     ]
   },
   {
     id: "sentence-9",
-    targetSentence: "Elle a tape son message et envoye immediatement",
-    words: ["Elle", "a", "tape", "son", "message", "et", "envoye", "immediatement"],
+    targetSentence: "Elle a tapé son message et l'a envoyé immédiatement",
+    words: ["Elle", "a", "tapé", "son", "message", "et", "l'a", "envoyé", "immédiatement"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Elle", "envoye", "encore"],  // after typing "E"
-        ["Elle"],  // after typing "El"
-        ["Elle"],  // after typing "Ell"
-        ["Elle"],  // after typing "Elle"
-      ],
-      [
-        ["a", "avec", "apres"],  // after typing "a"
-      ],
-      [
-        ["tape", "train", "tour"],  // after typing "t"
-        ["tape", "table", "tapote"],  // after typing "ta"
-        ["tape", "tapote"],  // after typing "tap"
-        ["tape"],  // after typing "tape"
-      ],
-      [
-        ["son", "sur", "sommes"],  // after typing "s"
-        ["son", "sommes", "sonneries"],  // after typing "so"
-        ["son", "sonneries"],  // after typing "son"
-      ],
-      [
-        ["message", "marche", "magasin"],  // after typing "m"
-        ["message"],  // after typing "me"
-        ["message"],  // after typing "mes"
-        ["message"],  // after typing "mess"
-        ["message"],  // after typing "messa"
-        ["message"],  // after typing "messag"
-        ["message"],  // after typing "message"
-      ],
-      [
-        ["et", "envoye", "encore"],  // after typing "e"
-        ["et"],  // after typing "et"
-      ],
-      [
-        ["envoye", "encore", "ensoleille"],  // after typing "e"
-        ["envoye", "encore", "entrer"],  // after typing "en"
-        ["envoye", "environ"],  // after typing "env"
-        ["envoye"],  // after typing "envo"
-        ["envoye"],  // after typing "envoy"
-        ["envoye"],  // after typing "envoye"
-      ],
-      [
-        ["immediatement", "imprimees", "Ils"],  // after typing "i"
-        ["immediatement", "imprimees"],  // after typing "im"
-        ["immediatement"],  // after typing "imm"
-        ["immediatement"],  // after typing "imme"
-        ["immediatement"],  // after typing "immed"
-        ["immediatement"],  // after typing "immedi"
-        ["immediatement"],  // after typing "immedia"
-        ["immediatement"],  // after typing "immediat"
-        ["immediatement"],  // after typing "immediate"
-        ["immediatement"],  // after typing "immediatem"
-        ["immediatement"],  // after typing "immediateme"
-        ["immediatement"],  // after typing "immediatemen"
-        ["immediatement"],  // after typing "immediatement"
-      ],
+        [ // Elle
+            [["Elle", "Elles", "Il"]],
+            [["Elle", "Elles"]],
+            [["Elle"]],
+            [["Elle"]],
+        ],
+        [ // a
+            [["a", "à", "as"]],
+        ],
+        [ // tapé
+            [["tapé", "taper", "tape"]],
+            [["tapé", "taper"]],
+            [["tapé"]],
+            [["tapé"]],
+        ],
+        [ // son
+            [["son", "sa", "ses"]],
+            [["son"]],
+            [["son"]],
+        ],
+        [ // message
+            [["message", "messages", "messager"]],
+            [["message", "messages"]],
+            [["message"]],
+            [["message"]],
+            [["message"]],
+            [["message"]],
+            [["message"]],
+        ],
+        [ // et
+            [["et", "est", "es"]],
+            [["et", "est"]],
+        ],
+        [ // l'a
+            [["l'a", "la", "le"]],
+            [["l'a", "la"]],
+            [["l'a"]],
+        ],
+        [ // envoyé
+            [["envoyé", "envoyer", "envoie"]],
+            [["envoyé", "envoyer"]],
+            [["envoyé"]],
+            [["envoyé"]],
+            [["envoyé"]],
+            [["envoyé"]],
+        ],
+        [ // immédiatement
+            [["immédiatement", "immédiat", "immédiate"]],
+            [["immédiatement", "immédiat"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+            [["immédiatement"]],
+        ],
     ]
   },
   {
     id: "sentence-10",
-    targetSentence: "Le train est arrive avec environ cinq minutes de retard",
-    words: ["Le", "train", "est", "arrive", "avec", "environ", "cinq", "minutes", "de", "retard"],
+    targetSentence: "Le train est arrivé avec environ cinq minutes de retard",
+    words: ["Le", "train", "est", "arrivé", "avec", "environ", "cinq", "minutes", "de", "retard"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Le", "lair", "lait"],  // after typing "L"
-        ["Le", "Les", "les"],  // after typing "Le"
-      ],
-      [
-        ["train", "tape", "tour"],  // after typing "t"
-        ["train"],  // after typing "tr"
-        ["train"],  // after typing "tra"
-        ["train"],  // after typing "trai"
-        ["train"],  // after typing "train"
-      ],
-      [
-        ["est", "envoye", "encore"],  // after typing "e"
-        ["est", "essuyee"],  // after typing "es"
-        ["est"],  // after typing "est"
-      ],
-      [
-        ["arrive", "avec", "apres"],  // after typing "a"
-        ["arrive"],  // after typing "ar"
-        ["arrive"],  // after typing "arr"
-        ["arrive"],  // after typing "arri"
-        ["arrive"],  // after typing "arriv"
-        ["arrive"],  // after typing "arrive"
-      ],
-      [
-        ["avec", "apres", "a"],  // after typing "a"
-        ["avec", "avons", "avant"],  // after typing "av"
-        ["avec"],  // after typing "ave"
-        ["avec"],  // after typing "avec"
-      ],
-      [
-        ["environ", "envoye", "encore"],  // after typing "e"
-        ["environ", "envoye", "entrer"],  // after typing "en"
-        ["environ", "envoye"],  // after typing "env"
-        ["environ"],  // after typing "envi"
-        ["environ"],  // after typing "envir"
-        ["environ"],  // after typing "enviro"
-        ["environ"],  // after typing "environ"
-      ],
-      [
-        ["cinq", "colis", "cesse"],  // after typing "c"
-        ["cinq"],  // after typing "ci"
-        ["cinq"],  // after typing "cin"
-        ["cinq"],  // after typing "cinq"
-      ],
-      [
-        ["minutes", "marche", "magasin"],  // after typing "m"
-        ["minutes", "mise", "mis"],  // after typing "mi"
-        ["minutes"],  // after typing "min"
-        ["minutes"],  // after typing "minu"
-        ["minutes"],  // after typing "minut"
-        ["minutes"],  // after typing "minute"
-        ["minutes"],  // after typing "minutes"
-      ],
-      [
-        ["de", "du", "dans"],  // after typing "d"
-        ["de", "descends", "devenu"],  // after typing "de"
-      ],
-      [
-        ["retard", "rapport", "rempli"],  // after typing "r"
-        ["retard", "rempli", "restes"],  // after typing "re"
-        ["retard"],  // after typing "ret"
-        ["retard"],  // after typing "reta"
-        ["retard"],  // after typing "retar"
-        ["retard"],  // after typing "retard"
-      ],
+        [ // Le
+            [["Le", "La", "Les"]],
+            [["Le"]],
+        ],
+        [ // train
+            [["train", "trains", "traineau"]],
+            [["train", "trains"]],
+            [["train"]],
+            [["train"]],
+            [["train"]],
+        ],
+        [ // est
+            [["est", "et", "es"]],
+            [["est", "et"]],
+            [["est"]],
+        ],
+        [ // arrivé
+            [["arrivé", "arriver", "arrive"]],
+            [["arrivé", "arriver"]],
+            [["arrivé"]],
+            [["arrivé"]],
+            [["arrivé"]],
+            [["arrivé"]],
+        ],
+        [ // avec
+            [["avec", "avant", "après"]],
+            [["avec", "avant"]],
+            [["avec"]],
+            [["avec"]],
+        ],
+        [ // environ
+            [["environ", "environs", "environnant"]],
+            [["environ", "environs"]],
+            [["environ"]],
+            [["environ"]],
+            [["environ"]],
+            [["environ"]],
+            [["environ"]],
+        ],
+        [ // cinq
+            [["cinq", "six", "sept"]],
+            [["cinq"]],
+            [["cinq"]],
+            [["cinq"]],
+        ],
+        [ // minutes
+            [["minutes", "minute", "minutieux"]],
+            [["minutes", "minute"]],
+            [["minutes"]],
+            [["minutes"]],
+            [["minutes"]],
+            [["minutes"]],
+            [["minutes"]],
+        ],
+        [ // de
+            [["de", "des", "du"]],
+            [["de"]],
+        ],
+        [ // retard
+            [["retard", "retards", "retarder"]],
+            [["retard", "retards"]],
+            [["retard"]],
+            [["retard"]],
+            [["retard"]],
+            [["retard"]],
+        ],
     ]
   },
   {
@@ -681,110 +688,110 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Un", "une", "un"],  // after typing "U"
-        ["Un", "une", "un"],  // after typing "Un"
-      ],
-      [
-        ["chien", "colis", "cesse"],  // after typing "c"
-        ["chien", "charger"],  // after typing "ch"
-        ["chien"],  // after typing "chi"
-        ["chien"],  // after typing "chie"
-        ["chien"],  // after typing "chien"
-      ],
-      [
-        ["aboyait", "avec", "apres"],  // after typing "a"
-        ["aboyait"],  // after typing "ab"
-        ["aboyait"],  // after typing "abo"
-        ["aboyait"],  // after typing "aboy"
-        ["aboyait"],  // after typing "aboya"
-        ["aboyait"],  // after typing "aboyai"
-        ["aboyait"],  // after typing "aboyait"
-      ],
-      [
-        ["quelque", "que", "quelques"],  // after typing "q"
-        ["quelque", "que", "quelques"],  // after typing "qu"
-        ["quelque", "que", "quelques"],  // after typing "que"
-        ["quelque", "quelques"],  // after typing "quel"
-        ["quelque", "quelques"],  // after typing "quelq"
-        ["quelque", "quelques"],  // after typing "quelqu"
-        ["quelque", "quelques"],  // after typing "quelque"
-      ],
-      [
-        ["part", "pose", "piece"],  // after typing "p"
-        ["part", "partir", "parc"],  // after typing "pa"
-        ["part", "partir", "pars"],  // after typing "par"
-        ["part", "partir"],  // after typing "part"
-      ],
-      [
-        ["au", "avec", "apres"],  // after typing "a"
-        ["au", "aujourdhui"],  // after typing "au"
-      ],
-      [
-        ["loin", "lair", "lait"],  // after typing "l"
-        ["loin"],  // after typing "lo"
-        ["loin"],  // after typing "loi"
-        ["loin"],  // after typing "loin"
-      ],
+        [ // Un
+            [["Un", "Une", "Des"]],
+            [["Un"]],
+        ],
+        [ // chien
+            [["chien", "chiens", "chienne"]],
+            [["chien", "chiens"]],
+            [["chien"]],
+            [["chien"]],
+            [["chien"]],
+        ],
+        [ // aboyait
+            [["aboyait", "aboie", "aboyer"]],
+            [["aboyait", "aboie"]],
+            [["aboyait"]],
+            [["aboyait"]],
+            [["aboyait"]],
+            [["aboyait"]],
+            [["aboyait"]],
+        ],
+        [ // quelque
+            [["quelque", "quelques", "quelqu'un"]],
+            [["quelque", "quelques"]],
+            [["quelque"]],
+            [["quelque"]],
+            [["quelque"]],
+            [["quelque"]],
+            [["quelque"]],
+        ],
+        [ // part
+            [["part", "parts", "partout"]],
+            [["part", "parts"]],
+            [["part"]],
+            [["part"]],
+        ],
+        [ // au
+            [["au", "aux", "à"]],
+            [["au", "aux"]],
+        ],
+        [ // loin
+            [["loin", "lointain", "long"]],
+            [["loin"]],
+            [["loin"]],
+            [["loin"]],
+        ],
     ]
   },
   {
     id: "sentence-12",
-    targetSentence: "Il a mis le dossier sur letagere du haut",
-    words: ["Il", "a", "mis", "le", "dossier", "sur", "letagere", "du", "haut"],
+    targetSentence: "Il a mis le dossier sur l'étagère du haut",
+    words: ["Il", "a", "mis", "le", "dossier", "sur", "l'étagère", "du", "haut"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [
-        ["Il", "imprimees", "immediatement"],  // after typing "I"
-        ["Il", "Ils"],  // after typing "Il"
-      ],
-      [
-        ["a", "avec", "apres"],  // after typing "a"
-      ],
-      [
-        ["mis", "marche", "magasin"],  // after typing "m"
-        ["mis", "mise", "minutes"],  // after typing "mi"
-        ["mis", "mise"],  // after typing "mis"
-      ],
-      [
-        ["le", "lair", "lait"],  // after typing "l"
-        ["le", "Les", "Le"],  // after typing "le"
-      ],
-      [
-        ["dossier", "du", "dans"],  // after typing "d"
-        ["dossier", "doucement"],  // after typing "do"
-        ["dossier"],  // after typing "dos"
-        ["dossier"],  // after typing "doss"
-        ["dossier"],  // after typing "dossi"
-        ["dossier"],  // after typing "dossie"
-        ["dossier"],  // after typing "dossier"
-      ],
-      [
-        ["sur", "sommes", "sa"],  // after typing "s"
-        ["sur"],  // after typing "su"
-        ["sur"],  // after typing "sur"
-      ],
-      [
-        ["letagere", "lair", "lait"],  // after typing "l"
-        ["letagere", "lair", "lecran"],  // after typing "le"
-        ["letagere", "lecran"],  // after typing "let"
-        ["letagere"],  // after typing "leta"
-        ["letagere"],  // after typing "letag"
-        ["letagere"],  // after typing "letage"
-        ["letagere"],  // after typing "letager"
-        ["letagere"],  // after typing "letagere"
-      ],
-      [
-        ["du", "dans", "descends"],  // after typing "d"
-        ["du"],  // after typing "du"
-      ],
-      [
-        ["haut", "hier"],  // after typing "h"
-        ["haut"],  // after typing "ha"
-        ["haut"],  // after typing "hau"
-        ["haut"],  // after typing "haut"
-      ],
+        [ // Il
+            [["Il", "Ils", "Elle"]],
+            [["Il", "Ils"]],
+        ],
+        [ // a
+            [["a", "à", "as"]],
+        ],
+        [ // mis
+            [["mis", "mise", "met"]],
+            [["mis", "mise"]],
+            [["mis"]],
+        ],
+        [ // le
+            [["le", "la", "les"]],
+            [["le"]],
+        ],
+        [ // dossier
+            [["dossier", "dossiers", "dos"]],
+            [["dossier", "dossiers"]],
+            [["dossier"]],
+            [["dossier"]],
+            [["dossier"]],
+            [["dossier"]],
+            [["dossier"]],
+        ],
+        [ // sur
+            [["sur", "sous", "sans"]],
+            [["sur", "sous"]],
+            [["sur"]],
+        ],
+        [ // l'étagère
+            [["l'étagère", "étagère", "étagères"]],
+            [["l'étagère", "étagère"]],
+            [["l'étagère"]],
+            [["l'étagère"]],
+            [["l'étagère"]],
+            [["l'étagère"]],
+            [["l'étagère"]],
+            [["l'étagère"]],
+        ],
+        [ // du
+            [["du", "de", "des"]],
+            [["du"]],
+        ],
+        [ // haut
+            [["haut", "haute", "hauteur"]],
+            [["haut", "haute"]],
+            [["haut"]],
+            [["haut"]],
+        ],
     ]
   },
 ];
@@ -805,4 +812,23 @@ export const getScenariosByDifficulty = (difficulty: 'easy' | 'medium' | 'hard')
 export const getAllCategories = (): string[] => {
   const categories = PREDICTION_SCENARIOS.map(scenario => scenario.category).filter(Boolean);
   return [...new Set(categories)] as string[];
+};
+
+export const getRandomScenario = (): PredictionScenario => {
+  const randomIndex = Math.floor(Math.random() * PREDICTION_SCENARIOS.length);
+  return PREDICTION_SCENARIOS[randomIndex];
+};
+
+export const getRandomScenarioByCategory = (category: string): PredictionScenario | undefined => {
+  const scenarios = getScenariosByCategory(category);
+  if (scenarios.length === 0) return undefined;
+  const randomIndex = Math.floor(Math.random() * scenarios.length);
+  return scenarios[randomIndex];
+};
+
+export const getRandomScenarioByDifficulty = (difficulty: 'easy' | 'medium' | 'hard'): PredictionScenario | undefined => {
+  const scenarios = getScenariosByDifficulty(difficulty);
+  if (scenarios.length === 0) return undefined;
+  const randomIndex = Math.floor(Math.random() * scenarios.length);
+  return scenarios[randomIndex];
 };

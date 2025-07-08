@@ -14,51 +14,34 @@ export class AutomatedTestingController {
   private currentTestIndex: number = 0;
 
   constructor() {
-    this.generateRandomizedCombinations();
+    this.generateCounterbalancedCombinations();
   }
 
-  private generateRandomizedCombinations() {
+  private generateCounterbalancedCombinations() {
     const buttonStyles: ButtonStyle[] = ['style1', 'style2', 'style3', 'style4'];
-    const allCombinations: Omit<TestCombination, 'id' | 'scenario' | 'completed'>[] = [];
+    const scenarios = this.shuffleArray([...PREDICTION_SCENARIOS]);
 
-    // Create 6 combinations with prediction enabled
-    for (let i = 0; i < 6; i++) {
-      allCombinations.push({
-        buttonStyle: buttonStyles[i % buttonStyles.length], // Cycle through styles
-        predictionEnabled: true,
-      });
-    }
-
-    // Create 6 combinations with prediction disabled
-    for (let i = 0; i < 6; i++) {
-      allCombinations.push({
-        buttonStyle: buttonStyles[i % buttonStyles.length], // Cycle through styles
-        predictionEnabled: false,
-      });
-    }
-
-    // Shuffle combinations randomly
-    const shuffledCombinations = this.shuffleArray(allCombinations);
-
-    // Shuffle scenarios randomly and ensure we have enough for 12 tests
-    const shuffledScenarios = this.shuffleArray([...PREDICTION_SCENARIOS]);
-    if (shuffledScenarios.length < 12) {
+    if (scenarios.length < 12) {
       console.error("Not enough prediction scenarios for 12 tests!");
-      // Duplicate scenarios if not enough, for testing purposes
-      while (shuffledScenarios.length < 12) {
-        shuffledScenarios.push(...this.shuffleArray([...PREDICTION_SCENARIOS]));
+      while (scenarios.length < 12) {
+        scenarios.push(...this.shuffleArray([...PREDICTION_SCENARIOS]));
       }
     }
 
-    // Pair each combination with a unique scenario
-    this.combinations = shuffledCombinations.map((combo, index) => ({
-      id: `test-${index + 1}`,
-      ...combo,
-      scenario: shuffledScenarios[index], // Assign unique scenario
-      completed: false,
-    }));
+    const combinations: TestCombination[] = [];
+    for (let i = 0; i < 12; i++) {
+      const predictionEnabled = i % 2 === 0; // Alternate between true and false
+      combinations.push({
+        id: `test-${i + 1}`,
+        buttonStyle: buttonStyles[i % buttonStyles.length],
+        predictionEnabled,
+        scenario: scenarios[i],
+        completed: false,
+      });
+    }
 
-    console.log('🎯 Generated randomized test combinations:', this.combinations);
+    this.combinations = combinations;
+    console.log('🎯 Generated counterbalanced test combinations:', this.combinations);
   }
 
   private shuffleArray<T>(array: T[]): T[] {
@@ -99,7 +82,7 @@ export class AutomatedTestingController {
   reset() {
     this.currentTestIndex = 0;
     this.combinations.forEach(combo => combo.completed = false);
-    this.generateRandomizedCombinations(); // Regenerate combinations on reset
+    this.generateCounterbalancedCombinations(); // Regenerate combinations on reset
   }
 
   getAllCombinations(): TestCombination[] {
