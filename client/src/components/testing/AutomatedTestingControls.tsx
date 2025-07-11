@@ -82,16 +82,6 @@ export default function AutomatedTestingControls() {
               Prédiction: {currentTest.predictionEnabled ? 'Activée' : 'Désactivée'}
             </span>
           </div>
-          
-          {isTestingActive && (
-            <button
-              onClick={submitCurrentTest}
-              className="flex items-center gap-2 bg-[#ED9390] text-white px-6 py-2 rounded-lg hover:bg-[#e8807c] transition-colors font-medium"
-            >
-              <Send className="h-4 w-4" />
-              Envoyer & Continuer
-            </button>
-          )}
         </div>
 
         {/* Target Sentence */}

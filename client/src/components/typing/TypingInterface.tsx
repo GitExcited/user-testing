@@ -43,7 +43,7 @@ export default function TypingInterface() {
         </div>
         
         {predictionEnabled && (
-          <div className="flex justify-center mt-4 mb-10">
+          <div className="flex justify-center mt-4">
             {suggestionElements}
           </div>
         )}

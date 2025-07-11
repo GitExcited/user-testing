@@ -1,5 +1,5 @@
 import { ButtonStyle } from "@/lib/styleUtils";
-import { PREDICTION_SCENARIOS, PredictionScenario } from "@/data/predictionScenarios";
+import { NUMBER_OF_SENTENCES, PREDICTION_SCENARIOS, PredictionScenario } from "@/data/predictionScenarios";
 
 export interface TestCombination {
   id: string;
@@ -21,15 +21,15 @@ export class AutomatedTestingController {
     const buttonStyles: ButtonStyle[] = ['style1', 'style2', 'style3', 'style4'];
     const scenarios = this.shuffleArray([...PREDICTION_SCENARIOS]);
 
-    if (scenarios.length < 12) {
-      console.error("Not enough prediction scenarios for 12 tests!");
-      while (scenarios.length < 12) {
+    if (scenarios.length < NUMBER_OF_SENTENCES) {
+      console.error(`Not enough prediction scenarios for ${NUMBER_OF_SENTENCES} tests!`);
+      while (scenarios.length < NUMBER_OF_SENTENCES) {
         scenarios.push(...this.shuffleArray([...PREDICTION_SCENARIOS]));
       }
     }
 
     const combinations: TestCombination[] = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < NUMBER_OF_SENTENCES; i++) {
       const predictionEnabled = i % 2 === 0; // Alternate between true and false
       combinations.push({
         id: `test-${i + 1}`,

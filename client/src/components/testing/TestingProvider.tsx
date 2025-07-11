@@ -56,7 +56,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
 
     setCurrentTest(nextTest);
     startSingleTest(nextTest);
-    console.log(`📝 Starting test ${automatedController.getProgress().current + 1}/12:`, {
+    console.log(`📝 Starting test ${automatedController.getProgress().current + 1}/${automatedController.getProgress().total}:`, {
       buttonStyle: nextTest.buttonStyle,
       predictionEnabled: nextTest.predictionEnabled,
       scenario: nextTest.scenario.targetSentence

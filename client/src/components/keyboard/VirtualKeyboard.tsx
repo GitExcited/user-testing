@@ -1,10 +1,10 @@
-import { Delete } from "lucide-react";
+import { Delete, Send } from "lucide-react";
 import { useSuggestions } from "../suggestions/SuggestionProvider";
 import { useTesting } from "../testing/TestingProvider";
 
 export default function VirtualKeyboard() {
   const { userInput, setUserInput } = useSuggestions();
-  const { trackClick } = useTesting();
+  const { trackClick, submitCurrentTest, isTestingActive } = useTesting();
 
   const handleKeyPress = (key: string) => {
     trackClick('keyboard', key);
@@ -32,7 +32,7 @@ export default function VirtualKeyboard() {
   };
   
   return (
-    <div className="virtual-keyboard mt-6 mx-4 bg-white rounded-lg shadow-lg w-full p-6">
+    <div className="virtual-keyboard mx-4 bg-white rounded-lg shadow-lg w-full p-6">
       {/* First row - QWERTY */}
       <div className="flex gap-2 mb-3 justify-center">
         {['q','w','e','r','t','y','u','i','o','p'].map(key => (
@@ -80,6 +80,15 @@ export default function VirtualKeyboard() {
             {key.toUpperCase()}
           </button>
         ))}
+        {isTestingActive && (
+          <button
+            onClick={submitCurrentTest}
+            className="flex items-center gap-2 bg-[#ED9390] text-white px-4 py-2 rounded-lg hover:bg-[#e8807c] transition-colors font-medium h-14 flex-1 max-w-40"
+          >
+            <Send className="h-4 w-4" />
+            Continuer
+          </button>
+        )}
         <div className="w-16"></div> {/* Spacer for balance */}
       </div>
 
