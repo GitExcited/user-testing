@@ -20,13 +20,11 @@ export default function AutomatedTestingControls() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Tous les tests terminés !</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">C’est terminé, merci !</h2>
             <p className="text-gray-600 mb-4">
-              Merci d'avoir complété les 12 combinaisons de tests. Vos données ont été envoyées.
+              Votre aide est précieuse pour améliorer nos outils. Toutes vos données ont été transmises avec succès.
             </p>
-            <p className="text-sm text-gray-500">
-              Vous avez aidé à comprendre comment les différents styles et positions de boutons affectent l'interaction utilisateur.
-            </p>
+            
           </div>
         </div>
       </div>
@@ -39,10 +37,10 @@ export default function AutomatedTestingControls() {
         <div className="flex justify-center items-center min-h-[200px] p-6">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              Bienvenue dans l'étude de test utilisateur
+              Résumé des instructions
             </h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              Vous allez compléter 12 tests de frappe courts. Chaque test consiste à taper une phrase française en utilisant notre clavier virtuel et, pour certains tests, un système de prédiction de texte.
+              Vous allez écrire 10 courtes phrases le plus rapidement possible. Une fois chaque phrase complétée, cliquez sur "Envoyer".
             </p>
             <div className="flex justify-center">
               <button
@@ -50,7 +48,7 @@ export default function AutomatedTestingControls() {
                 className="flex items-center gap-2 bg-[#36CFB3] text-white px-8 py-3 rounded-lg hover:bg-[#2eb89e] transition-colors font-medium text-lg shadow-md"
               >
                 <Play className="h-5 w-5" />
-                Commencer les tests
+                Commencer 
               </button>
             </div>
           </div>

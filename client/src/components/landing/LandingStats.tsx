@@ -1,6 +1,7 @@
 export default function LandingStats() {
   return (
     <section className="py-16">
+      {/* 
       <div className="container mx-auto px-6">
         <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
           <div className="grid md:grid-cols-2 gap-8 text-center">
@@ -15,6 +16,7 @@ export default function LandingStats() {
           </div>
         </div>
       </div>
+      */}
     </section>
   );
 }

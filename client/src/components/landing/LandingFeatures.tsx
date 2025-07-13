@@ -9,7 +9,7 @@ export default function LandingFeatures() {
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Rapide & Simple</h3>
         <p className="text-gray-600 text-sm">
-          Participez à 12 courts tests ( 15-20 min )
+          Durée de 15 à 20 minutes 
         </p>
       </div>
 
@@ -19,7 +19,7 @@ export default function LandingFeatures() {
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Données Précieuses</h3>
         <p className="text-gray-600 text-sm">
-          Votre précieuse contribution améliore Vocality pour des futurs utilisateurs
+          Votre précieuse contribution améliorera notre solution.
         </p>
       </div>
 
@@ -29,7 +29,7 @@ export default function LandingFeatures() {
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Anonyme & Sécurisé</h3>
         <p className="text-gray-600 text-sm">
-          Aucune donnée personnelle collectée. Données anonymisées et sécurisées.
+          Données anonymisées et sécurisées.
         </p>
       </div>
     </div>

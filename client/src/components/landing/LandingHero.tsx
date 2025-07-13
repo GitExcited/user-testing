@@ -16,11 +16,16 @@ export default function LandingHero() {
       <div className="max-w-4xl mx-auto text-center">
         <div className="mb-8">
           <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Aidez Vocality à optimiser son
-            <span className="text-[#36CFB3] block mt-2">expérience utilisateur</span>
+           Participez à notre étude sur la vitesse de frappe
+            
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-            Votre participation contribue à la recherche visant à améliorer l'expérience des personnes ayant perdu la capacité de parler
+          <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-4">
+            Nous développons des outils  pour aider les personnes ayant perdu l’usage de la parole (SLA, AVC, Parkinson, etc.) à communiquer.
+
+          </p>
+
+           <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+            Afin d’optimiser nos outils, nous étudions la manière dont les utilisateurs tapent sur une tablette.
           </p>
         </div>
 
@@ -34,16 +39,14 @@ export default function LandingHero() {
           >
             <div className="flex items-center gap-3">
               <Play className={`h-6 w-6 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
-              <span>Commencer l'étude</span>
+              <span>Commencer </span>
             </div>
 
             {/* Animated background effect */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#36CFB3] to-[#5ED9C2] opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
           </button>
 
-          <p className="text-sm text-gray-500 mt-4">
-            Aucune inscription requise • Données anonymisées • Gratuit
-          </p>
+          
         </div>
 
         {/* Features Grid */}

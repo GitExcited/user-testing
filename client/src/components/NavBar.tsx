@@ -15,8 +15,8 @@ export default function NavBar() {
         <div className="flex items-center">
           <img src={vocalityLogo} alt="Vocality Logo" className="h-6" />
         </div>
+      {/*       
         
-        {/* Instructions Only */}
         <div className="flex items-center">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center text-gray-700 hover:text-[#36CFB3] focus:outline-none transition-colors">
@@ -29,6 +29,7 @@ export default function NavBar() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+      */}
       </div>
     </nav>
   );

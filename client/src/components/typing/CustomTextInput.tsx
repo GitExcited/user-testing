@@ -98,7 +98,7 @@ export default function CustomTextInput() {
             <span className="whitespace-pre-wrap break-words">
               {userInput || (
                 <span className="text-gray-400 italic">
-                  Use the keyboard below to type your message...
+                  Utilisez le clavier pour écrire votre message...
                 </span>
               )}
             </span>
@@ -115,7 +115,7 @@ export default function CustomTextInput() {
             )}
           </div>
         </div>
-        
+        {/*
         <button
           onClick={handleSpeak}
           className="absolute bottom-3 right-3 bg-[#ED9390] text-white rounded-full w-10 h-10 p-0 flex items-center justify-center focus:outline-none hover:bg-opacity-90 transition-all duration-200 pointer-events-auto"
@@ -123,7 +123,9 @@ export default function CustomTextInput() {
         >
           <Volume2 className={`h-5 w-5 ${isSpeaking ? 'waveform-animation' : ''}`} />
         </button>
+        */}
       </div>
+      
     </div>
   );
 }

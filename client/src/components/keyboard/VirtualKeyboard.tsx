@@ -80,15 +80,15 @@ export default function VirtualKeyboard() {
             {key.toUpperCase()}
           </button>
         ))}
-        {isTestingActive && (
-          <button
-            onClick={submitCurrentTest}
-            className="flex items-center gap-2 bg-[#ED9390] text-white px-4 py-2 rounded-lg hover:bg-[#e8807c] transition-colors font-medium h-14 flex-1 max-w-40"
-          >
-            <Send className="h-4 w-4" />
-            Continuer
-          </button>
-        )}
+      {isTestingActive && (
+        <button
+          onClick={submitCurrentTest}
+          className="flex items-center justify-center gap-2 bg-[#ED9390] text-white px-4 py-2 rounded-lg hover:bg-[#e8807c] transition-colors font-medium h-14 flex-1 max-w-40"
+        >
+          <Send className="h-4 w-4" />
+          <span className="leading-none">Envoyer</span>
+        </button>
+      )}
         <div className="w-16"></div> {/* Spacer for balance */}
       </div>
 
@@ -98,7 +98,7 @@ export default function VirtualKeyboard() {
           onClick={() => handleKeyPress('SPACE')} 
           className="bg-gray-50 rounded-md h-14 w-full max-w-2xl flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors text-lg"
         >
-          SPACE
+          ESPACE
         </button>
       </div>
     </div>
