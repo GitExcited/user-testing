@@ -2,85 +2,84 @@ export interface PredictionScenario {
   id: string;
   targetSentence: string;
   words: string[];
-  wordCompletions?: string[][][];
+  wordCompletions?: string[][][][];
   category?: string;
   difficulty?: 'easy' | 'medium' | 'hard';
 }
 
-export const NUMBER_OF_SENTENCES = 9;
+export const NUMBER_OF_SENTENCES = 10;
 
 export const PREDICTION_SCENARIOS: PredictionScenario[] = [
   {
     id: "sentence-1",
-    targetSentence: "Le livre était posé sur la table près de la fenêtre",
-    words: ["Le", "livre", "était", "posé", "sur", "la", "table", "près", "de", "la", "fenêtre"],
+    targetSentence: "N'oublie pas de verrouiller la porte quand tu pars",
+    words: ["N'oublie", "pas", "de", "verrouiller", "la", "porte", "quand", "tu", "pars"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
-      [ // Le
-        [["Le", "Les", "Lait"]],
-        [["Le", "Les"]],
-      ],
-      [ // livre
-        [["livre", "lire", "lit"]],
-        [["livre", "lire"]],
-        [["livre"]],
-        [["livre"]],
-        [["livre"]],
-      ],
-      [ // était
-        [["était", "étais", "étaient"]],
-        [["était", "étais", "étaient"]],
-        [["était", "étaient"]],
-        [["était", "étaient"]],
-        [["était"]],
-      ],
-      [ // posé
-        [["posé", "posté", "porté"]],
-        [["posé", "posté"]],
-        [["posé"]],
-        [["posé"]],
-      ],
-      [ // sur
-        [["sur", "sous", "sans"]],
-        [["sur", "sous"]],
-        [["sur"]],
-      ],
-      [ // la
-        [["la", "le", "les"]],
-        [["la", "les"]],
-      ],
-      [ // table
-        [["table", "tablette", "tabouret"]],
-        [["table", "tablette"]],
-        [["table"]],
-        [["table"]],
-        [["table"]],
-      ],
-      [ // près
-        [["près", "prêt", "premier"]],
-        [["près", "prêt"]],
-        [["près"]],
-        [["près"]],
-      ],
-      [ // de
-        [["de", "des", "du"]],
-        [["de", "des"]],
-      ],
-      [ // la
-        [["la", "le", "les"]],
-        [["la", "les"]],
-      ],
-      [ // fenêtre
-        [["fenêtre", "ferme", "fête"]],
-        [["fenêtre", "ferme"]],
-        [["fenêtre"]],
-        [["fenêtre"]],
-        [["fenêtre"]],
-        [["fenêtre"]],
-        [["fenêtre"]],
-      ],
+        [
+        [["N'oublie", "Nous", "Ne"]],
+        [["N'oublie"]],
+        [["N'oublie"]],
+        [["N'oublie"]],
+        [["N'oublie"]],
+        [["N'oublie"]],
+        [["N'oublie"]],
+        [["N'oublie"]],
+        ],
+        [
+        [["pas", "posé", "pièce"]],
+        [["pas", "partir", "parc"]],
+        [["pas"]],
+        ],
+        [
+        [["de", "du", "dans"]],
+        [["de", "descends", "devenu"]],
+        ],
+        [
+        [["verrouiller", "vaisselle", "voiture"]],
+        [["verrouiller", "verso"]],
+        [["verrouiller", "verso"]],
+        [["verrouiller"]],
+        [["verrouiller"]],
+        [["verrouiller"]],
+        [["verrouiller"]],
+        [["verrouiller"]],
+        [["verrouiller"]],
+        [["verrouiller"]],
+        [["verrouiller"]],
+        ],
+        [
+        [["la", "l'air", "lait"]],
+        [["la", "lait", "lampadaire"]],
+        ],
+        [
+        [["porte", "posé", "pièce"]],
+        [["porte", "posé", "portable"]],
+        [["porte", "portable"]],
+        [["porte", "portable"]],
+        [["porte"]],
+        ],
+        [
+        [["quand", "que", "quelques"]],
+        [["quand", "que", "quelques"]],
+        [["quand", "quartier"]],
+        [["quand"]],
+        [["quand"]],
+        ],
+        [
+        [["tu", "tapé", "train"]],
+        [["tu"]],
+        ],
+        [
+        [["pars", "posé", "pièce"]],
+        [["pars", "partir", "parc"]],
+        [["pars", "partir", "parc"]],
+        [["pars"]],
+        ],
     ]
+
+
   },
   {
     id: "sentence-2",
@@ -206,73 +205,72 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
   },
   {
     id: "sentence-4",
-    targetSentence: "La machine à café a cessé de fonctionner ce matin",
-    words: ["La", "machine", "à", "café", "a", "cessé", "de", "fonctionner", "ce", "matin"],
-    category: "Neutral",
-    difficulty: "medium",
-    wordCompletions: [
-        [ // La
-            [["La", "Le", "Les"]],
-            [["La"]],
-        ],
-        [ // machine
-            [["machine", "machines", "machin"]],
-            [["machine", "machines"]],
-            [["machine"]],
-            [["machine"]],
-            [["machine"]],
-            [["machine"]],
-            [["machine"]],
-        ],
-        [ // à
-            [["à", "a", "as"]],
-        ],
-        [ // café
-            [["café", "cahier", "cacao"]],
-            [["café"]],
-            [["café"]],
-            [["café"]],
-        ],
-        [ // a
-            [["a", "à", "as"]],
-        ],
-        [ // cessé
-            [["cessé", "cesser", "cesse"]],
-            [["cessé", "cesse"]],
-            [["cessé"]],
-            [["cessé"]],
-            [["cessé"]],
-        ],
-        [ // de
-            [["de", "des", "du"]],
-            [["de"]],
-        ],
-        [ // fonctionner
-            [["fonctionner", "fonctionnait", "fonction"]],
-            [["fonctionner", "fonction"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-            [["fonctionner"]],
-        ],
-        [ // ce
-            [["ce", "se", "ces"]],
-            [["ce"]],
-        ],
-        [ // matin
-            [["matin", "matinée", "matinal"]],
-            [["matin", "matinée"]],
-            [["matin"]],
-            [["matin"]],
-            [["matin"]],
-        ],
-    ]
-  },
+  targetSentence: "Ils ont terminé avant que la réunion ne commence",
+  words: ["Ils", "ont", "terminé", "avant", "que", "la", "réunion", "ne", "commence"],
+  category: "Neutral",
+  difficulty: "medium",
+  wordCompletions: [
+    [
+      [["Ils", "imprimées", "immédiatement"]],
+      [["Ils", "Il"]],
+      [["Ils"]],
+    ],
+    [
+      [["ont", "ouvert", "oublié"]],
+      [["ont"]],
+      [["ont"]],
+    ],
+    [
+      [["terminé", "tapé", "train"]],
+      [["terminé", "tempête", "temps"]],
+      [["terminé"]],
+      [["terminé"]],
+      [["terminé"]],
+      [["terminé"]],
+      [["terminé"]],
+    ],
+    [
+      [["avant", "avec", "après"]],
+      [["avant", "avec", "avons"]],
+      [["avant"]],
+      [["avant"]],
+      [["avant"]],
+    ],
+    [
+      [["que", "quelques", "quand"]],
+      [["que", "quelques", "quand"]],
+      [["que", "quelques", "quelque"]],
+    ],
+    [
+      [["la", "l'air", "lait"]],
+      [["la", "lait", "lampadaire"]],
+    ],
+    [
+      [["réunion", "retard", "rapport"]],
+      [["réunion"]],
+      [["réunion"]],
+      [["réunion"]],
+      [["réunion"]],
+      [["réunion"]],
+      [["réunion"]],
+    ],
+    [
+      [["ne", "nous", "nous",]],
+      [["ne"]],
+    ],
+    [
+      [["commence", "colis", "cessé"]],
+      [["commence", "colis", "commencé"]],
+      [["commence", "commencé"]],
+      [["commence", "commencé"]],
+      [["commence", "commencé"]],
+      [["commence", "commencé"]],
+      [["commence", "commencé"]],
+      [["commence"]],
+    ],
+  ]
+},
+
   {
     id: "sentence-5",
     targetSentence: "J'enverrai le rapport d'ici la fin de la journée",
@@ -339,65 +337,66 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ]
   },
   {
-    id: "sentence-6",
-    targetSentence: "Il a regardé l'écran et a tapoté le bouton",
-    words: ["Il", "a", "regardé", "l'écran", "et", "a", "tapoté", "le", "bouton"],
-    category: "Neutral",
-    difficulty: "medium",
-    wordCompletions: [
-        [ // Il
-            [["Il", "Ils", "Elle"]],
-            [["Il", "Ils"]],
-        ],
-        [ // a
-            [["a", "à", "as"]],
-        ],
-        [ // regardé
-            [["regardé", "regarder", "regarde"]],
-            [["regardé", "regarder"]],
-            [["regardé"]],
-            [["regardé"]],
-            [["regardé"]],
-            [["regardé"]],
-            [["regardé"]],
-        ],
-        [ // l'écran
-            [["l'écran", "écran", "écrans"]],
-            [["l'écran", "écran"]],
-            [["l'écran"]],
-            [["l'écran"]],
-            [["l'écran"]],
-            [["l'écran"]],
-        ],
-        [ // et
-            [["et", "est", "es"]],
-            [["et", "est"]],
-        ],
-        [ // a
-            [["a", "à", "as"]],
-        ],
-        [ // tapoté
-            [["tapoté", "tapoter", "tape"]],
-            [["tapoté", "tapoter"]],
-            [["tapoté"]],
-            [["tapoté"]],
-            [["tapoté"]],
-            [["tapoté"]],
-        ],
-        [ // le
-            [["le", "la", "les"]],
-            [["le"]],
-        ],
-        [ // bouton
-            [["bouton", "boutons", "boutonner"]],
-            [["bouton", "boutons"]],
-            [["bouton"]],
-            [["bouton"]],
-            [["bouton"]],
-            [["bouton"]],
-        ],
-    ]
-  },
+  id: "sentence-6",
+  targetSentence: "Il a regardé l'écran et a enfoncé le bouton",
+  words: ["Il", "a", "regardé", "l'écran", "et", "a", "enfoncé", "le", "bouton"],
+  category: "Neutral",
+  difficulty: "medium",
+  wordCompletions: [
+    [ // Il
+      [["Il", "Ils", "Elle"]],
+      [["Il", "Ils"]],
+    ],
+    [ // a
+      [["a", "à", "as"]],
+    ],
+    [ // regardé
+      [["regardé", "regarder", "regarde"]],
+      [["regardé", "regarder"]],
+      [["regardé"]],
+      [["regardé"]],
+      [["regardé"]],
+      [["regardé"]],
+      [["regardé"]],
+    ],
+    [ // l'écran
+      [["l'écran", "écran", "écrans"]],
+      [["l'écran", "écran"]],
+      [["l'écran"]],
+      [["l'écran"]],
+      [["l'écran"]],
+      [["l'écran"]],
+    ],
+    [ // et
+      [["et", "est", "es"]],
+      [["et", "est"]],
+    ],
+    [ // a
+      [["a", "à", "as"]],
+    ],
+    [ // enfoncé
+      [["enfoncé", "enfiler", "enfin"]],
+      [["enfoncé", "enfiler", "enfermer"]],
+      [["enfoncé", "enfiler"]],
+      [["enfoncé"]],
+      [["enfoncé"]],
+      [["enfoncé"]],
+    ],
+    [ // le
+      [["le", "la", "les"]],
+      [["le"]],
+    ],
+    [ // bouton
+      [["bouton", "boutons", "boutonner"]],
+      [["bouton", "boutons"]],
+      [["bouton"]],
+      [["bouton"]],
+      [["bouton"]],
+      [["bouton"]],
+    ],
+  ]
+},
+
   {
     id: "sentence-7",
     targetSentence: "Ils ont marché jusqu'au magasin pour prendre du lait",
@@ -471,8 +470,8 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
   },
   {
     id: "sentence-8",
-    targetSentence: "La pièce semblait lumineuse et vraiment bien rangée",
-    words: ["La", "pièce", "semblait", "lumineuse", "et", "vraiment", "bien", "rangée"],
+    targetSentence: "La salle semblait lumineuse et vraiment bien rangée",
+    words: ["La", "salle", "semblait", "lumineuse", "et", "vraiment", "bien", "rangée"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
@@ -480,12 +479,12 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
             [["La", "Le", "Les"]],
             [["La"]],
         ],
-        [ // pièce
-            [["pièce", "pièces", "petit"]],
-            [["pièce", "pièces"]],
-            [["pièce"]],
-            [["pièce"]],
-            [["pièce"]],
+            [ // salle
+        [["salle", "salon", "sac"]],
+        [["salle", "salon"]],
+        [["salle"]],
+        [["salle"]],
+        [["salle"]],
         ],
         [ // semblait
             [["semblait", "semble", "semblent"]],
@@ -609,6 +608,67 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
     ]
   
   },
+  
+  {
+    id: "sentence-10",
+    targetSentence: "Elle lisait l'article en sirotant son café",
+    words: ["Elle", "lisait", "l'article", "en", "sirotant", "son", "café"],
+    category: "Neutral",
+    difficulty: "medium",
+    wordCompletions: [
+        [
+        [["Elle", "envoyé", "encore"]],
+        [["Elle"]],
+        [["Elle"]],
+        [["Elle"]],
+        ],
+        [
+        [["lisait", "l'air", "lait"]],
+        [["lisait", "livre", "lire"]],
+        [["lisait"]],
+        [["lisait"]],
+        [["lisait"]],
+        [["lisait"]],
+        ],
+        [
+        [["l'article", "l'air", "lait"]],
+        [["l'article", "l'air", "l'écran"]],
+        [["l'article", "l'air", "l'a"]],
+        [["l'article"]],
+        [["l'article"]],
+        [["l'article"]],
+        [["l'article"]],
+        [["l'article"]],
+        [["l'article"]],
+        ],
+        [
+        [["en", "envoyé", "encore",]],
+        [["en", "envoyé", "encore"]],
+        ],
+        [
+        [["sirotant", "sur", "sommes", "sa"]],
+        [["sirotant", "silencieux"]],
+        [["sirotant"]],
+        [["sirotant"]],
+        [["sirotant"]],
+        [["sirotant"]],
+        [["sirotant"]],
+        [["sirotant"]],
+        ],
+        [
+        [["son", "sur", "sommes"]],
+        [["son", "sommes", "sonneries"]],
+        [["son", "sonneries"]],
+        ],
+        [
+        [["café", "colis", "cessé"]],
+        [["café", "carnet"]],
+        [["café"]],
+        [["café"]],
+        ]
+    ]
+    }
+    
 ];
 
 // Helper functions
