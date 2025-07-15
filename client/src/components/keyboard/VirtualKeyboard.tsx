@@ -65,33 +65,27 @@ export default function VirtualKeyboard() {
       {/* First row - QWERTY */}
       <div className="flex gap-2 mb-3 justify-center">
         {['q','w','e','r','t','y','u','i','o','p'].map(key => {
-          if (key === 'e') {
-            return (
-              <div key={key} className="relative flex-1 max-w-20">
-                <button 
-                  onMouseDown={() => handlePressStart('e')}
-                  onMouseUp={handlePressEnd}
-                  onMouseLeave={handlePressEnd}
-                  onTouchStart={() => handlePressStart('e')}
-                  onTouchEnd={handlePressEnd}
-                  onClick={() => handleKeyPress(key)} 
-                  className="bg-gray-50 rounded-md h-14 w-full flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors text-lg"
-                >
-                  {key.toUpperCase()}
-                </button>
-                {showAccent && (
-                  <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-white border rounded-md shadow-lg p-1 z-10">
-                    <button
-                        onClick={() => handleAccentPress('é')}
-                        className="text-lg font-medium text-gray-700 hover:bg-gray-100 px-3 py-1 rounded-md"
-                    >
-                        é
-                    </button>
-                  </div>
-                )}
-              </div>
-            )
-          }
+  if (key === 'e') {
+    return (
+      <div key={key} className="relative flex-1 max-w-20">
+        <button 
+          onClick={() => handleKeyPress(key)} 
+          className="bg-gray-50 rounded-md h-14 w-full flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors text-lg"
+        >
+          {key.toUpperCase()}
+        </button>
+        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-gray-50 border rounded-md shadow-lg p-1 z-0">
+          <button
+            onClick={() => handleAccentPress('é')}
+            className="text-lg font-medium text-gray-700 hover:bg-gray-50 px-3 py-1 rounded-md"
+          >
+            é
+          </button>
+        </div>
+      </div>
+    )
+  }
+
           return (
             <button 
               key={key}
