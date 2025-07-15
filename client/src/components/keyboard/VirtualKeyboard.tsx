@@ -74,7 +74,7 @@ export default function VirtualKeyboard() {
         >
           {key.toUpperCase()}
         </button>
-        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-gray-50 border rounded-md shadow-lg p-1 z-0">
+        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-gray-50 border rounded-md shadow-sm p-1 z-0">
           <button
             onClick={() => handleAccentPress('é')}
             className="text-lg font-medium text-gray-700 hover:bg-gray-50 px-3 py-1 rounded-md"
