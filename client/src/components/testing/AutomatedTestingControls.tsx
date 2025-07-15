@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Play, Send, CheckCircle } from "lucide-react";
 import { useTesting } from "./TestingProvider";
 
@@ -12,6 +13,18 @@ export default function AutomatedTestingControls() {
     isTestingActive
   } = useTesting();
 
+    useEffect(() => {
+
+  if (isAutomatedTesting || !currentTest) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+
+  return () => {
+    document.body.style.overflow = "";
+  };
+}, [isAutomatedTesting, currentTest]);
   if (isAllTestsCompleted) {
     return (
       <div className="bg-white shadow-sm border-b">
