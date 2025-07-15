@@ -1,5 +1,7 @@
 import { PredictionScenario } from "@/data/predictionScenarios";
 
+const PREDICTION_ACCURACY = 0.7;
+
 export class PredictionEngine {
   private currentScenario: PredictionScenario | null = null;
 
@@ -8,7 +10,7 @@ export class PredictionEngine {
   }
 
   private normalizeString(str: string): string {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/'/g, "");
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
   
   private shuffleArray<T>(array: T[]): T[] {
@@ -78,7 +80,7 @@ export class PredictionEngine {
     const correctNextWord = this.currentScenario.words[nextWordIndex];
     let initialSuggestions = this.currentScenario.wordCompletions[nextWordIndex][0][0];
 
-    const isCorrectTrial = Math.random() <= 0.7;
+    const isCorrectTrial = Math.random() <= PREDICTION_ACCURACY;
     let suggestions;
 
     if (isCorrectTrial) {

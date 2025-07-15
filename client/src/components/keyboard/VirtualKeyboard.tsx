@@ -1,12 +1,41 @@
 import { Delete, Send } from "lucide-react";
+import { useState, useRef } from "react";
 import { useSuggestions } from "../suggestions/SuggestionProvider";
 import { useTesting } from "../testing/TestingProvider";
 
 export default function VirtualKeyboard() {
   const { userInput, setUserInput } = useSuggestions();
   const { trackClick, submitCurrentTest, isTestingActive } = useTesting();
+  const [showAccent, setShowAccent] = useState(false);
+  const pressTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const handlePressStart = (key: string) => {
+    if (key === 'e') {
+      pressTimer.current = setTimeout(() => {
+        setShowAccent(true);
+      }, 500); // 500ms for a long press
+    }
+  };
+
+  const handlePressEnd = () => {
+    if (pressTimer.current) {
+      clearTimeout(pressTimer.current);
+      pressTimer.current = null;
+    }
+  };
+
+  const handleAccentPress = (accentedKey: string) => {
+    trackClick('keyboard', accentedKey);
+    const newInput = userInput + accentedKey;
+    setUserInput(newInput);
+    setShowAccent(false);
+  };
 
   const handleKeyPress = (key: string) => {
+    if (showAccent) {
+        setShowAccent(false);
+        return;
+    }
     trackClick('keyboard', key);
     
     console.log('Key pressed:', key, 'Current input:', `"${userInput}"`);
@@ -35,15 +64,44 @@ export default function VirtualKeyboard() {
     <div className="virtual-keyboard mx-4 bg-white rounded-lg shadow-lg w-full p-6">
       {/* First row - QWERTY */}
       <div className="flex gap-2 mb-3 justify-center">
-        {['q','w','e','r','t','y','u','i','o','p'].map(key => (
-          <button 
-            key={key}
-            onClick={() => handleKeyPress(key)} 
-            className="bg-gray-50 rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors text-lg"
-          >
-            {key.toUpperCase()}
-          </button>
-        ))}
+        {['q','w','e','r','t','y','u','i','o','p'].map(key => {
+          if (key === 'e') {
+            return (
+              <div key={key} className="relative flex-1 max-w-20">
+                <button 
+                  onMouseDown={() => handlePressStart('e')}
+                  onMouseUp={handlePressEnd}
+                  onMouseLeave={handlePressEnd}
+                  onTouchStart={() => handlePressStart('e')}
+                  onTouchEnd={handlePressEnd}
+                  onClick={() => handleKeyPress(key)} 
+                  className="bg-gray-50 rounded-md h-14 w-full flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors text-lg"
+                >
+                  {key.toUpperCase()}
+                </button>
+                {showAccent && (
+                  <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-white border rounded-md shadow-lg p-1 z-10">
+                    <button
+                        onClick={() => handleAccentPress('é')}
+                        className="text-lg font-medium text-gray-700 hover:bg-gray-100 px-3 py-1 rounded-md"
+                    >
+                        é
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
+          }
+          return (
+            <button 
+              key={key}
+              onClick={() => handleKeyPress(key)} 
+              className="bg-gray-50 rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors text-lg"
+            >
+              {key.toUpperCase()}
+            </button>
+          )
+        })}
         <button 
           onClick={() => handleKeyPress('BACKSPACE')} 
           className="bg-gray-50 rounded-md h-14 w-32 flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors ml-2"
@@ -56,7 +114,7 @@ export default function VirtualKeyboard() {
       {/* Second row - ASDF */}
       <div className="flex gap-2 mb-3 justify-center">
         <div className="w-8"></div> {/* Spacer for offset */}
-        {['a','s','d','f','g','h','j','k','l'].map(key => (
+        {['a','s','d','f','g','h','j','k','l', "'"].map(key => (
           <button 
             key={key}
             onClick={() => handleKeyPress(key)} 
