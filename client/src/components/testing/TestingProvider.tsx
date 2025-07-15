@@ -12,6 +12,7 @@ interface TestingContextType {
   submitCurrentTest: () => Promise<void>;
   isAllTestsCompleted: boolean;
   progress: { current: number; total: number; percentage: number };
+  isSubmitting: boolean;
   
   // Single test session data
   isTestingActive: boolean;
@@ -28,6 +29,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
   const [currentTest, setCurrentTest] = useState<TestCombination | null>(null);
   const [isAutomatedTesting, setIsAutomatedTesting] = useState(false);
   const [isAllTestsCompleted, setIsAllTestsCompleted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Single session data
   const [isTestingActive, setIsTestingActive] = useState(false);
@@ -88,7 +90,9 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
   };
 
   const submitCurrentTest = async () => {
-    if (!testingData || !isTestingActive || !currentTest) return;
+    if (!testingData || !isTestingActive || !currentTest || isSubmitting) return;
+
+    setIsSubmitting(true);
 
     const endTime = new Date();
     const totalTime = (endTime.getTime() - testingData.startTime.getTime()) / 1000;
@@ -152,6 +156,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     // Start next test after a brief delay
     setTimeout(() => {
       startNextTest();
+      setIsSubmitting(false);
     }, 1000);
   };
 
@@ -225,6 +230,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       submitCurrentTest,
       isAllTestsCompleted,
       progress,
+      isSubmitting,
       isTestingActive,
       testingData,
       trackClick,

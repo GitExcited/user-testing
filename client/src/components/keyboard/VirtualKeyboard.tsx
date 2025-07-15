@@ -5,7 +5,7 @@ import { useTesting } from "../testing/TestingProvider";
 
 export default function VirtualKeyboard() {
   const { userInput, setUserInput } = useSuggestions();
-  const { trackClick, submitCurrentTest, isTestingActive } = useTesting();
+  const { trackClick, submitCurrentTest, isTestingActive, isSubmitting } = useTesting();
   const [showAccent, setShowAccent] = useState(false);
   const pressTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -141,10 +141,11 @@ export default function VirtualKeyboard() {
       {isTestingActive && (
         <button
           onClick={submitCurrentTest}
-          className="flex items-center justify-center gap-2 bg-[#ED9390] text-white px-4 py-2 rounded-lg hover:bg-[#e8807c] transition-colors font-medium h-14 flex-1 max-w-40"
+          disabled={isSubmitting}
+          className="flex items-center justify-center gap-2 bg-[#ED9390] text-white px-4 py-2 rounded-lg hover:bg-[#e8807c] transition-colors font-medium h-14 flex-1 max-w-40 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           <Send className="h-4 w-4" />
-          <span className="leading-none">Envoyer</span>
+          <span className="leading-none">{isSubmitting ? 'Envoi...' : 'Envoyer'}</span>
         </button>
       )}
         <div className="w-16"></div> {/* Spacer for balance */}
