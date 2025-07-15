@@ -685,8 +685,8 @@ export const getScenariosByDifficulty = (difficulty: 'easy' | 'medium' | 'hard')
 };
 
 export const getAllCategories = (): string[] => {
-  const categories = PREDICTION_SCENARIOS.map(scenario => scenario.category).filter(Boolean);
-  return [...new Set(categories)] as string[];
+  const categories = PREDICTION_SCENARIOS.map(scenario => scenario.category).filter((c): c is string => !!c);
+  return [...new Set(categories)];
 };
 
 export const getRandomScenario = (): PredictionScenario => {

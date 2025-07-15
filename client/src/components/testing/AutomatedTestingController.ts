@@ -30,7 +30,7 @@ export class AutomatedTestingController {
 
     const combinations: TestCombination[] = [];
     for (let i = 0; i < NUMBER_OF_SENTENCES; i++) {
-      const predictionEnabled = i % 2 === 0; // Alternate between true and false
+      const predictionEnabled = i >= 5; // First 5 sentences without prediction, next 5 with
       combinations.push({
         id: `test-${i + 1}`,
         buttonStyle: buttonStyles[i % buttonStyles.length],
