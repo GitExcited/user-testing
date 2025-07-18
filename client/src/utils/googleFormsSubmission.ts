@@ -23,6 +23,12 @@ interface GoogleFormsData {
   };
   
   export const submitToGoogleForms = async (data: GoogleFormsData): Promise<boolean> => {
+    // Check if running on localhost
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('Running on localhost, skipping Google Forms submission.');
+      return true; // Pretend submission was successful for local testing
+    }
+
     try {
       console.log('Submitting data to Google Forms:', data);
       

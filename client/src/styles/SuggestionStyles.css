@@ -2,36 +2,35 @@
 
 .suggestion-buttons {
   display: flex;
-  gap: 12px; /* Increased gap for better spacing */
+  gap: 12px;
   justify-content: center;
   align-items: center;
-  min-height: 50px; /* Ensure container has a minimum height */
+  min-height: 50px;
 }
 
 .suggestion-button {
-  background-color: #ffffff; /* Clean white background */
-  color: #333333; /* Darker text for better contrast */
-  border: 1px solid #dddddd; /* Subtle border */
-  border-radius: 18px; /* Rounded corners for a softer look */
-  padding: 10px 20px; /* More padding for a larger click area */
-  font-size: 16px; /* Slightly larger font size */
-  font-weight: 500; /* Medium font weight */
+  background-color: var(--primary-deep); /* Deeper green for better contrast */
+  color: white;
+  border: none;
+  border-radius: 18px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease-in-out; /* Smooth transition for all properties */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
-  animation: fadeIn 0.3s ease-in-out; /* Fade-in animation */
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .suggestion-button:hover {
-  background-color: #f5f5f5; /* Lighter grey on hover */
-  border-color: #cccccc; /* Slightly darker border on hover */
-  transform: translateY(-2px); /* Lift effect on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Larger shadow on hover */
+  background-color: var(--primary-darkest); /* A slightly lighter, but still dark green for hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .suggestion-button:active {
-  transform: translateY(0); /* Remove lift effect on click */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Reset shadow on click */
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Keyframe animation for fade-in effect */

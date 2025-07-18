@@ -110,27 +110,7 @@ body {
 
 /* Button styles are now directly in the component */
 
-.suggestion-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 1rem 0;
-}
 
-.suggestion-button {
-  background-color: #f1f1f1;
-  color: var(--text-dark);
-  border: none;
-  border-radius: 24px;
-  padding: 8px 16px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.suggestion-button:hover {
-  background-color: #e5e5e5;
-}
 
 :root {
       --background: 0 0% 100%;
