@@ -6,11 +6,46 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function CustomTextInput() {
   const { userInput } = useSuggestions();
-  const { testingData } = useTesting();
+  const { testingData, currentTest } = useTesting();
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentlySpeaking, setCurrentlySpeaking] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const { toast } = useToast();
+
+  // Function to normalize text for comparison (removing accents, case-insensitive)
+  const normalizeText = (text: string) => {
+    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+
+  // Function to detect typos and find the correct prefix
+  const getTypoInfo = (input: string) => {
+    if (!currentTest?.scenario?.targetSentence) {
+      return { hasTypo: false, correctPrefix: input, incorrectSuffix: "" };
+    }
+    
+    const normalizedInput = normalizeText(input);
+    const normalizedTarget = normalizeText(currentTest.scenario.targetSentence);
+    
+    if (normalizedInput.length === 0) {
+      return { hasTypo: false, correctPrefix: input, incorrectSuffix: "" };
+    }
+    
+    // Find the longest matching prefix
+    let matchLength = 0;
+    for (let i = 0; i < Math.min(normalizedInput.length, normalizedTarget.length); i++) {
+      if (normalizedInput[i] === normalizedTarget[i]) {
+        matchLength = i + 1;
+      } else {
+        break;
+      }
+    }
+    
+    const hasTypo = matchLength < normalizedInput.length;
+    const correctPrefix = input.substring(0, matchLength);
+    const incorrectSuffix = input.substring(matchLength);
+    
+    return { hasTypo, correctPrefix, incorrectSuffix };
+  };
 
   // Update final text in testing data when user input changes
   useEffect(() => {
@@ -75,11 +110,17 @@ export default function CustomTextInput() {
     e.stopPropagation();
   };
 
+  const typoInfo = getTypoInfo(userInput);
+
   return (
     <div className="custom-text-input">
       <div className="relative">
         <div
-          className="w-full min-h-[120px] border border-gray-300 rounded-lg px-4 py-3 bg-white shadow-sm resize-none text-base leading-relaxed"
+          className={`w-full min-h-[120px] border rounded-lg px-4 py-3 bg-white shadow-sm resize-none text-base leading-relaxed transition-all duration-300 ${
+            typoInfo.hasTypo 
+              ? 'border-red-300 bg-red-50' 
+              : 'border-gray-300'
+          }`}
           style={{
             userSelect: 'none',
             WebkitUserSelect: 'none',
@@ -96,7 +137,18 @@ export default function CustomTextInput() {
         >
           <div className="flex items-start min-h-[24px]">
             <span className="whitespace-pre-wrap break-words">
-              {userInput || (
+              {userInput ? (
+                <>
+                  <span className="text-gray-800">
+                    {typoInfo.correctPrefix}
+                  </span>
+                  {typoInfo.incorrectSuffix && (
+                    <span className="bg-red-200 text-red-800 underline decoration-red-500 decoration-wavy">
+                      {typoInfo.incorrectSuffix}
+                    </span>
+                  )}
+                </>
+              ) : (
                 <span className="text-gray-400 italic">
                   Utilisez le clavier pour écrire votre message...
                 </span>
@@ -105,9 +157,9 @@ export default function CustomTextInput() {
             
             {userInput && (
               <span
-                className={`inline-block w-0.5 h-6 bg-[#36CFB3] ml-0.5 transition-opacity duration-100 ${
+                className={`inline-block w-0.5 h-6 ml-0.5 transition-opacity duration-100 ${
                   showCursor ? 'opacity-100' : 'opacity-0'
-                }`}
+                } ${typoInfo.hasTypo ? 'bg-red-500' : 'bg-[#36CFB3]'}`}
                 style={{
                   animation: 'cursor-blink 1.06s infinite',
                 }}
