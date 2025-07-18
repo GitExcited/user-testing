@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { UserTestingData, ClickEvent } from "@shared/userTesting";
 import { submitToGoogleForms } from "@/utils/googleFormsSubmission";
 import { AutomatedTestingController, TestCombination } from "./AutomatedTestingController";
+
+import { PredictionInfoModal } from "../ui/PredictionInfoModal";
 
 interface TestingContextType {
   // Automated testing
@@ -13,6 +15,8 @@ interface TestingContextType {
   isAllTestsCompleted: boolean;
   progress: { current: number; total: number; percentage: number };
   isSubmitting: boolean;
+  isPredictionModalOpen: boolean;
+  closePredictionModal: () => void;
   
   // Single test session data
   isTestingActive: boolean;
@@ -30,7 +34,14 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
   const [isAutomatedTesting, setIsAutomatedTesting] = useState(false);
   const [isAllTestsCompleted, setIsAllTestsCompleted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+  const [showPredictionModal, setShowPredictionModal] = useState(false);
+
+  useEffect(() => {
+    if (automatedController.getProgress().current === 5) {
+      setShowPredictionModal(true);
+    }
+  }, [automatedController.getProgress().current]);
+
   // Single session data
   const [isTestingActive, setIsTestingActive] = useState(false);
   const [testingData, setTestingData] = useState<UserTestingData | null>(null);
@@ -221,6 +232,10 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
 
   const progress = automatedController.getProgress();
 
+  const closePredictionModal = () => {
+    setShowPredictionModal(false);
+  };
+
   return (
     <TestingContext.Provider value={{
       automatedController,
@@ -231,6 +246,8 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       isAllTestsCompleted,
       progress,
       isSubmitting,
+      isPredictionModalOpen: showPredictionModal,
+      closePredictionModal,
       isTestingActive,
       testingData,
       trackClick,
@@ -238,6 +255,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
       trackSuggestionAccuracy
     }}>
       {children}
+      <PredictionInfoModal isOpen={showPredictionModal} onClose={closePredictionModal} />
     </TestingContext.Provider>
   );
 }
