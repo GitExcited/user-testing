@@ -207,16 +207,31 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
   };
 
   const calculateTypoRate = (input: string, target: string): number => {
-    const maxLength = Math.max(input.length, target.length);
-    if (maxLength === 0) return 0;
+    if (target.length === 0) return 0;
     
-    let errors = 0;
-    for (let i = 0; i < maxLength; i++) {
-      if (input[i] !== target[i]) {
-        errors++;
+    // Normalize both strings for comparison (removing accents, case-insensitive)
+    const normalizeText = (text: string) => {
+      return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    };
+    
+    const normalizedInput = normalizeText(input.trim());
+    const normalizedTarget = normalizeText(target);
+    
+    // Count errors by finding the longest matching prefix
+    let matchLength = 0;
+    for (let i = 0; i < Math.min(normalizedInput.length, normalizedTarget.length); i++) {
+      if (normalizedInput[i] === normalizedTarget[i]) {
+        matchLength = i + 1;
+      } else {
+        break;
       }
     }
-    return (errors / maxLength) * 100;
+    
+    // Count errors as characters that don't match the target
+    const errors = Math.max(0, normalizedInput.length - matchLength);
+    
+    // Return rate as errors per total letters in target sentence
+    return (errors / normalizedTarget.length) * 100;
   };
 
   const calculateSuggestionErrorRate = (): number => {
