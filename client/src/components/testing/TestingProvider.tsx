@@ -35,6 +35,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
   const [isAllTestsCompleted, setIsAllTestsCompleted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPredictionModal, setShowPredictionModal] = useState(false);
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
 
   useEffect(() => {
     if (automatedController.getProgress().current === 5) {
@@ -50,6 +51,9 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
 
   const startAutomatedTesting = () => {
     console.log('🚀 Starting automated testing sequence...');
+    // Generate a unique session ID for this entire test session (10 tests)
+    const sessionId = `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    setCurrentSessionId(sessionId);
     setIsAutomatedTesting(true);
     setIsAllTestsCompleted(false);
     automatedController.reset();
@@ -77,9 +81,13 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
   };
 
   const startSingleTest = (test: TestCombination) => {
-    const sessionId = `${test.id}-${Date.now()}`;
+    if (!currentSessionId) {
+      console.error('No session ID available');
+      return;
+    }
+    
     const newTestingData: UserTestingData = {
-      sessionId,
+      sessionId: currentSessionId, // Use the same session ID for all tests in this session
       startTime: new Date(),
       click_interval_times: [],
       totalClicks: 0,
@@ -137,6 +145,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     // Submit to Google Forms immediately
     try {
       const googleFormsData = {
+        session_id: testingData.sessionId,
         total_time: totalTime,
         suggestion_usage_rate,
         typo_rate,
@@ -217,21 +226,21 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     const normalizedInput = normalizeText(input.trim());
     const normalizedTarget = normalizeText(target);
     
-    // Count errors by finding the longest matching prefix
-    let matchLength = 0;
-    for (let i = 0; i < Math.min(normalizedInput.length, normalizedTarget.length); i++) {
-      if (normalizedInput[i] === normalizedTarget[i]) {
-        matchLength = i + 1;
-      } else {
-        break;
+    // Simple typo calculation: count each character that doesn't match
+    let errors = 0;
+    const maxLength = Math.max(normalizedInput.length, normalizedTarget.length);
+    
+    for (let i = 0; i < maxLength; i++) {
+      const inputChar = i < normalizedInput.length ? normalizedInput[i] : '';
+      const targetChar = i < normalizedTarget.length ? normalizedTarget[i] : '';
+      
+      if (inputChar !== targetChar) {
+        errors++;
       }
     }
     
-    // Count errors as characters that don't match the target
-    const errors = Math.max(0, normalizedInput.length - matchLength);
-    
     // Return rate as errors per total letters in target sentence
-    return (errors / normalizedTarget.length) * 100;
+    return normalizedTarget.length > 0 ? (errors / normalizedTarget.length) : 0;
   };
 
   const calculateSuggestionErrorRate = (): number => {
