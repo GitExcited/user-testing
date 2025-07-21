@@ -144,19 +144,19 @@ export const PREDICTION_SCENARIOS: PredictionScenario[] = [
   },
   {
     id: "sentence-3",
-    targetSentence: "Peux-tu m'apporter les clés quand tu descends",
-    words: ["Peux-tu", "m'apporter", "les", "clés", "quand", "tu", "descends"],
+    targetSentence: "Peux tu m'apporter les clés quand tu descends",
+    words: ["Peux tu", "m'apporter", "les", "clés", "quand", "tu", "descends"],
     category: "Neutral",
     difficulty: "medium",
     wordCompletions: [
         [ // Peux-tu
-            [["Peux-tu", "Peux", "peut"]],
-            [["Peux-tu", "Peux"]],
-            [["Peux-tu"]],
-            [["Peux-tu"]],
-            [["Peux-tu"]],
-            [["Peux-tu"]],
-            [["Peux-tu"]],
+            [["Peux tu", "Peux", "peut"]],
+            [["Peux tu", "Peux"]],
+            [["Peux tu"]],
+            [["Peux tu"]],
+            [["Peux tu"]],
+            [["Peux tu"]],
+            [["Peux tu"]],
         ],
         [ // m'apporter
             [["m'apporter", "apporter", "emporter"]],
