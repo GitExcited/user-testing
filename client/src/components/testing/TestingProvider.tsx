@@ -57,10 +57,10 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     setIsAutomatedTesting(true);
     setIsAllTestsCompleted(false);
     automatedController.reset();
-    startNextTest();
+    startNextTest(sessionId); // Pass the session ID directly
   };
 
-  const startNextTest = () => {
+  const startNextTest = (sessionId?: string) => {
     const nextTest = automatedController.getCurrentTest();
     if (!nextTest) {
       // All tests completed
@@ -72,7 +72,7 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     }
 
     setCurrentTest(nextTest);
-    startSingleTest(nextTest);
+    startSingleTest(nextTest, sessionId || currentSessionId); // Use passed sessionId or fallback to state
     console.log(`📝 Starting test ${automatedController.getProgress().current + 1}/${automatedController.getProgress().total}:`, {
       buttonStyle: nextTest.buttonStyle,
       predictionEnabled: nextTest.predictionEnabled,
@@ -80,14 +80,15 @@ export function TestingProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const startSingleTest = (test: TestCombination) => {
-    if (!currentSessionId) {
+  const startSingleTest = (test: TestCombination, sessionId?: string | null) => {
+    const finalSessionId = sessionId || currentSessionId;
+    if (!finalSessionId) {
       console.error('No session ID available');
       return;
     }
     
     const newTestingData: UserTestingData = {
-      sessionId: currentSessionId, // Use the same session ID for all tests in this session
+      sessionId: finalSessionId, // Use the passed session ID or current state
       startTime: new Date(),
       click_interval_times: [],
       totalClicks: 0,
