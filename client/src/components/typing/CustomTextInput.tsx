@@ -157,7 +157,7 @@ export default function CustomTextInput() {
             
             {userInput && (
               <span
-                className={`inline-block w-0.5 h-6 ml-0.5 transition-opacity duration-100 ${
+                className={`inline-block w-0.5 h-6 ml-0 transition-opacity duration-100 ${
                   showCursor ? 'opacity-100' : 'opacity-0'
                 } ${typoInfo.hasTypo ? 'bg-red-500' : 'bg-[#36CFB3]'}`}
                 style={{
