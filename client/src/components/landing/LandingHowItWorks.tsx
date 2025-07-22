@@ -15,7 +15,7 @@ export default function LandingHowItWorks() {
                 <div className="w-8 h-8 bg-[#36CFB3] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-1">1</div>
                 <div>
                   <h3 className="font-semibold text-gray-800 mb-1"> Tapez la phrase affichée à l’écran</h3>
-                  <p className="text-gray-600 text-sm">Utilisez notre clavier virtuel pour taper 12 phrases courtes le plus rapidement possible.</p>
+                  <p className="text-gray-600 text-sm">Utilisez notre clavier virtuel pour taper 10 phrases courtes le plus rapidement possible.</p>
                 </div>
               </div>
 
