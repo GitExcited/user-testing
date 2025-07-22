@@ -9,6 +9,7 @@ export default function VirtualKeyboard() {
   const [showAccent, setShowAccent] = useState(false);
   const [isTypoDetected, setIsTypoDetected] = useState(false);
   const [showFlash, setShowFlash] = useState(false);
+  const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
   const pressTimer = useRef<NodeJS.Timeout | null>(null);
   const flashTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -93,6 +94,9 @@ export default function VirtualKeyboard() {
   };
 
   const handleAccentPress = (accentedKey: string) => {
+    // Provide visual feedback
+    handleKeyPressVisual('é');
+    
     // Block accent input if typo is detected (except backspace)
     if (isTypoDetected) {
       triggerFlash();
@@ -105,7 +109,46 @@ export default function VirtualKeyboard() {
     setShowAccent(false);
   };
 
+  // Function to handle clicks on disabled keys - provide feedback
+  const handleDisabledKeyClick = (key: string) => {
+    console.log('🚫 Attempted to press disabled key:', key);
+    triggerFlash();
+    // You could add a brief animation or sound here
+  };
+
+  // Function to handle visual feedback for key presses
+  const handleKeyPressVisual = (key: string) => {
+    // Add key to pressed set for visual feedback
+    setPressedKeys(prev => new Set(prev).add(key));
+    
+    // Add haptic feedback (vibration) if supported
+    if ('vibrate' in navigator) {
+      // Light vibration for regular keys (10ms)
+      if (key === 'BACKSPACE') {
+        navigator.vibrate(15); // Slightly longer for backspace
+      } else if (key === 'SPACE') {
+        navigator.vibrate(12); // Medium for space
+      } else {
+        navigator.vibrate(8); // Short for regular keys
+      }
+    }
+    
+    // Remove after a short delay
+    setTimeout(() => {
+      setPressedKeys(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(key);
+        return newSet;
+      });
+    }, 150); // Visual feedback for 150ms
+  };
+
   const handleKeyPress = (key: string) => {
+    console.log('🔑 Key pressed:', key, 'isTypoDetected:', isTypoDetected, 'showAccent:', showAccent);
+    
+    // Always provide visual feedback for the keypress
+    handleKeyPressVisual(key);
+    
     if (showAccent) {
         setShowAccent(false);
         return;
@@ -122,13 +165,14 @@ export default function VirtualKeyboard() {
     
     // Block all other input if typo is detected
     if (isTypoDetected) {
+      console.log('❌ Key blocked due to typo detection');
       triggerFlash();
       return;
     }
     
     trackClick('keyboard', key);
     
-    console.log('Key pressed:', key, 'Current input:', `"${userInput}"`);
+    console.log('✅ Key accepted:', key, 'Current input:', `"${userInput}"`);
     
     if (key === 'SPACE') {
       // Only add space if the input doesn't already end with space
@@ -146,9 +190,15 @@ export default function VirtualKeyboard() {
     }
   };
 
-  // Function to get button classes - no red styling, only normal states
-  const getButtonClasses = (baseClasses: string) => {
-    return `${baseClasses} bg-gray-50 hover:bg-gray-100 active:bg-gray-200`;
+  // Function to get button classes with proper feedback states
+  const getButtonClasses = (baseClasses: string, isDisabled: boolean = false, isPressed: boolean = false) => {
+    if (isDisabled) {
+      return `${baseClasses} bg-gray-200 text-gray-400 cursor-not-allowed`;
+    }
+    if (isPressed) {
+      return `${baseClasses} bg-blue-200 text-blue-800 transform scale-95 transition-all duration-100`;
+    }
+    return `${baseClasses} bg-gray-50 hover:bg-gray-100 active:bg-blue-100 active:scale-95 cursor-pointer transition-all duration-100`;
   };
   
   return (
@@ -162,7 +212,7 @@ export default function VirtualKeyboard() {
       <div key={key} className="relative flex-1 max-w-20">
         <button 
           onClick={() => handleKeyPress(key)} 
-          className={getButtonClasses("rounded-md h-14 w-full flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg")}
+          className={getButtonClasses("rounded-md h-14 w-full flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
           disabled={isTypoDetected}
         >
           {key.toUpperCase()}
@@ -170,7 +220,9 @@ export default function VirtualKeyboard() {
         <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-gray-50 border rounded-md shadow-sm p-1 z-0">
           <button
             onClick={() => handleAccentPress('é')}
-            className="text-lg font-medium text-gray-700 hover:bg-gray-50 px-3 py-1 rounded-md"
+            className={`text-lg font-medium text-gray-700 hover:bg-gray-100 active:bg-blue-100 active:scale-95 px-3 py-1 rounded-md transition-all duration-100 ${
+              pressedKeys.has('é') ? 'bg-blue-200 text-blue-800 scale-95' : ''
+            }`}
             disabled={isTypoDetected}
           >
             é
@@ -184,7 +236,7 @@ export default function VirtualKeyboard() {
             <button 
               key={key}
               onClick={() => handleKeyPress(key)} 
-              className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg")}
+              className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
               disabled={isTypoDetected}
             >
               {key.toUpperCase()}
@@ -193,7 +245,9 @@ export default function VirtualKeyboard() {
         })}
         <button 
           onClick={() => handleKeyPress('BACKSPACE')} 
-          className="bg-gray-50 rounded-md h-14 w-32 flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-gray-200 transition-colors ml-2"
+          className={`bg-gray-50 rounded-md h-14 w-32 flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-blue-100 active:scale-95 transition-all duration-100 ml-2 ${
+            pressedKeys.has('BACKSPACE') ? 'bg-blue-200 text-blue-800 scale-95' : ''
+          }`}
           aria-label="Backspace"
         >
           <Delete className="h-6 w-6" />
@@ -207,7 +261,7 @@ export default function VirtualKeyboard() {
           <button 
             key={key}
             onClick={() => handleKeyPress(key)} 
-            className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg")}
+            className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
             disabled={isTypoDetected}
           >
             {key.toUpperCase()}
@@ -223,7 +277,7 @@ export default function VirtualKeyboard() {
           <button 
             key={key}
             onClick={() => handleKeyPress(key)} 
-            className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg")}
+            className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
             disabled={isTypoDetected}
           >
             {key.toUpperCase()}
@@ -231,7 +285,13 @@ export default function VirtualKeyboard() {
         ))}
       {isTestingActive && (
         <button
-          onClick={submitCurrentTest}
+          onClick={() => {
+            // Add vibration for send button
+            if ('vibrate' in navigator) {
+              navigator.vibrate(20); // Longer vibration for important action
+            }
+            submitCurrentTest();
+          }}
           disabled={isSubmitting || isTypoDetected}
           className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition-colors font-medium h-14 flex-1 max-w-40 ${
             isSubmitting || isTypoDetected 
@@ -250,7 +310,7 @@ export default function VirtualKeyboard() {
       <div className="flex justify-center px-8">
         <button 
           onClick={() => handleKeyPress('SPACE')} 
-          className={getButtonClasses("rounded-md h-14 w-full max-w-2xl flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg")}
+          className={getButtonClasses("rounded-md h-14 w-full max-w-2xl flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has('SPACE'))}
           disabled={isTypoDetected}
         >
           ESPACE
