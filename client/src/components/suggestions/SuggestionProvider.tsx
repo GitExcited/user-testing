@@ -49,6 +49,18 @@ export default function SuggestionProvider({ children }: SuggestionProviderProps
       return;
     }
     
+    // EDGE CASE: Don't show predictions when the last word is already completed
+    const targetWords = currentTest?.scenario?.words || [];
+    const currentWords = input.trim().split(/\s+/).filter(word => word.length > 0);
+    
+    // Check if user has completed typing the last word exactly
+    if (currentWords.length === targetWords.length && 
+        currentWords[currentWords.length - 1] === targetWords[targetWords.length - 1]) {
+      console.log('🚫 Last word is completed - hiding predictions to indicate sentence completion');
+      setSuggestions([]);
+      return;
+    }
+    
     const newSuggestions = predictionEngine.getPredictions(input);
     console.log('Setting suggestions to:', newSuggestions);
     setSuggestions(newSuggestions);
@@ -65,21 +77,48 @@ export default function SuggestionProvider({ children }: SuggestionProviderProps
     // Log for debugging
     console.log('Suggestion clicked:', suggestion, 'Is correct:', isCorrect);
     
+    // Check if this is the last word in the target sentence
+    const targetWords = currentTest?.scenario?.words || [];
+    const currentWords = userInput.trim().split(/\s+/).filter(word => word.length > 0);
+    
+    let isLastWord = false;
+    if (userInput.endsWith(' ')) {
+      // User just finished a word - check if the suggestion would be the last word
+      isLastWord = currentWords.length === targetWords.length - 1;
+    } else {
+      // User is typing a word - check if this is the last word position
+      isLastWord = currentWords.length === targetWords.length;
+    }
+    
+    console.log('Is last word:', isLastWord, 'Current words:', currentWords.length, 'Target words:', targetWords.length);
+    
     // Smart word replacement logic
     const words = userInput.trim().split(/\s+/).filter(word => word.length > 0);
     
     if (userInput.endsWith(' ')) {
       // User just finished a word - add the suggestion as the next word
-      setUserInput(userInput + suggestion + ' ');
+      if (isLastWord) {
+        setUserInput(userInput + suggestion); // No space for last word
+      } else {
+        setUserInput(userInput + suggestion + ' '); // Space for non-last words
+      }
     } else {
       // User is typing a word - replace the current incomplete word with the suggestion
       if (words.length > 0) {
         // Remove the last incomplete word and replace with suggestion
         words[words.length - 1] = suggestion;
-        setUserInput(words.join(' ') + ' ');
+        if (isLastWord) {
+          setUserInput(words.join(' ')); // No space for last word
+        } else {
+          setUserInput(words.join(' ') + ' '); // Space for non-last words
+        }
       } else {
         // No words yet, just add the suggestion
-        setUserInput(suggestion + ' ');
+        if (isLastWord) {
+          setUserInput(suggestion); // No space for last word
+        } else {
+          setUserInput(suggestion + ' '); // Space for non-last words
+        }
       }
     }
   };
