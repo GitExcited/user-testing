@@ -39,7 +39,7 @@ export default function LandingHowItWorks() {
                 <Globe className="h-16 w-16 text-[#36CFB3] mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Impact Global</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Vos données contribuent à une recherche universitaire pour optimiser les interfaces de prédiction de phrases, aidant des millions d'utilisateurs, notamment ceux ayant perdu la capacité de parler.
+                  Vos données contribuent à une recherche pour optimiser les interfaces de prédiction de phrases, aidant des millions d'utilisateurs, notamment ceux ayant perdu la capacité de parler.
                 </p>
               </div>
             </div>
