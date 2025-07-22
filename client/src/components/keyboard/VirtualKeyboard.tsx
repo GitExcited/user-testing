@@ -94,8 +94,7 @@ export default function VirtualKeyboard() {
   };
 
   const handleAccentPress = (accentedKey: string) => {
-    // Provide visual feedback
-    handleKeyPressVisual('é');
+    // Visual feedback is already handled by touch events
     
     // Block accent input if typo is detected (except backspace)
     if (isTypoDetected) {
@@ -143,11 +142,24 @@ export default function VirtualKeyboard() {
     }, 150); // Visual feedback for 150ms
   };
 
+  // Handle touch start for immediate visual feedback
+  const handleTouchStart = (key: string) => {
+    console.log('👆 Touch start:', key);
+    handleKeyPressVisual(key);
+  };
+
+  // Handle touch end/cancel to ensure visual state is cleaned up
+  const handleTouchEnd = (key: string) => {
+    console.log('👆 Touch end:', key);
+    // Don't remove the visual feedback here - let the timer handle it
+    // This ensures consistent feedback duration
+  };
+
   const handleKeyPress = (key: string) => {
     console.log('🔑 Key pressed:', key, 'isTypoDetected:', isTypoDetected, 'showAccent:', showAccent);
     
-    // Always provide visual feedback for the keypress
-    handleKeyPressVisual(key);
+    // Don't provide visual feedback here anymore - it's handled by touch events
+    // Only handle the actual input logic
     
     if (showAccent) {
         setShowAccent(false);
@@ -211,7 +223,10 @@ export default function VirtualKeyboard() {
     return (
       <div key={key} className="relative flex-1 max-w-20">
         <button 
-          onClick={() => handleKeyPress(key)} 
+          onClick={() => handleKeyPress(key)}
+          onTouchStart={() => handleTouchStart(key)}
+          onTouchEnd={() => handleTouchEnd(key)}
+          onTouchCancel={() => handleTouchEnd(key)}
           className={getButtonClasses("rounded-md h-14 w-full flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
           disabled={isTypoDetected}
         >
@@ -220,6 +235,9 @@ export default function VirtualKeyboard() {
         <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-gray-50 border rounded-md shadow-sm p-1 z-0">
           <button
             onClick={() => handleAccentPress('é')}
+            onTouchStart={() => handleTouchStart('é')}
+            onTouchEnd={() => handleTouchEnd('é')}
+            onTouchCancel={() => handleTouchEnd('é')}
             className={`text-lg font-medium text-gray-700 hover:bg-gray-100 active:bg-blue-100 active:scale-95 px-3 py-1 rounded-md transition-all duration-100 ${
               pressedKeys.has('é') ? 'bg-blue-200 text-blue-800 scale-95' : ''
             }`}
@@ -235,7 +253,10 @@ export default function VirtualKeyboard() {
           return (
             <button 
               key={key}
-              onClick={() => handleKeyPress(key)} 
+              onClick={() => handleKeyPress(key)}
+              onTouchStart={() => handleTouchStart(key)}
+              onTouchEnd={() => handleTouchEnd(key)}
+              onTouchCancel={() => handleTouchEnd(key)}
               className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
               disabled={isTypoDetected}
             >
@@ -244,7 +265,10 @@ export default function VirtualKeyboard() {
           )
         })}
         <button 
-          onClick={() => handleKeyPress('BACKSPACE')} 
+          onClick={() => handleKeyPress('BACKSPACE')}
+          onTouchStart={() => handleTouchStart('BACKSPACE')}
+          onTouchEnd={() => handleTouchEnd('BACKSPACE')}
+          onTouchCancel={() => handleTouchEnd('BACKSPACE')}
           className={`bg-gray-50 rounded-md h-14 w-32 flex items-center justify-center text-gray-700 font-medium shadow-sm hover:bg-gray-100 active:bg-blue-100 active:scale-95 transition-all duration-100 ml-2 ${
             pressedKeys.has('BACKSPACE') ? 'bg-blue-200 text-blue-800 scale-95' : ''
           }`}
@@ -260,7 +284,10 @@ export default function VirtualKeyboard() {
         {['a','s','d','f','g','h','j','k','l', "'"].map(key => (
           <button 
             key={key}
-            onClick={() => handleKeyPress(key)} 
+            onClick={() => handleKeyPress(key)}
+            onTouchStart={() => handleTouchStart(key)}
+            onTouchEnd={() => handleTouchEnd(key)}
+            onTouchCancel={() => handleTouchEnd(key)}
             className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
             disabled={isTypoDetected}
           >
@@ -276,7 +303,10 @@ export default function VirtualKeyboard() {
         {['z','x','c','v','b','n','m'].map(key => (
           <button 
             key={key}
-            onClick={() => handleKeyPress(key)} 
+            onClick={() => handleKeyPress(key)}
+            onTouchStart={() => handleTouchStart(key)}
+            onTouchEnd={() => handleTouchEnd(key)}
+            onTouchCancel={() => handleTouchEnd(key)}
             className={getButtonClasses("rounded-md h-14 flex-1 max-w-20 flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has(key))}
             disabled={isTypoDetected}
           >
@@ -292,11 +322,16 @@ export default function VirtualKeyboard() {
             }
             submitCurrentTest();
           }}
+          onTouchStart={() => handleTouchStart('SEND')}
+          onTouchEnd={() => handleTouchEnd('SEND')}
+          onTouchCancel={() => handleTouchEnd('SEND')}
           disabled={isSubmitting || isTypoDetected}
           className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition-colors font-medium h-14 flex-1 max-w-40 ${
             isSubmitting || isTypoDetected 
               ? 'bg-gray-400 cursor-not-allowed text-gray-600' 
-              : 'bg-[#ED9390] text-white hover:bg-[#e8807c]'
+              : pressedKeys.has('SEND')
+                ? 'bg-[#e8807c] text-white scale-95'
+                : 'bg-[#ED9390] text-white hover:bg-[#e8807c]'
           }`}
         >
           <Send className="h-4 w-4" />
@@ -309,7 +344,10 @@ export default function VirtualKeyboard() {
       {/* Bottom row - Space bar */}
       <div className="flex justify-center px-8">
         <button 
-          onClick={() => handleKeyPress('SPACE')} 
+          onClick={() => handleKeyPress('SPACE')}
+          onTouchStart={() => handleTouchStart('SPACE')}
+          onTouchEnd={() => handleTouchEnd('SPACE')}
+          onTouchCancel={() => handleTouchEnd('SPACE')}
           className={getButtonClasses("rounded-md h-14 w-full max-w-2xl flex items-center justify-center text-gray-700 font-medium shadow-sm transition-colors text-lg", isTypoDetected, pressedKeys.has('SPACE'))}
           disabled={isTypoDetected}
         >
