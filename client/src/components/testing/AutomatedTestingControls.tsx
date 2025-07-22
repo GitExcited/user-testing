@@ -97,7 +97,7 @@ export default function AutomatedTestingControls() {
 
         {/* Target Sentence */}
         <div className="text-center bg-gray-50 rounded-lg p-4">
-          <span className="text-sm text-gray-500 block mb-1">Tapez cette phrase :</span>
+          <span className="text-sm text-gray-500 block mb-1">Écrivez cette phrase :</span>
           <span className="text-lg font-medium text-gray-800">
             "{currentTest.scenario.targetSentence}"
           </span>

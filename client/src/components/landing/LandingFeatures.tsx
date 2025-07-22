@@ -17,9 +17,9 @@ export default function LandingFeatures() {
         <div className="w-12 h-12 bg-[#ED9390]/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
           <BarChart3 className="h-6 w-6 text-[#ED9390]" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Données Précieuses</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">Données </h3>
         <p className="text-gray-600 text-sm">
-          Votre précieuse contribution améliorera notre solution.
+          Votre précieuse contribution améliorera notre solution
         </p>
       </div>
 
@@ -29,7 +29,7 @@ export default function LandingFeatures() {
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Anonyme & Sécurisé</h3>
         <p className="text-gray-600 text-sm">
-          Données anonymisées et sécurisées.
+          Vos données sont collectées sécuritairement
         </p>
       </div>
     </div>

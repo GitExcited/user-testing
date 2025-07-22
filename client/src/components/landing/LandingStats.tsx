@@ -10,7 +10,7 @@ export default function LandingStats() {
               <div className="text-sm text-gray-600 font-medium">Tests par session</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#9333EA] mb-2">15-20</div>
+              <div className="text-3xl font-bold text-[#9333EA] mb-2">10-15</div>
               <div className="text-sm text-gray-600 font-medium">Minutes nécessaires</div>
             </div>
           </div>
