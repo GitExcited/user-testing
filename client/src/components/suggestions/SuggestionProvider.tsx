@@ -97,34 +97,61 @@ export default function SuggestionProvider({ children }: SuggestionProviderProps
     
     if (userInput.endsWith(' ')) {
       // User just finished a word - add the suggestion as the next word
+      let finalSuggestion = suggestion;
+      
+      // Capitalize first letter if this is the very first word
+      if (userInput.trim().length === 0) {
+        finalSuggestion = suggestion.charAt(0).toUpperCase() + suggestion.slice(1);
+        console.log('Auto-capitalizing first suggestion:', suggestion, '→', finalSuggestion);
+      }
+      
       if (isLastWord) {
-        setUserInput(userInput + suggestion); // No space for last word
+        setUserInput(userInput + finalSuggestion); // No space for last word
       } else {
-        setUserInput(userInput + suggestion + ' '); // Space for non-last words
+        setUserInput(userInput + finalSuggestion + ' '); // Space for non-last words
       }
     } else {
       // User is typing a word - replace the current incomplete word with the suggestion
       if (words.length > 0) {
         // Remove the last incomplete word and replace with suggestion
-        words[words.length - 1] = suggestion;
+        let finalSuggestion = suggestion;
+        
+        // Capitalize first letter if this is the very first word
+        if (words.length === 1 && userInput.trim().split(/\s+/).length === 1) {
+          finalSuggestion = suggestion.charAt(0).toUpperCase() + suggestion.slice(1);
+          console.log('Auto-capitalizing first suggestion:', suggestion, '→', finalSuggestion);
+        }
+        
+        words[words.length - 1] = finalSuggestion;
         if (isLastWord) {
           setUserInput(words.join(' ')); // No space for last word
         } else {
           setUserInput(words.join(' ') + ' '); // Space for non-last words
         }
       } else {
-        // No words yet, just add the suggestion
+        // No words yet, just add the suggestion - always capitalize first word
+        let finalSuggestion = suggestion.charAt(0).toUpperCase() + suggestion.slice(1);
+        console.log('Auto-capitalizing first suggestion:', suggestion, '→', finalSuggestion);
+        
         if (isLastWord) {
-          setUserInput(suggestion); // No space for last word
+          setUserInput(finalSuggestion); // No space for last word
         } else {
-          setUserInput(suggestion + ' '); // Space for non-last words
+          setUserInput(finalSuggestion + ' '); // Space for non-last words
         }
       }
     }
   };
 
   const handleSetUserInput = (input: string) => {
-    setUserInput(input);
+    // Auto-capitalize the first letter of the first word
+    if (input.length > 0 && userInput.length === 0) {
+      // This is the first character being typed
+      const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1);
+      console.log('Auto-capitalizing first letter:', input, '→', capitalizedInput);
+      setUserInput(capitalizedInput);
+    } else {
+      setUserInput(input);
+    }
   };
 
   return (
