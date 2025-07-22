@@ -29,7 +29,7 @@ export default function LandingFeatures() {
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Anonyme & Sécurisé</h3>
         <p className="text-gray-600 text-sm">
-          Données anonymisées et sécurisées
+          Vos données sont collectées sécuritairement
         </p>
       </div>
     </div>
