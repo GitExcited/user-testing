@@ -10,7 +10,6 @@ export default function Landing() {
     <div className="min-h-screen bg-gradient-to-br from-[#f9f9f9] via-white to-[#f0f9f7]">
       <LandingHeader />
       <LandingHero />
-      <LandingHowItWorks />
       <LandingStats />
       <LandingFooter />
     </div>

@@ -37,7 +37,8 @@ export default function LandingHowItWorks() {
                 <ul className="text-gray-600 text-sm space-y-3 text-left list-decimal list-inside">
                   <li>Appuyez bien au centre des touches et prenez votre temps pour éviter les erreurs de frappe.</li>
                   <li>En cas d’erreur, le clavier deviendra gris : corrigez la lettre incorrecte pour pouvoir continuer.</li>
-                  <li>Ne fermez ni ne rafraîchissez la page pendant le test, sinon toutes vos données seront perdues.</li>
+                  <li>Ne fermez ni ne rafraîchissez la page pendant le test, sinon toutes vos données seront perdues.
+</li>
                 </ul>
               </div>
             </div>

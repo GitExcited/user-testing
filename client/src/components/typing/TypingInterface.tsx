@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Volume2 } from "lucide-react";
 import { useSuggestions } from "../suggestions/SuggestionProvider";
+import { useTesting } from "../testing/TestingProvider";
 import CustomTextInput from "./CustomTextInput";
-import "../../styles/SuggestionStyles.css"; // Import the new styles
+import "../../styles/SuggestionStyles.css";
 
 export default function TypingInterface() {
   const { suggestions, handleSuggestionClick, predictionEnabled } = useSuggestions();
+  const { isAutomatedTesting } = useTesting();
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentlySpeaking, setCurrentlySpeaking] = useState("");
 
@@ -38,13 +40,13 @@ export default function TypingInterface() {
       <div className="flex flex-col h-full">
         <div className="flex justify-center items-center flex-grow">
           <div className="w-[500px]">
-            <CustomTextInput />
+            {isAutomatedTesting && <CustomTextInput />}
           </div>
         </div>
-        
+
         <div className="flex justify-center mt-4 min-h-[48px]">
-  {predictionEnabled ? suggestionElements : null}
-</div>
+          {predictionEnabled ? suggestionElements : null}
+        </div>
       </div>
     </>
   );
