@@ -9,7 +9,7 @@ export default function LandingFeatures() {
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Rapide & Simple</h3>
         <p className="text-gray-600 text-sm">
-          Durée de 15 à 20 minutes 
+          Durée de 10 à 15 minutes 
         </p>
       </div>
 
