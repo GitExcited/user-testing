@@ -69,7 +69,7 @@ export default function TestingInstructions() {
           <h4 className="font-medium text-green-800 text-sm">Durée estimée</h4>
         </div>
         <p className="text-xs text-green-700">
-          <strong>15-20 minutes au total</strong> pour compléter les 12 tests
+          <strong>10-15 minutes au total</strong> pour compléter les 12 tests
         </p>
       </div>
     </div>

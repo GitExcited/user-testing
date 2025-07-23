@@ -10,7 +10,7 @@ export default function LandingHeader() {
             
           </div>
           <div className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-            Étude utilisateur • 15-20 min
+            Étude utilisateur • 10-15 min
           </div>
         </div>
       </div>
